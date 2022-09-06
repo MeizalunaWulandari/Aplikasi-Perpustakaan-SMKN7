@@ -1,0 +1,47 @@
+* {
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Login start */
+.container.login {
+    /* padding: 30vh; */
+    height: 100vh;
+}
+.login .card {
+    width: 25%;
+    padding: 60px 20px;
+    border: unset;
+}
+.login .card h3 {
+    text-align: center;
+    margin-bottom: 60px;
+    font-weight: bold;
+}
+.login .card .form-control {
+    border-radius: 5px;
+    border-color: #164C98;
+}
+.login .btn-primary {
+    background-color: #164C98;
+    width: 100%;
+}
+/* Login page end */
+
+/* Databooking start */
+button.active.status {
+    border: 2px solid blueviolet;
+}
+.status.red {
+    background-color: red;
+    border-radius: 100%;
+    padding: 10px;
+    border: unset;
+}
+
+.status.green {
+    background-color: green;
+    border-radius: 100%;
+    padding: 10px;
+    border: unset;
+}
+/* Databooking end */
