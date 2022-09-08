@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\AdminlogModel;
+use App\Models\SiswalogModel;
 use App\Models\User;
 use GuzzleHttp\Promise\Create;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
 {
@@ -42,13 +45,18 @@ class LoginController extends Controller
             'username' => 'required',
             'password' => 'required',
         ]);
+        $user = SiswalogModel::where('username', $credentials['username'])->where('password', md5($credentials['password']))->first();
+        // dd($user);
+        Auth::guard('websiswa')->login($user);
+        // dd(Auth::guard('websiswa')->check());
+        // Auth::guard('websiswa')->login($user);
         // $credentials['password'] = md5($credentials['password']);
-        dd(Auth::guard('websiswa')->attempt(['username' => $request->username, 'password' => $request->password]));
-        if (Auth::guard('websiswa')->attempt(['username' => $request->username, 'password' => $request->password])) {
-            $request->session()->regenerate();
+        // dd(Auth::guard('websiswa')->attempt(['username' => $request->username, 'password' => $request->password]));
+        // if (Auth::guard('websiswa')->attempt(['username' => $request->username, 'password' => $request->password])) {
+        //     $request->session()->regenerate();
 
             return redirect()->intended('/');
-        }
+        // }
 
         return back()->with('failed', 'Login failed!');
     }

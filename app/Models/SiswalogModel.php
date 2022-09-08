@@ -12,6 +12,8 @@ class SiswalogModel extends Authenticatable
     protected $guard = 'websiswa';
 
     protected $table = 'tb_user';
+
+    protected $primaryKey = 'id_user';
     /**
      * The attributes that are mass assignable.
      *
