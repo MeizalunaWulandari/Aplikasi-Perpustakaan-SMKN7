@@ -24,36 +24,48 @@
             <form action="/login/authenticate" method="post">
                 @csrf
                 <h3>LOGIN <br> E-LIBRARY</h3>
-                @if (session('status'))
-                    <div class="result">
-                        <div class="alert alert-success">{{ session('status') }}</div>
-                    </div>
-                @endif
                 @if (session('failed'))
                 <div class="result">
-                        <div class="alert alert-danger">{{ session('failed') }}</div>
-                    </div> 
+                    <div class="alert alert-danger">{{ session('failed') }}</div>
+                </div> 
                 @endif
                 <div class="mb-3">
-                    <input type="text" name="username" class="form-control @error('username') is-invalid @enderror"" placeholder="NISN">
+                    <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" placeholder="NISN">
                     @error('username')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
                     @enderror
                 </div>
                 <div class="mb-4">
-                    <input type="password" name="password" class="form-control @error('password') is-invalid @enderror"" placeholder="PASSWORD">
-                    @error('password')
-                    <div class="invalid-feedback">
-                        {{ $message }}
+                    <input type="password" name="password" class="form-control mb-2 @error('password') is-invalid @enderror" placeholder="PASSWORD" id="password">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" onclick="myFunction()" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            Show Password
+                        </label>
                     </div>
+                    @error('password')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
                     @enderror
                 </div>
                 <button type="submit" class="btn btn-primary">Login</button>
             </form>
         </div>
     </div>
-</body>
+
+    <script>
+        function myFunction() {
+            var x = document.getElementById("password");
+            if (x.type === "password") {
+                x.type = "text";
+            } else {
+                x.type = "password";
+            }
+        }
+    </script>
+    </body>
 
 </html>

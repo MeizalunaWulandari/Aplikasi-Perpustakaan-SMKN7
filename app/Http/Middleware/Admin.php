@@ -17,8 +17,8 @@ class Admin
      */
     public function handle(Request $request, Closure $next)
     {
-        dd(Auth::user());
-        if (Auth::check() && Auth::user()->level == '1') {
+        // dd(Auth::guard('webadmin')->user()->level);
+        if (Auth::guard('webadmin')->check() && Auth::guard('webadmin')->user()->level == '1') {
             return $next($request);
         }
         return redirect('/');

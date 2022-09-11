@@ -23,40 +23,26 @@ class LoginController extends Controller
     {
         return view('login.loginAdmin');
     }
-    public function authenticateAdmin(Request $request)
-    {
-        $credentials = $request->validate([
-            'username' => 'required',
-            'password' => 'required',
-        ]);
-        // $credentials['password'] = bcrypt($credentials['password']);
-        dd(Auth::guard('webadmin')->attempt(['username' => $request->username, 'password' => $request->password]));
-        if (Auth::guard('webadmin')->attempt(['username' => $request->username, 'password' => $request->password])) {
-            $request->session()->regenerate();
-            
-            return redirect()->intended('/');
-        }
-        
-        return back()->with('failed', 'Login failed!');
-    }
     public function authenticate(Request $request)
     {
         $credentials = $request->validate([
             'username' => 'required',
             'password' => 'required',
         ]);
-        $user = SiswalogModel::where('username', $credentials['username'])->where('password', md5($credentials['password']))->first();
-        // dd($user);
-        Auth::guard('websiswa')->login($user);
-        // dd(Auth::guard('websiswa')->check());
-        // Auth::guard('websiswa')->login($user);
-        // $credentials['password'] = md5($credentials['password']);
-        // dd(Auth::guard('websiswa')->attempt(['username' => $request->username, 'password' => $request->password]));
-        // if (Auth::guard('websiswa')->attempt(['username' => $request->username, 'password' => $request->password])) {
-        //     $request->session()->regenerate();
-
+        $admin = AdminlogModel::where('username', $credentials['username'])->first();
+        $siswa = SiswalogModel::where('username', $credentials['username'])->where('password', md5($credentials['password']))->first();
+        // dd($siswa);
+        if ($siswa) {
+            Auth::guard('websiswa')->login($siswa);
             return redirect()->intended('/');
-        // }
+        }
+        if ($admin) {
+            if (Auth::guard('webadmin')->attempt(['username' => $request->username, 'password' => $request->password])) {
+                $request->session()->regenerate();
+
+                return redirect()->intended('/admin');
+            }
+        }
 
         return back()->with('failed', 'Login failed!');
     }

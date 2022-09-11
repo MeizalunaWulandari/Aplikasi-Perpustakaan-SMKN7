@@ -1,0 +1,23 @@
+* {
+    font-family: "Montserrat", sans-serif;
+}
+
+/* Admin Page ~~~ Admin Page */
+/* Databooking start */
+button.active.status {
+    border: 2px solid blueviolet;
+}
+.status.red {
+    background-color: red;
+    border-radius: 100%;
+    padding: 10px;
+    border: unset;
+}
+
+.status.green {
+    background-color: green;
+    border-radius: 100%;
+    padding: 10px;
+    border: unset;
+}
+/* Databooking end */

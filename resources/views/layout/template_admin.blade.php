@@ -23,7 +23,7 @@
 
     <link rel="stylesheet" href="{{ asset('assets_admin/css/main/app.css') }}">
     <link rel="stylesheet" href="{{ asset('assets_admin/css/main/app-dark.css') }}">
-    <link rel="stylesheet" href="{{ asset('mycss/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('mycss/admin.css') }}">
 
 </head>
 
@@ -77,11 +77,26 @@
                     {{-- @dd(Request::url()) --}}
                     <ul class="menu">
                         <li class="sidebar-title">Menu</li>
-                        <li class="sidebar-item <?= Request::url() == url('/admin') ? 'active' : '' ?>">
-                            <a href="{{ url('/admin') }}" class='sidebar-link'>
+                        <li class="sidebar-item has-sub">
+                            <a href="#" class="sidebar-link">
                                 <i class="bi bi-bar-chart"></i>
                                 <span>Data Booking</span>
                             </a>
+                            <ul
+                                class="submenu <?= ((Request::url() == url('/admin') ? 'active' : Request::url() == url('/admin/booking-unverified') ? 'active' : Request::url() == url('/admin/booking-duedate') ? 'active' : '')) ?>">
+                                <li
+                                    class="submenu-item <?= Request::url() == url('/admin') ? 'active' : '' ?>">
+                                    <a href="{{ url('/admin') }}">Unverified Booking</a>
+                                </li>
+                                <li
+                                    class="submenu-item <?= Request::url() == url('/admin/booking-unverified') ? 'active' : '' ?>">
+                                    <a href="{{ url('/admin/booking-unverified') }}">Verified Booking</a>
+                                </li>
+                                <li
+                                    class="submenu-item <?= Request::url() == url('/admin/booking-duedate') ? 'active' : '' ?>">
+                                    <a href="{{ url('/admin/booking-duedate') }}">Due date Booking</a>
+                                </li>
+                            </ul>
                         </li>
                         <li class="sidebar-item has-sub">
                             <a href="#" class="sidebar-link">
@@ -104,16 +119,23 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="sidebar-item <?= Request::url() == url('/admin/kategori-buku') ? 'active' : '' ?>"">
+                        <li class="sidebar-item <?= Request::url() == url('/admin/kategori-buku') ? 'active' : '' ?>">
                             <a href="/admin/kategori-buku" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Kategori</span>
                             </a>
                         </li>
-                        <li class="sidebar-item <?= Request::url() == url('/admin/kurikulum-buku') ? 'active' : '' ?>"">
+                        <li
+                            class="sidebar-item <?= Request::url() == url('/admin/kurikulum-buku') ? 'active' : '' ?>"">
                             <a href="/admin/kurikulum-buku" class='sidebar-link'>
                                 <i class="bi bi-clipboard2"></i>
                                 <span>Kurikulum</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="/logout" class='sidebar-link'>
+                                <i class="bi bi-box-arrow-left"></i>
+                                <span>Logout</span>
                             </a>
                         </li>
                     </ul>
@@ -162,6 +184,8 @@
             return new bootstrap.Tooltip(tooltipTriggerEl)
         })
     </script>
+
+    @yield('script')
 </body>
 
 </html>

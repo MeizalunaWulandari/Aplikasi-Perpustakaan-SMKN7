@@ -1,7 +1,11 @@
 * {
-    font-family: 'Montserrat', sans-serif;
+    font-family: "Montserrat", sans-serif;
 }
-
+body {
+    overflow-x: hidden;
+    position: relative;
+    /* content: ; */
+}
 /* Login start */
 .container.login {
     /* padding: 30vh; */
@@ -18,30 +22,875 @@
     font-weight: bold;
 }
 .login .card .form-control {
-    border-radius: 5px;
-    border-color: #164C98;
+    border: 1px solid !important;
+    border-radius: 5px !important;
+    border-color: #164c98 !important;
 }
 .login .btn-primary {
-    background-color: #164C98;
+    background-color: #164c98;
     width: 100%;
 }
 /* Login page end */
 
-/* Databooking start */
-button.active.status {
-    border: 2px solid blueviolet;
+/* New */
+.navbar > .container,
+.navbar > .container-fluid,
+.navbar > .container-lg,
+.navbar > .container-md,
+.navbar > .container-sm,
+.navbar > .container-xl,
+.navbar > .container-xxl {
+    flex-wrap: unset !important;
 }
-.status.red {
-    background-color: red;
-    border-radius: 100%;
+.navbar {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    transition: 0.4s;
+}
+.navbar.scroll {
+    background-color: #164c98;
+}
+.navbar ul {
+    margin-top: 10px;
+    display: flex;
+    margin: auto !important;
+    justify-content: space-between;
+    align-items: center;
+}
+.navbar ul .left,
+.navbar ul .right {
+    display: flex;
+}
+.navbar .navbar-logo {
+    max-width: 6%;
+}
+.navbar .navbar-logo img {
+    width: 100%;
+}
+.navbar ul li {
+    display: flex;
+    align-items: center;
+    list-style: none;
     padding: 10px;
-    border: unset;
+    margin-right: 30px;
+    position: relative;
+}
+.navbar.scroll ul li a {
+    color: white;
+}
+.navbar ul li a {
+    color: black;
+    text-decoration: none;
+    font-size: larger;
 }
 
-.status.green {
-    background-color: green;
-    border-radius: 100%;
-    padding: 10px;
-    border: unset;
+#sidebar,
+.sidebar-burger {
+    display: none;
 }
-/* Databooking end */
+
+#drop-content {
+    display: none;
+}
+
+.dropdown-content {
+    display: block !important;
+    position: absolute;
+    top: 60px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    min-width: max-content;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content a:hover {
+    background-color: #3498db;
+}
+
+.dropdown-content a {
+    float: none;
+    color: black !important;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    text-shadow: none !important;
+}
+
+/* JUMBOTRON */
+
+.jumbotron {
+    background-color: #caefff;
+    align-items: center;
+    height: 85vh;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.jumbotron .row {
+    height: inherit;
+}
+
+.jumbotron .text-intro {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.jumbotron .text-intro h1 {
+    font-weight: 700;
+}
+
+.jumbotron .search-book {
+    border: 1px solid #164c98;
+    border-radius: 5px;
+}
+.jumbotron .jumbotron select {
+    border: unset;
+    border-radius: 0;
+    font-weight: bold;
+}
+.form-control,
+.form-select {
+    border: unset !important;
+    border-radius: unset !important;
+}
+.form-control:focus,
+.form-select:focus {
+    outline: 0;
+    border-color: none !important;
+    box-shadow: none !important;
+}
+
+.form-check-input:checked {
+    border-color: none !important;
+    outline: 0;
+    box-shadow: none !important;
+}
+
+.jumbotron .icon-search {
+    align-items: center;
+    background-color: white;
+    border-radius: 5px 0 0 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align: center;
+    border-right: 0.5px solid rgb(190, 190, 190);
+}
+
+.jumbotron form input {
+    background-position: 10px;
+    border: unset;
+    border-color: #164c98;
+    border-radius: 0 0 0 0;
+}
+
+.jumbotron .search-book .btn {
+    border-radius: 0 5px 5px 0 !important;
+}
+.jumbotron img {
+    width: 35rem;
+}
+
+/* Count */
+.count-wrapper {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    bottom: 80px;
+}
+
+.count-view {
+    border-radius: 25px;
+    color: white;
+    background-color: #0f4ea3;
+    padding: 35px;
+    width: 50%;
+    height: 10rem;
+}
+
+.count-view .count-read,
+.count-book,
+.count-visit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.count-view .count-read,
+.count-view .count-book,
+.count-view .count-visit {
+    size: 40;
+}
+
+/* Book Grid */
+
+section {
+    margin-bottom: 5%;
+}
+
+.owl-carousel .item {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.owl-carousel .item img {
+    /* width: 80% !important; */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.book .card {
+    max-width: 15rem;
+    padding: 6px;
+}
+.book .card p {
+    margin: 0;
+}
+
+.owl-carousel .book .card img {
+    max-width: 15rem;
+}
+
+.owl-nav {
+    display: block !important;
+}
+
+.owl-theme .owl-nav [class*="owl-"]:hover {
+    background-color: #164c98 !important;
+}
+
+.owl-carousel .owl-nav button.owl-next,
+.owl-carousel .owl-nav button.owl-prev,
+.owl-carousel button.owl-dot {
+    width: 40px !important;
+}
+.owl-carousel .owl-nav button.owl-next span,
+.owl-carousel .owl-nav button.owl-prev span {
+    font-size: 40px !important;
+}
+
+.book .card .cover {
+    margin-bottom: 5px;
+}
+
+.book a,
+.book a:hover {
+    text-decoration: none;
+    color: black;
+}
+.book .jenis-buku {
+    color: white;
+    font-size: 8pt;
+    background-color: #164c98;
+    border-radius: 3px;
+    padding: 3px;
+    width: fit-content;
+}
+
+.book .description {
+    font-size: 14px;
+    font-weight: 6;
+}
+
+#daftar-login span {
+    font-size: 21pt;
+    color: #f5ab35;
+    font-weight: 600;
+}
+
+#daftar-login {
+    text-align: center;
+    padding: 50px;
+    background-color: #004296;
+    color: white;
+}
+#daftar-login hr {
+    width: 20%;
+    opacity: 100%;
+    height: 3px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Detail */
+
+.container.detail {
+    margin-top: 8rem;
+}
+
+.detail .navigation {
+    margin-bottom: 10px;
+}
+
+.detail .col-sm {
+    max-width: 30% !important;
+}
+
+.detail .detail-book img {
+    width: 100%;
+}
+
+.detail .book-description h3 {
+    font-weight: bold;
+}
+
+.detail .book-description a {
+    text-decoration: none;
+}
+
+/* Detail - PDF */
+
+.container.detail-pdf {
+    margin-top: 5rem;
+}
+
+.detail-pdf .col-sm h3 {
+    font-weight: bold;
+}
+
+/* PDF Viewer */
+.pdfjs-viewer {
+    border: 1px solid #aaa;
+    background: #ccc;
+    width: 100%;
+    height: 120vh;
+}
+
+.viewer {
+    overflow-y: scroll;
+    max-height: 100%;
+}
+.pdfjs-viewer.horizontal-scroll {
+    display: flex;
+}
+.pdfjs-viewer.horizontal-scroll .pdfpage {
+    margin-left: 1em;
+    margin-top: 0.25em !important;
+    margin-bottom: 0.25em !important;
+    display: block;
+}
+.pdfpage {
+    position: relative;
+    margin-bottom: 1em;
+    margin-top: 1em;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.09);
+    display: flex;
+}
+.pdfpage canvas {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+}
+.pdfpage.placeholder {
+    display: flex;
+    margin-bottom: 0em !important;
+    margin-top: 0em !important;
+    height: 100%;
+    width: 100%;
+}
+.pdfpage .content-wrapper {
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+}
+.pdfpage .content-wrapper .loader {
+    border: 2px solid #f3f3f3;
+    border-top: 3px solid #3498db;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    animation: spin 1s linear infinite;
+    margin: auto;
+}
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* All Book */
+.container.all-book {
+    margin-top: 5rem;
+}
+
+.container.all-book .grid-container img {
+    max-width: 14rem;
+}
+
+.all-book {
+    padding: 2rem;
+}
+
+.all-book .col-lg {
+    margin-left: 5rem;
+}
+
+.all-book .grid-item {
+    max-width: 15rem;
+}
+
+.all-book .grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    max-width: 10rem;
+    gap: 1rem;
+}
+
+.all-book .book-filter {
+    position: sticky;
+    top: 100px;
+    width: 100%;
+}
+.all-book .book-filter .card {
+    border: unset;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    background-color: white;
+}
+.all-book .book-filter .card-header {
+    background-color: unset;
+    border: none;
+}
+.all-book .book-filter .card-header h6 {
+    margin: 0;
+    font-weight: bold;
+}
+
+/* All Book Accordion */
+.accordion.shadow {
+    box-shadow: 0 0.1rem 0.3rem rgba(0, 0, 0, 0.15) !important;
+}
+.accordion-item {
+    border-radius: 10px !important;
+    border: unset !important;
+    font-size: small;
+}
+h2.accordion-header button {
+    font-weight: bold !important;
+}
+.accordion-header button,
+.accordion-body {
+    padding: 10px !important;
+}
+.accordion-button:not(.collapsed) {
+    color: unset !important;
+    background-color: unset !important;
+    box-shadow: unset !important;
+}
+.accordion-button:focus {
+    border-color: unset !important;
+    box-shadow: none !important;
+}
+
+/* All Book End */
+
+/* Footer  */
+footer {
+    background-color: #004296;
+    color: white;
+    margin-top: 15rem;
+    padding: 5% 10%;
+}
+
+footer .row,
+.footer-link,
+.footer-logo {
+    padding-left: 0;
+}
+
+footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+footer h5 {
+    font-size: 14px;
+    font-weight: 400;
+}
+
+footer .footer-logo img {
+    width: 50%;
+}
+
+.footer-link ul li {
+    list-style-type: none;
+    margin-bottom: 20px;
+}
+
+.footer-link li a,
+.footer-link ul {
+    color: white;
+    text-decoration: none;
+    font-weight: 300;
+    font-size: 14px;
+}
+
+.footer-link a {
+    color: white;
+    transition: 0.5s all;
+}
+
+.copyright {
+    padding: 1%;
+    background-color: #0f4ea3;
+    text-align: center;
+}
+
+.copyright p {
+    font-weight: 300;
+    font-size: 12px;
+    color: white;
+    margin: 0;
+}
+
+.copyright a {
+    font-weight: bolder;
+    color: white;
+    text-decoration: none;
+}
+.copyright a:hover {
+    color: unset;
+}
+
+@media (max-width: 991.98px) {
+    .login .card {
+        width: 50%;
+    }
+
+    .navbar {
+        display: none !important;
+    }
+
+    #sidebar-burger.scroll {
+        background-color: white;
+    }
+
+    #sidebar,
+    .sidebar-burger {
+        position: fixed !important;
+        display: block;
+    }
+
+    #sidebar .navbar-logo img {
+        width: 50%;
+    }
+
+    .sidebar-burger {
+        z-index: 99;
+        top: -3px;
+        /* background-color: white; */
+        padding: 10px;
+        width: 100%;
+        height: 6rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .hamburger {
+        border-radius: 5px;
+        padding: 1px 10px;
+        background-color: #164c98;
+    }
+
+    .hamburger i {
+        font-size: 30px;
+        color: white;
+    }
+
+    .sidebar-burger .sidebar-title {
+        font-weight: bold;
+        font-size: 15pt;
+    }
+
+    .sidebar-burger img {
+        width: 15%;
+    }
+
+    #sidebar {
+        left: -1000px;
+        position: fixed;
+        z-index: 100;
+        top: 0;
+        width: 100%;
+        height: 100%;
+    }
+    .sidebar {
+        position: absolute;
+        width: 40%;
+        height: 100%;
+        z-index: 100;
+        padding: 10px;
+        background-color: #164c98;
+    }
+    #sidebar .close {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+    }
+
+    .openSidebar {
+        left: 0px !important;
+        transition: 0.9s all;
+    }
+
+    .closeSidebar {
+        left: -800px;
+        transition: 1.5s all;
+    }
+
+    .sidebar #close-sidebar {
+        position: absolute;
+        color: white;
+        font-weight: bold;
+        right: 15px;
+    }
+
+    .sidebar ul {
+        margin: 0 !important;
+        list-style: none;
+    }
+
+    .sidebar ul li {
+        padding: 10px 0;
+    }
+
+    .sidebar ul li a {
+        margin-bottom: 10px;
+        text-decoration: none;
+        color: white;
+    }
+
+    .sidebar button {
+        border: none;
+        padding: 0 !important;
+        background-color: unset;
+        color: white;
+    }
+
+    .sidebar #menuSidebar {
+        display: none;
+    }
+
+    .sidebar .drop-menu {
+        display: block !important;
+    }
+
+    .jumbotron {
+        height: 60rem;
+    }
+
+    .jumbotron h1 {
+        text-align: center;
+        font-size: 40pt;
+    }
+    .jumbotron h5 {
+        text-align: center;
+    }
+
+    .jumbotron form {
+        display: flex;
+        justify-content: center;
+    }
+
+    .jumbotron .search-book {
+        border: 1px solid #164c98;
+        border-radius: 5px;
+        width: 90%;
+    }
+
+    .jumbotron form select {
+        display: none;
+    }
+
+    .jumbotron img {
+        width: 100%;
+    }
+
+    .count-wrapper {
+        margin-bottom: 4rem;
+    }
+
+    .count-view {
+        width: 40rem;
+    }
+
+    .book .card .cover {
+        max-width: 20rem;
+    }
+
+    .grid-item {
+        max-width: 100%;
+    }
+
+    /* Detail Page */
+
+    .container.detail-pdf,
+    .container.detail {
+        margin-top: 10rem;
+    }
+
+    .detail .col-sm {
+        max-width: 50% !important;
+    }
+    .detail .col-lg {
+        margin-top: 30px;
+    }
+    /* Detail Page End */
+
+    /* Allbook Page Start */
+    .all-book {
+        margin-top: 80px;
+    }
+
+    .all-book .col-lg {
+        margin-left: unset;
+    }
+
+    .all-book .grid-container {
+        display: grid;
+        grid-template-columns: auto auto auto;
+        max-width: 100%;
+        gap: 1rem;
+    }
+
+    .all-book .book .card .cover img {
+        max-width: 100%;
+    }
+
+    .all-book .col-2 {
+        width: 100% !important;
+        margin-bottom: 10px;
+    }
+
+    .all-book .book-filter {
+        position: static;
+        width: 100%;
+    }
+    /* Allbook Page End */
+
+    /* Footer  */
+    footer {
+        margin-top: 10px;
+        padding: 5%;
+    }
+    footer .footer-link,
+    footer .footer-logo {
+        margin-top: 10px;
+        text-align: center;
+    }
+    footer .footer-logo {
+        width: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .copyright {
+        padding: 3%;
+    }
+}
+@media only screen and (max-width: 767.98px) {
+    .jumbotron {
+        height: 34rem;
+    }
+
+    .count-view {
+        position: relative;
+        bottom: 30px;
+    }
+
+    .sidebar {
+        width: 60%;
+    }
+
+    .sidebar-burger {
+        height: 5rem;
+    }
+
+    #sidebar {
+        left: -700px;
+        transition: 1s all;
+    }
+
+    .openSidebar {
+        left: 0;
+        width: 100%;
+        transition: 1.5s all;
+    }
+
+    .closeSidebar {
+        left: -300px;
+        transition: 1.5s all;
+    }
+
+    .login .card {
+        width: 90%;
+    }
+
+    .count-wrapper {
+        position: unset;
+        bottom: unset;
+        margin-bottom: 20px;
+    }
+
+    .count-view {
+        border-radius: unset;
+        width: 100%;
+        height: unset;
+    }
+
+    .count-view .row {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .count-view {
+        padding-bottom: 20px;
+    }
+
+    .count-view .count-read {
+        margin-top: unset;
+    }
+    .count-view .count-book {
+        margin-top: unset;
+    }
+    .count-view .count-visit {
+        margin-top: unset;
+    }
+
+    .all-book .grid-container {
+        display: grid;
+        grid-template-columns: auto auto;
+        max-width: 100%;
+        gap: 1rem;
+    }
+    .owl-carousel button.owl-dot {
+        width: unset !important;
+    }
+
+    section {
+        margin-top: 5%;
+    }
+
+    .container.detail-pdf,
+    .container.detail {
+        margin-top: 6rem;
+    }
+
+    .pdfpage canvas {
+        max-width: 100%;
+    }
+}

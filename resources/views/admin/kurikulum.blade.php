@@ -47,11 +47,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                    </tr>
+                    <?php $no = 1; ?>
+                    @foreach ($kurikulum as $item)
+                        <tr>
+                            <td>{{ $no++ }}</td>
+                            <td>{{ $item->name }}</td>
+                            <td>Edit Hapus</td>
+                        </tr>
+                    @endforeach
                 </tbody>
                 <tfoot>
                     <tr>

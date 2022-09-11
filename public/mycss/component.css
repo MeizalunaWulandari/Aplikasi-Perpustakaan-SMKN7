@@ -1,0 +1,71 @@
+.btn-primary {
+    background-color: #164C98 !important;
+    border: unset !important;
+}
+
+.btn-outline-primary {
+    color: #164C98 !important;
+    border-color: #164C98 !important;
+}
+.btn-outline-primary:hover {
+    color: white !important;
+    background-color: #164C98 !important;
+}
+
+.muted {
+    opacity: 50%;
+}
+
+.btn-pdf {
+    background-color: white;
+    border: unset;
+}
+
+.btn-outline-pdf {
+    border-color: 1px solid black;
+}
+
+.link-yellow, .link-yellow:hover {
+    color: #F5AB35;
+    text-decoration: none;
+}
+
+.link-blue, .link-blue:hover {
+    color: #164C98;
+    text-decoration: none;
+}
+
+.yellow {
+    color: #F5AB35;
+}
+
+.bg-yellow {
+    background-color: #F5AB35;
+}
+
+.blue {
+    color: #164C98;
+}
+
+.bg-blue {
+    background-color: #164C98;
+}
+
+.section-one, .section-two {
+    background-color: white!important;
+}
+
+.modal-header, .modal-footer {
+    border: unset !important;
+}
+
+.modal .form-control {
+    border: 1px solid #164C98 !important;
+    border-radius: 3px !important;
+}
+
+.modal-content {
+    /* background-color: rgba(255, 255, 255, 0.308) !important; */
+    border: unset !important;
+    border-radius: 10px !important;
+}
