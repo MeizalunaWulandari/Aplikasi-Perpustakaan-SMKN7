@@ -35,6 +35,8 @@ Route::group(['middleware' => ['admin']], function () {
     Route::get('admin/buku-kejuruan', [AdminController::class, 'bukukejuruan']);
     Route::get('admin/kategori-buku', [AdminController::class, 'kategori']);
     Route::get('admin/kurikulum-buku', [AdminController::class, 'kurikulum']);
+
+    Route::get('api/admin/booking', [AdminController::class, 'getBooking'])->name('api.admin.booking');
 });
 
 // Siswa

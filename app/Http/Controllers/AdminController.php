@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\BookingModel;
 use App\Models\KategoriModel;
+
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 
 class AdminController extends Controller
 {
@@ -16,6 +18,18 @@ class AdminController extends Controller
             'booking' => $booking,
         ];
         return view('admin.databookingunverified', $data);
+    }
+    public function getBooking(Request $request){
+        $data = BookingModel::query();
+
+        if($request->status){
+            $data = $data->where('status', $request->status);
+        }
+        $data = $data->get();
+
+        return DataTables::of($data)
+            ->addIndexColumn()
+            ->toJson();
     }
     public function bookingverif()
     {
