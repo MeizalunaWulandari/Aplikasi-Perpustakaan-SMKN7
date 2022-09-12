@@ -332,7 +332,7 @@
 @endsection
 
 @section('script')
-{{-- @dd($countTelahDibaca->total_count) --}}
+    {{-- @dd($countTelahDibaca->total_count) --}}
     <script>
         const options = {
             duration: 50,

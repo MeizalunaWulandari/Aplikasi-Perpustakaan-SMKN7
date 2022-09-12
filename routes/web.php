@@ -41,3 +41,4 @@ Route::group(['middleware' => ['admin']], function () {
 Route::get('/', [SiswaController::class, 'index']);
 Route::get('/book-detail', [SiswaController::class, 'detail']);
 Route::get('/all-book', [SiswaController::class, 'allbook']);
+Route::get('/user', [SiswaController::class, 'user']);

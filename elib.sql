@@ -48,24 +48,55 @@ CREATE TABLE IF NOT EXISTS `tbelib_booking` (
   `created_at` varchar(20) DEFAULT NULL,
   `updated_at` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='Status :\r\n1 = Unverified\r\n2 = Verified\r\n3 = Due Date';
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COMMENT='Status :\r\n1 = Unverified\r\n2 = Verified\r\n3 = Due Date';
 
--- Dumping data for table elibrary.tbelib_booking: ~0 rows (approximately)
+-- Dumping data for table elibrary.tbelib_booking: ~10 rows (approximately)
 /*!40000 ALTER TABLE `tbelib_booking` DISABLE KEYS */;
 REPLACE INTO `tbelib_booking` (`id`, `nisn`, `nama`, `notelp`, `buku_id`, `status`, `tanggal_booking`, `created_at`, `updated_at`) VALUES
-	(1, 12345, 'Stevan Andreas', '+6285845947669', 1, 1, NULL, NULL, NULL);
+	(1, 12345, 'Stevan Andreas', '+6285845947669', 1, 1, NULL, NULL, NULL),
+	(2, 12345, 'Antoni', '+6285845947669', 1, 2, NULL, NULL, NULL),
+	(3, 123456, 'Yohanes', '+6285845947669', 1, 3, NULL, NULL, NULL),
+	(4, 123456, 'Yohanes', '+6285845947669', 1, 3, NULL, NULL, NULL),
+	(7, 123456, 'Yohanes', '+6285845947669', 1, 3, NULL, NULL, NULL),
+	(8, 123456, 'Yohanes', '+6285845947669', 1, 3, NULL, NULL, NULL),
+	(9, 123456, 'Yohanes', '+6285845947669', 1, 3, NULL, NULL, NULL),
+	(10, 123456, 'Yohanes', '+6285845947669', 1, 3, NULL, NULL, NULL),
+	(11, 123456, 'Yohanes', '+6285845947669', 1, 3, NULL, NULL, NULL),
+	(12, 123456, 'Yohanes', '+6285845947669', 1, 3, NULL, NULL, NULL),
+	(13, 123456, 'Yohanes', '+6285845947669', 1, 3, NULL, NULL, NULL),
+	(14, 123456, 'Yohanes', '+6285845947669', 1, 3, NULL, NULL, NULL);
 /*!40000 ALTER TABLE `tbelib_booking` ENABLE KEYS */;
+
+-- Dumping structure for table elibrary.tbelib_count
+DROP TABLE IF EXISTS `tbelib_count`;
+CREATE TABLE IF NOT EXISTS `tbelib_count` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `total_count` int(11) NOT NULL,
+  `keterangan` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- Dumping data for table elibrary.tbelib_count: ~2 rows (approximately)
+/*!40000 ALTER TABLE `tbelib_count` DISABLE KEYS */;
+REPLACE INTO `tbelib_count` (`id`, `total_count`, `keterangan`) VALUES
+	(1, 500, 'Buku Telah Dibaca'),
+	(2, 500, 'Total Kunjungan'),
+	(3, 1230, 'Buku Tersedia');
+/*!40000 ALTER TABLE `tbelib_count` ENABLE KEYS */;
 
 -- Dumping structure for table elibrary.tbelib_kategori
 DROP TABLE IF EXISTS `tbelib_kategori`;
 CREATE TABLE IF NOT EXISTS `tbelib_kategori` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL,
+  `name` varchar(150) NOT NULL,
+  `type` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='type :\r\n1 = kategori\r\n2 = kurikulum';
 
 -- Dumping data for table elibrary.tbelib_kategori: ~0 rows (approximately)
 /*!40000 ALTER TABLE `tbelib_kategori` DISABLE KEYS */;
+REPLACE INTO `tbelib_kategori` (`id`, `name`, `type`) VALUES
+	(1, 'Kurikulum Merdeka', 2);
 /*!40000 ALTER TABLE `tbelib_kategori` ENABLE KEYS */;
 
 -- Dumping structure for table elibrary.tbelib_kurikulum
@@ -86,7 +117,7 @@ CREATE TABLE IF NOT EXISTS `tb_user` (
   `id_user` int(11) NOT NULL AUTO_INCREMENT,
   `nama` varchar(50) NOT NULL,
   `username` varchar(50) NOT NULL,
-  `password` varchar(50) NOT NULL,
+  `password` text NOT NULL,
   `level` int(11) NOT NULL,
   `kelas` int(11) NOT NULL DEFAULT '0',
   `login_terakhir` datetime DEFAULT NULL,

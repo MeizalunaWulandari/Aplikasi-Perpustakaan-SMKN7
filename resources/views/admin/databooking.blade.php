@@ -43,15 +43,10 @@
                                     title="Hubungi {{ $item->nama }}">{{ $item->notelp }}</a></td>
                             <td>{{ $item->buku_id }}</td>
                             <td>
-                                <form action="#" method="post">
-                                    @csrf
-                                    <button type="submit" class="status red {{ $item->status == '1' ? 'active' : '' }}"
-                                        value="1" name="status" data-bs-toggle="tooltip" data-bs-placement="top"
-                                        title="Set status to : Unverified"><i class="bi bi-circle"></i></button>
-                                    <button type="submit" class="status green {{ $item->status == '2' ? 'active' : '' }}"
-                                        value="2" name="status" data-bs-toggle="tooltip" data-bs-placement="top"
-                                        title="Set status to : Verified"><i class="bi bi-check-circle-fill"></i></button>
-                                </form>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch"
+                                        id="flexSwitchCheckDefault">
+                                </div>
                             </td>
                         </tr>
                     @endforeach
@@ -112,15 +107,9 @@
             ],
             columnDefs: [{
                 render: function(data, type, row, meta) {
-                    html = `<form action="` + '{!! url("admin/booking/status/'+row.id+'") !!}' + `" method="post">
-                        ` + '{!! csrf_field() !!}' + `
-                        <button type="submit" class="status red ${data == 1 ? 'active' : ''}"
-                            value="1" name="status" data-bs-toggle="tooltip" data-bs-placement="top"
-                            title="Set status to : Unverified"><i class="bi bi-circle"></i></button>
-                        <button type="submit" class="status green ${data == 2 ? 'active' : ''}"
-                            value="2" name="status" data-bs-toggle="tooltip" data-bs-placement="top"
-                            title="Set status to : Verified"><i class="bi bi-check-circle-fill"></i></button>
-                    </form>`;
+                    html = `<div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                            </div>`;
 
                     return html;
                 },

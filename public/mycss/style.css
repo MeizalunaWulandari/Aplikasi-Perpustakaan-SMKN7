@@ -65,15 +65,30 @@ body {
 .navbar .navbar-logo {
     max-width: 6%;
 }
-.navbar .navbar-logo img {
+.navbar .navbar-logo-login {
+    max-width: 25%;
+}
+.navbar .navbar-logo img, .navbar .navbar-logo-login img {
     width: 100%;
+}
+.navbar .right {
+    display: flex;
+    justify-content: end;
+}
+.navbar .right .navbar-profile {
+    width: 15%;
+    /* display: none; */
+}
+.navbar .right img {
+    width: 50%;
+    border-radius: 100%;
 }
 .navbar ul li {
     display: flex;
     align-items: center;
     list-style: none;
-    padding: 10px;
-    margin-right: 30px;
+    padding: 10px; 
+    /* margin-right: 30px; */
     position: relative;
 }
 .navbar.scroll ul li a {
@@ -82,7 +97,7 @@ body {
 .navbar ul li a {
     color: black;
     text-decoration: none;
-    font-size: larger;
+    /* font-size: larger; */
 }
 
 #sidebar,
@@ -119,6 +134,24 @@ body {
     text-shadow: none !important;
 }
 
+/* User Page */
+.container#user {
+    margin-top: 8rem;
+}
+.container#user .form-control {
+    border: .3px solid #164c98 !important;
+    border-radius: 3px !important;
+}
+.container#user .user-navigation ul {
+    margin: 0;
+    padding: 0;
+}
+.container#user .user-navigation ul li {
+    list-style: none;
+}
+.container#user .user-navigation ul li a {
+    text-decoration: none;
+}
 /* JUMBOTRON */
 
 .jumbotron {
@@ -292,7 +325,6 @@ section {
 
 .book .description {
     font-size: 14px;
-    font-weight: 6;
 }
 
 #daftar-login span {

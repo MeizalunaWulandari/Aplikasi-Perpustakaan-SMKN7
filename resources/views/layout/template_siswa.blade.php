@@ -86,7 +86,7 @@
     <nav class="navbar fixed-top" id="navbar">
         <ul class="container">
             <div class="left">
-                <li class="navbar-logo" id="navbar-logo">
+                <li class="<?= Auth::guard('websiswa')->check() == true ? 'navbar-logo-login' : 'navbar-logo'; ?>" id="navbar-logo">
                     <a href="{{ url('/') }}">
                         @if (Request::url() != url('/'))
                         <img src="{{ asset('imgassets/Logo perpus-3 cut.png') }}" alt="">
@@ -109,9 +109,16 @@
     </li>
     </div>
     <div class="right">
+        @if (Auth::guard('websiswa')->check())
+        <li class="navbar-profile">
+            <a href="{{ url('user') }}">
+                <img src="{{ asset('assets_admin/images/faces/1.jpg') }}" alt="">
+            </a>
+        </li>
+        @else
         <li class="navbar-list">
             <a href="{{ url('login') }}" class="link">Masuk</a>
-        </li>
+        </li> @endif
     </div>
     </ul>
     </nav>
@@ -120,52 +127,52 @@
     {{-- Content --}}
     <footer>
         <div class="row">
-            <div class="col-lg">
-                <div class="footer-logo">
-                    <img src="{{ asset('imgassets/Logo perpus-3 cut.png') }}" alt="">
-                </div>
-            </div>
-            <div class="col-lg footer-link">
-                <ul>
-                    <li>
-                        <h5>LINK TERKAIT</h5>
-                    </li>
-                    <li><a href="https://smkn7-smr.sch.id/">SMK NEGERI 7 SAMARINDA</a></li>
-                    <li><a href="https://buku.kemdikbud.go.id/">SISTEM INFORMASI PERBUKUAN INDONESIA</a></li>
-                    <li><a href="https://www.kemdikbud.go.id/">KEMDIKBUDRISTEK</a>
-                    </li>
-                    <li><a href="https://web.disdikbud.kaltimprov.go.id/">DINAS PENDIDIKAN PROVINSI KALIMANTAN TIMUR</a>
-                    </li>
-                    <li><a href="https://disdik.samarindakota.go.id/">DINAS PENDIDIKAN KOTA SAMARINDA</a></li>
-                    <li><a href="https://nisn.data.kemdikbud.go.id/">NOMOR INDUK SISWA NASIONAL</a></li>
-                </ul>
-            </div>
-            <div class="col-lg footer-link">
-                <ul>
-                    <li>
-                        <h5>APLIKASI TERKAIT</h5>
-                    </li>
-                    <li><a href="https://cabdinsamarinda.siap-ppdb.com/">PPDB ONLINE</a></li>
-                    <li><a href="https://siswa.smkn7-smr.sch.id/">PORTAL AKADEMIK SISWA</a></li>
-                    <li><a href="https://lulus.smkn7-smr.sch.id/">KELULUSAN UJIAN NASIONAL</a></li>
-                    <li><a href="https://surat.smkn7-smr.sch.id/pengajuan">PENGAJUAN SURAT SISWA</a></li>
-                    <li><a href="https://siapel.smkn7-smr.sch.id/">SISTEM PELAYANAN SISWA BARU</a></li>
-                    <li><a href="https://siapel.smkn7-smr.sch.id/"></a></li>
-                    <li><a href="https://bkk.smkn7-smr.sch.id/">DATA ALUMNI</a></li>
-                    <li><a href="#">E-LIBRARY SMK 7</a></li>
-                </ul>
-            </div>
-            <div class="col-lg footer-link">
-                <ul>
-                    <li>
-                        <h5>MEDIA SOSIAL</h5>
-                    </li>
-                    <li><a href="https://www.instagram.com/smkn7_smr">INSTAGRAM</a></li>
-                    <li><a href="https://www.facebook.com/smkn7smr/">FACEBOOK</a></li>
-                    <li><a href="https://www.youtube.com/c/SMKN7SamarindaTV">YOUTUBE</a></li>
-                </ul>
-            </div>
+    <div class="col-lg">
+        <div class="footer-logo">
+            <img src="{{ asset('imgassets/Logo perpus-3 cut.png') }}" alt="">
         </div>
+    </div>
+    <div class="col-lg footer-link">
+        <ul>
+            <li>
+                <h5>LINK TERKAIT</h5>
+            </li>
+            <li><a href="https://smkn7-smr.sch.id/">SMK NEGERI 7 SAMARINDA</a></li>
+            <li><a href="https://buku.kemdikbud.go.id/">SISTEM INFORMASI PERBUKUAN INDONESIA</a></li>
+            <li><a href="https://www.kemdikbud.go.id/">KEMDIKBUDRISTEK</a>
+            </li>
+            <li><a href="https://web.disdikbud.kaltimprov.go.id/">DINAS PENDIDIKAN PROVINSI KALIMANTAN TIMUR</a>
+            </li>
+            <li><a href="https://disdik.samarindakota.go.id/">DINAS PENDIDIKAN KOTA SAMARINDA</a></li>
+            <li><a href="https://nisn.data.kemdikbud.go.id/">NOMOR INDUK SISWA NASIONAL</a></li>
+        </ul>
+    </div>
+    <div class="col-lg footer-link">
+        <ul>
+            <li>
+                <h5>APLIKASI TERKAIT</h5>
+            </li>
+            <li><a href="https://cabdinsamarinda.siap-ppdb.com/">PPDB ONLINE</a></li>
+            <li><a href="https://siswa.smkn7-smr.sch.id/">PORTAL AKADEMIK SISWA</a></li>
+            <li><a href="https://lulus.smkn7-smr.sch.id/">KELULUSAN UJIAN NASIONAL</a></li>
+            <li><a href="https://surat.smkn7-smr.sch.id/pengajuan">PENGAJUAN SURAT SISWA</a></li>
+            <li><a href="https://siapel.smkn7-smr.sch.id/">SISTEM PELAYANAN SISWA BARU</a></li>
+            <li><a href="https://siapel.smkn7-smr.sch.id/"></a></li>
+            <li><a href="https://bkk.smkn7-smr.sch.id/">DATA ALUMNI</a></li>
+            <li><a href="#">E-LIBRARY SMK 7</a></li>
+        </ul>
+    </div>
+    <div class="col-lg footer-link">
+        <ul>
+            <li>
+                <h5>MEDIA SOSIAL</h5>
+            </li>
+            <li><a href="https://www.instagram.com/smkn7_smr">INSTAGRAM</a></li>
+            <li><a href="https://www.facebook.com/smkn7smr/">FACEBOOK</a></li>
+            <li><a href="https://www.youtube.com/c/SMKN7SamarindaTV">YOUTUBE</a></li>
+        </ul>
+    </div>
+    </div>
     </footer>
     <div class="copyright">
         <p>
