@@ -26,15 +26,15 @@ Route::get('logout', [LoginController::class, 'logout']);
 
 // Admin
 Route::group(['middleware' => ['admin']], function () {
-    Route::get('admin', [AdminController::class, 'bookingverif']);
+    Route::get('admin', [AdminController::class, 'index']);
     Route::get('admin/getMapel/', [AdminController::class, 'getMapel']);
-    Route::get('admin/booking-unverified', [AdminController::class, 'bookingunverif']);
-    Route::get('admin/booking-duedate', [AdminController::class, 'bookingduedate']);
-    Route::get('admin/buku-fisik', [AdminController::class, 'bukufisik']);
+    // Route::get('admin/data-booking', [AdminController::class, 'bookingunverif']);
     Route::get('admin/buku-digital', [AdminController::class, 'bukudigital']);
     Route::get('admin/buku-kejuruan', [AdminController::class, 'bukukejuruan']);
     Route::get('admin/kategori-buku', [AdminController::class, 'kategori']);
     Route::get('admin/kurikulum-buku', [AdminController::class, 'kurikulum']);
+
+    Route::get('api/admin/booking', [AdminController::class, 'getBooking'])->name('api.admin.booking');
 });
 
 // Siswa

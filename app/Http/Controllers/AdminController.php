@@ -4,44 +4,32 @@ namespace App\Http\Controllers;
 
 use App\Models\BookingModel;
 use App\Models\KategoriModel;
+
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 
 class AdminController extends Controller
 {
-    public function bookingunverif()
+    public function index()
     {
         $booking = BookingModel::where('status', '1')->get();
         $data = [
-            'title' => 'Admin Perpustakaan | Unverified Booking',
+            'title' => 'Admin Perpustakaan | Data Booking',
             'booking' => $booking,
         ];
-        return view('admin.databookingunverified', $data);
+        return view('admin.databooking', $data);
     }
-    public function bookingverif()
-    {
-        $booking = BookingModel::where('status', '2')->get();
-        $data = [
-            'title' => 'Admin Perpustakaan | Verified Booking',
-            'booking' => $booking,
-        ];
-        return view('admin.databookingverified', $data);
-    }
-    public function getMapel(Request $request)
-    {
-        $guruId = $request->id;
+    public function getBooking(Request $request){
+        $data = BookingModel::query();
 
-        $dataMapel = BookingModel::where('status', $guruId)->get();
-        // dd($dataMapel);
-        return json_encode($dataMapel);
-    }
-    public function bookingduedate()
-    {
-        $booking = BookingModel::where('status', '2')->get();
-        $data = [
-            'title' => 'Admin Perpustakaan | Duedate Booking',
-            'booking' => $booking,
-        ];
-        return view('admin.databookingduedate', $data);
+        if($request->status){
+            $data = $data->where('status', $request->status);
+        }
+        $data = $data->get();
+
+        return DataTables::of($data)
+            ->addIndexColumn()
+            ->toJson();
     }
     public function bukufisik()
     {

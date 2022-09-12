@@ -5,19 +5,22 @@
 /* Admin Page ~~~ Admin Page */
 /* Databooking start */
 button.active.status {
-    border: 2px solid blueviolet;
+    /* border: 2px solid blueviolet; */
 }
 .status.red {
-    background-color: red;
-    border-radius: 100%;
-    padding: 10px;
+    background-color: unset !important;
+    /* border-radius: 100%; */
+    /* padding: 10px; */
     border: unset;
+    color: gray;
 }
 
 .status.green {
-    background-color: green;
-    border-radius: 100%;
-    padding: 10px;
+    background-color: unset !important;
+    /* background-color: green; */
+    /* border-radius: 100%; */
+    /* padding: 10px; */
     border: unset;
+    color: green;
 }
 /* Databooking end */
