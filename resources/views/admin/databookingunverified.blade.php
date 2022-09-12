@@ -89,14 +89,20 @@
                         var data = JSON.parse(res);
                         if (res) {
 
-                            console.log(res);
-
+                            
                             $("#nampel").empty();
                             // $("#nampel").append('<option value="">Pilih Mapel</option>');
                             $.each(data, function(key, value) {
-                                $("#nampel").append('<option value="' + value.id + '">' +
-                                    value.name +
-                                    '</option>');
+                                console.log(value);
+                                $("#nampel").append(
+                                    '<tr>' +
+                                        '<td>' + value.id + '</td>' +
+                                        '<td>' + value.nisn + '</td>' +
+                                        '<td>' + value.nama + '</td>' +
+                                        '<td>' + value.notelp + '</td>' +
+                                        '<td>' + value.buku_id + '</td>' +
+                                    '</tr>'
+                                );
                             });
 
                         } else {

@@ -330,3 +330,33 @@
         </div>
     </section>
 @endsection
+
+@section('script')
+{{-- @dd($countTelahDibaca->total_count) --}}
+    <script>
+        const options = {
+            duration: 50,
+            startVal: 1,
+        };
+        let read = new CountUp('readCount', {{ $countTelahDibaca->total_count }}, options);
+        if (!read.error) {
+            read.start();
+        } else {
+            console.error(read.error);
+        }
+
+        let book = new CountUp('bookCount', {{ $countBukuTersedia->total_count }}, options);
+        if (!book.error) {
+            book.start();
+        } else {
+            console.error(book.error);
+        }
+
+        let visit = new CountUp('visitCount', {{ $countTotalKunjungan->total_count }}, options);
+        if (!visit.error) {
+            visit.start();
+        } else {
+            console.error(visit.error);
+        }
+    </script>
+@endsection

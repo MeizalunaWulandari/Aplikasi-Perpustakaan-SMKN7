@@ -187,32 +187,6 @@
     <script src="{{ asset('myjs/sidebar.js') }}"></script>
     <script src="{{ asset('myjs/countUp.js') }}"></script>
     <script>
-        const options = {
-            duration: 50,
-            startVal: 1,
-        };
-        let read = new CountUp('readCount', 7031, options);
-        if (!read.error) {
-            read.start();
-        } else {
-            console.error(read.error);
-        }
-
-        let book = new CountUp('bookCount', 7999, options);
-        if (!book.error) {
-            book.start();
-        } else {
-            console.error(book.error);
-        }
-
-        let visit = new CountUp('visitCount', 7999, options);
-        if (!visit.error) {
-            visit.start();
-        } else {
-            console.error(visit.error);
-        }
-    </script>
-    <script>
         window.onscroll = function() {
             scrollFunction()
         };
@@ -245,6 +219,8 @@
     <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
     <script src="{{ asset('myjs/owl-carousel.js') }}"></script>
+
+    @yield('script')
     </body>
 
 </html>
