@@ -19,10 +19,11 @@ class AdminController extends Controller
         ];
         return view('admin.databooking', $data);
     }
-    public function getBooking(Request $request){
+    public function getBooking(Request $request)
+    {
         $data = BookingModel::query();
 
-        if($request->status){
+        if ($request->status) {
             $data = $data->where('status', $request->status);
         }
         $data = $data->get();
@@ -30,6 +31,13 @@ class AdminController extends Controller
         return DataTables::of($data)
             ->addIndexColumn()
             ->toJson();
+    }
+    public function updateStatus(Request $request, BookingModel $id)
+    {
+        $id->status = $request->status;
+        $id->update();
+
+        return response()->json(['success' => 'true']);
     }
     public function bukufisik()
     {
