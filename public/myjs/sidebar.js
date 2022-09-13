@@ -19,3 +19,9 @@ function dropbtn() {
     const dropbtn = document.getElementById("drop-content");
     dropbtn.classList.toggle("dropdown-content");
 }
+
+function dropbtnUser() {
+    const dropbtn = document.getElementById("drop-content-user");
+    dropbtn.classList.toggle("dropdown-content");
+    dropbtn.classList.toggle("user");
+}

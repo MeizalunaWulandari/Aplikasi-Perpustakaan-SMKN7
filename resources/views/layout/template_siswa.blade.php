@@ -84,43 +84,52 @@
         </div>
     </nav>
     <nav class="navbar fixed-top" id="navbar">
-        <ul class="container">
-            <div class="left">
-                <li class="<?= Auth::guard('websiswa')->check() == true ? 'navbar-logo-login' : 'navbar-logo'; ?>" id="navbar-logo">
-                    <a href="{{ url('/') }}">
-                        @if (Request::url() != url('/'))
-                        <img src="{{ asset('imgassets/Logo perpus-3 cut.png') }}" alt="">
-                        @else 
-                        <img src="{{ asset('imgassets/logo1.png') }}" alt=""> @endif
-                    </a>
-                </li>
-                <li class="navbar-list">
-    <a href="{{ url('/') }}">Beranda</a>
-    </li>
-    <li class="navbar-list">
-        <a href="##" id="dropbtn" onclick="dropbtn()">Kurikulum
-            <i class="bi bi-caret-down"></i>
-        </a>
-        <div id="drop-content">
-            <a href="#">Kurikulum Merdeka</a>
-            <a href="#">Kurikulum K13</a>
-            <a href="#">Nonteks</a>
+        <div class="container">
+            <ul>
+                <div class="left">
+                    <li class="navbar-logo" id="navbar-logo">
+                        <a href="{{ url('/') }}">
+                            @if (Request::url() != url('/'))
+                            <img src="{{ asset('imgassets/Logo perpus-3 cut.png') }}" alt="">
+                            @else 
+                            <img src="{{ asset('imgassets/logo1.png') }}" alt=""> @endif
+                        </a>
+                    </li>
+                    <li class="navbar-list">
+                        <a href="{{ url('/') }}">Beranda</a>
+                    </li>
+                    <li class="navbar-list">
+                        <a href="##" id="dropbtn" onclick="dropbtn()">Kurikulum
+                            <i class="bi bi-caret-down"></i>
+                        </a>
+                        <div id="drop-content">
+                            <a href="#">Kurikulum Merdeka</a>
+                            <a href="#">Kurikulum K13</a>
+                            <a href="#">Nonteks</a>
+                        </div>
+                    </li>
+                </div>
+            </ul>
+            <ul>
+                <div class="right">
+                    @if (Auth::guard('websiswa')->check())
+                    <li class="navbar-profile">
+                        <a href="##" onclick="dropbtnUser()">
+                            <i class="bi bi-person-circle"></i>
+                            {{-- <img src="{{ asset('assets_admin/images/faces/1.jpg') }}" alt=""> --}}
+                        </a>
+                        <div id="drop-content-user">
+                            <a href="{{ url('user/profile') }}"><i class="bi bi-person"></i> Profile</a>
+                            <a href="{{ url('logout') }}"><i class="bi bi-box-arrow-left"></i> Logout</a>
+                        </div>
+                    </li>
+                    @else
+                    <li class="navbar-list">
+                        <a href="{{ url('login') }}" class="link">Masuk</a>
+                    </li> @endif
+                </div>
+            </ul>
         </div>
-    </li>
-    </div>
-    <div class="right">
-        @if (Auth::guard('websiswa')->check())
-        <li class="navbar-profile">
-            <a href="{{ url('user') }}">
-                <img src="{{ asset('assets_admin/images/faces/1.jpg') }}" alt="">
-            </a>
-        </li>
-        @else
-        <li class="navbar-list">
-            <a href="{{ url('login') }}" class="link">Masuk</a>
-        </li> @endif
-    </div>
-    </ul>
     </nav>
     {{-- Content --}}
     @yield('content')

@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SiswaController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,7 +23,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('login', [LoginController::class, 'index']);
 // Route::get('register', [LoginController::class, 'create']);
 Route::post('login/authenticate', [LoginController::class, 'authenticate']);
-Route::get('logout', [LoginController::class, 'logout']);
 
 // Admin
 Route::group(['middleware' => ['admin']], function () {
@@ -41,4 +41,7 @@ Route::group(['middleware' => ['admin']], function () {
 Route::get('/', [SiswaController::class, 'index']);
 Route::get('/book-detail', [SiswaController::class, 'detail']);
 Route::get('/all-book', [SiswaController::class, 'allbook']);
-Route::get('/user', [SiswaController::class, 'user']);
+Route::get('/user/profile', [UserController::class, 'index']);
+Route::group(['middleware' => ['user']], function () {
+    Route::get('logout', [LoginController::class, 'logout']);
+});
