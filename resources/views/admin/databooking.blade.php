@@ -6,7 +6,7 @@
             <div class="d-sm-inline-block">
                 <div class="form-group">
                     <label for="filter">Filter</label>
-                    <select name="status" id="filter" class="form-control" required>
+                    <select name="filter_status" id="filter" class="form-control" required>
                         <option value="1">Unverified</option>
                         <option value="2">Verified</option>
                         <option value="3">Due date</option>
@@ -77,7 +77,7 @@
             ajax: {
                 url: "{{ route('api.admin.booking') }}",
                 data: function(d) {
-                    d.status = $('select[name=status]').val();
+                    d.status = $('select[name=filter_status]').val();
                 }
             },
             columns: [{
@@ -107,8 +107,10 @@
             ],
             columnDefs: [{
                 render: function(data, type, row, meta) {
-                    html = `<div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                    const checked = row.status == 2 ? 'checked' : '';
+
+                    const html = `<div class="form-check form-switch">
+                                <input name="status" class="form-check-input" type="checkbox" role="switch" value="${row.id}" ${checked}>
                             </div>`;
 
                     return html;
@@ -121,8 +123,35 @@
                 searchPlaceholder: "Search"
             }
         });
+
         $('#filter').change(function() {
             table.draw();
+        });
+
+        $('#table-booking tbody').on('change', 'td input[name=status]', function() {
+
+            if (confirm("Apakah Anda yakin ingin mengubah status ini?") == true) {
+
+                const status = $(this).is(':checked') ? 2 : 1;
+                const id = $(this).val();
+
+                $.ajax({
+                    type: "POST",
+                    url: "{{ url('/admin/booking/status') }}/" + id,
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        _method: 'PUT',
+                        status: status,
+                    },
+                    success: function(data) {
+                        // table.draw();
+                    }
+                });
+
+            } else {
+                const returnVal = $(this).is(':checked') ? false : true;
+                $(this).prop("checked", returnVal);
+            }
         });
     </script>
 @endsection

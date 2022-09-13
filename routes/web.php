@@ -35,6 +35,7 @@ Route::group(['middleware' => ['admin']], function () {
     Route::get('admin/kurikulum-buku', [AdminController::class, 'kurikulum']);
 
     Route::get('api/admin/booking', [AdminController::class, 'getBooking'])->name('api.admin.booking');
+    Route::put('admin/booking/status/{id}', [AdminController::class, 'updateStatus'])->name('admin.booking.update-status');
 });
 
 // Siswa
