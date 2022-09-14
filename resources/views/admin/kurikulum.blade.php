@@ -3,10 +3,11 @@
     <div class="page-heading">
         <h3>Kurikulum Buku</h3><br><br>
         <div>
-            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">Add</a>
+            <a href="{{ url('admin/tambah-kurikulum') }}" class="btn btn-primary">Add</a>
+            {{-- <a href="{{ url('admin/tambah-kurikulum') }}" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">Add</a> --}}
         </div><br><br>
-        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-            aria-hidden="true">
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -37,6 +38,8 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="page-body">
         <div class="datatable">
             <table id="example" class="table table-striped" style="width:100%">
                 <thead>
@@ -52,7 +55,14 @@
                         <tr>
                             <td>{{ $no++ }}</td>
                             <td>{{ $item->name }}</td>
-                            <td>Edit Hapus</td>
+                            <td>
+                                <a href="#" class="btn btn-primary mb-1"><i class="bi bi-pencil"></i></a>
+                                <form action="{{ url('admin/hapus-kurikulum') }}" method="post">
+                                    @method('delete')
+                                    @csrf
+                                    <button class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus ' . {{ $item->name }} . '?')"><i class="bi bi-trash3"></i></button>
+                                </form>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

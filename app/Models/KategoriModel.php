@@ -12,4 +12,5 @@ class KategoriModel extends Model
     protected $table = 'tbelib_kategori';
     protected $primaryKey = 'id';
     protected $guarded = ['id'];
+    public $timestamps = false;
 }

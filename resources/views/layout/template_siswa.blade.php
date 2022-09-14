@@ -113,15 +113,8 @@
             <ul>
                 <div class="right">
                     @if (Auth::guard('websiswa')->check())
-                    <li class="navbar-profile">
-                        <a href="##" onclick="dropbtnUser()">
-                            <i class="bi bi-person-circle"></i>
-                            {{-- <img src="{{ asset('assets_admin/images/faces/1.jpg') }}" alt=""> --}}
-                        </a>
-                        <div id="drop-content-user">
-                            <a href="{{ url('user/profile') }}"><i class="bi bi-person"></i> Profile</a>
-                            <a href="{{ url('logout') }}"><i class="bi bi-box-arrow-left"></i> Logout</a>
-                        </div>
+                    <li class="navbar-list">
+                        <a href="{{ url('logout') }}">Logout</a>
                     </li>
                     @else
                     <li class="navbar-list">

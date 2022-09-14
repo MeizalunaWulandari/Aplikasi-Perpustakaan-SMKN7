@@ -90,9 +90,9 @@ body {
     width: 15%;
     /* display: none; */
 }
-.navbar .right i {
+/* .navbar .right i {
     font-size: 30px;
-}
+} */
 .navbar ul li {
     display: flex;
     align-items: center;

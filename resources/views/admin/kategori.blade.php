@@ -3,7 +3,7 @@
     <div class="page-heading">
         <h3>Kategori</h3><br><br>
         <div>
-            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">Add</a>
+            <a href="{{ url('admin/tambah-kategori') }}" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">Add</a>
         </div><br><br>
         <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
             aria-hidden="true">
@@ -37,33 +37,33 @@
                 </div>
             </div>
         </div>
-        <div class="datatable">
-            <table id="example" class="table table-striped" style="width:100%">
-                <thead>
+    </div>
+    <div class="datatable">
+        <table id="example" class="table table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nama Kategori</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php $no = 1; ?>
+                @foreach ($kategori as $item)
                     <tr>
-                        <th>No</th>
-                        <th>Nama Kategori</th>
-                        <th>Aksi</th>
+                        <td>{{ $no++ }}</td>
+                        <td>{{ $item->name }}</td>
+                        <td>Edit Hapus</td>
                     </tr>
-                </thead>
-                <tbody>
-                    <?php $no = 1; ?>
-                    @foreach ($kategori as $item)
-                        <tr>
-                            <td>{{ $no++ }}</td>
-                            <td>{{ $item->name }}</td>
-                            <td>Edit Hapus</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <th>No</th>
-                        <th>Nama Kategori</th>
-                        <th>Aksi</th>
-                    </tr>
-                </tfoot>
-            </table>
-        </div>
+                @endforeach
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>No</th>
+                    <th>Nama Kategori</th>
+                    <th>Aksi</th>
+                </tr>
+            </tfoot>
+        </table>
     </div>
 @endsection
