@@ -1,4 +1,23 @@
 @extends('layout.template_admin')
+@section('assets-top')
+    <style type="text/css">
+        #table-booking td.details-control {
+            background: url("{{ asset('imgassets/produk-arrow.png') }}") no-repeat center center;
+            background-size: 40px;
+            cursor: pointer;
+        }
+
+        #table-booking tr.shown td.details-control {
+            background: url("{{ asset('imgassets/produk-arrow2.png') }}") no-repeat center center;
+            background-size: 40px;
+        }
+
+        div.slider {
+            display: none;
+            margin: 0px;
+        }
+    </style>
+@endsection
 @section('content')
     <div class="page-heading">
         <h3>Data Booking</h3><br><br>
@@ -30,6 +49,7 @@
                         <th>Nomor Telpon Peminjam</th>
                         <th>Judul Buku</th>
                         <th>Verifikasi</th>
+                        <th>Detail</th>
                     </tr>
                 </thead>
                 <tbody id="nampel">
@@ -59,6 +79,7 @@
                         <th>Nomor Telpon Peminjam</th>
                         <th>Judul Buku</th>
                         <th>Verifikasi</th>
+                        <th>Detail</th>
                     </tr>
                 </tfoot>
             </table>
@@ -104,6 +125,11 @@
                     data: 'status',
                     name: 'status'
                 },
+                {
+                    className: 'details-control',
+                    data: 'null',
+                    defaultContent: ''
+                }
             ],
             columnDefs: [{
                 render: function(data, type, row, meta) {
@@ -121,6 +147,22 @@
             language: {
                 search: "",
                 searchPlaceholder: "Search"
+            }
+        });
+
+        $('#table-booking tbody').on('click', 'td.details-control', function() {
+            var tr = $(this).closest('tr');
+            var row = table.row(tr);
+
+            if (row.child.isShown()) {
+                $('div.slider', row.child()).slideUp(function() {
+                    row.child.hide();
+                    tr.removeClass('shown');
+                });
+            } else {
+                row.child(formatDetail(row.data()), 'no-padding').show();
+                tr.addClass('shown');
+                $('div.slider', row.child()).slideDown();
             }
         });
 
@@ -153,5 +195,43 @@
                 $(this).prop("checked", returnVal);
             }
         });
+
+        function formatDetail(d) {
+
+            const slider = `<div class="slider">
+                <table class="table">
+                    <thead>
+                        <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">First</th>
+                        <th scope="col">Last</th>
+                        <th scope="col">Handle</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                        <th scope="row">1</th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>@mdo</td>
+                        </tr>
+                        <tr>
+                        <th scope="row">2</th>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                        <td>@fat</td>
+                        </tr>
+                        <tr>
+                        <th scope="row">3</th>
+                        <td>Larry</td>
+                        <td>the Bird</td>
+                        <td>@twitter</td>
+                        </tr>
+                    </tbody>
+                    </table>
+                </div>`;
+
+            return slider;
+        }
     </script>
 @endsection

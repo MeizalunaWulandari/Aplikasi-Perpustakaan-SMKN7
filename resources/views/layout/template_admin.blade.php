@@ -26,6 +26,8 @@
     <link rel="stylesheet" href="{{ asset('assets_admin/css/main/app-dark.css') }}">
     <link rel="stylesheet" href="{{ asset('mycss/admin.css') }}">
 
+    @yield('assets-top')
+
 </head>
 
 <body>
