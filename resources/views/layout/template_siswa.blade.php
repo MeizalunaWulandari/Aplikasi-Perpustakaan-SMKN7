@@ -41,144 +41,170 @@
 </head>
 
 <body>
-    <div class="sidebar-burger" id="sidebar-burger">
-        <div class="hamburger" id="openSideBar" onclick="sideBar()">
-            <i class="bi bi-list"></i>
-        </div>
-        <!-- <div class="sidebar-title"> -->
-        <img src="{{ asset('imgassets/logo1.png') }}" alt="">
-        <!-- </div> -->
-        <!-- <div class="sidebar-title"> E-Library </div> -->
+    <div id="loader-wrapper">
+        <div class="loader"></div>
     </div>
-    <nav id="sidebar">
-        <div class="close" onclick="closeSidebar()"></div>
-        <div class="sidebar shadow-lg">
-            <div class="container">
-                <span id="close-sidebar" onclick="closeSidebar()">
-                    <i class="bi bi-x-lg"></i>
-                </span>
-                <ul>
-                    <li>
-                        <a href="{{ url('/') }}" class="navbar-logo"><img src="{{ asset('imgassets/Logo perpus-3 cut.png') }}" alt=""></a>
-                    </li>
-                    <li>
-                        <a href="{{ url('/') }}" class="navbar-item">Beranda</a>
-                    </li>
-                    <li>
-                        <a href="##" class="navbar-item" onclick="buttonDropSidebar()">
-                            Kategori <span class="bi bi-caret-down"></span>
+    <nav class="nav-container bottom shadow-lg">
+        <div class="icon-bar">
+            <i class="bi bi-menu-up"></i>
+        </div>
+        <div class="nav-menu">
+            <ul class="nav-list">
+                <div class="navbar-left">
+                    <li class="nav-item active">
+                        <a href="{{ url('/') }}" class="nav-link">
+                            <i class="bi bi-house nav-icon"></i>
+                            <span class="nav-name">
+                                Home
+                            </span>
                         </a>
-                        <div id="menuSidebar">
-                            <ul>
-                                <li><a href="#">Kurikulum Merdeka</a></li>
-                                <li><a href="#">Kurikulum K13</a></li>
-                                <li><a href="#">Nonteks</a></li>
-                            </ul>
-                        </div>
                     </li>
-                    <li>
-                        <a href="{{ url('login') }}" class="navbar-item">Masuk</a>
+                    <li class="nav-item">
+                        <a href="{{ url('katalog') }}" class="nav-link">
+                            <i class="bi bi-view-list nav-icon"></i>
+                            <span class="nav-name">
+                                Katalog
+                            </span>
+                        </a>
                     </li>
-                </ul>
-            </div>
+                </div>
+                <div class="navbar-right">
+                    <li class="nav-item">
+                        <a href="##" class="nav-link" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            <i class="bi bi-patch-question nav-icon"></i>
+                            <span class="nav-name">
+                                Panduan
+                            </span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ url('login') }}" class="nav-link">
+                            <i class="bi bi-box-arrow-in-right nav-icon"></i>
+                            <span class="nav-name">
+                                Login
+                            </span>
+                        </a>
+                    </li>
+                </div>
+            </ul>
         </div>
     </nav>
     <nav class="navbar fixed-top" id="navbar">
-        <div class="container">
-            <ul>
-                <div class="left">
-                    <li class="navbar-logo" id="navbar-logo">
-                        <a href="{{ url('/') }}">
-                            @if (Request::url() != url('/'))
-                            <img src="{{ asset('imgassets/Logo perpus-3 cut.png') }}" alt="">
-                            @else 
-                            <img src="{{ asset('imgassets/logo1.png') }}" alt=""> @endif
-                        </a>
-                    </li>
-                    <li class="navbar-list">
-                        <a href="{{ url('/') }}">Beranda</a>
-                    </li>
-                    <li class="navbar-list">
-                        <a href="##" id="dropbtn" onclick="dropbtn()">Kurikulum
-                            <i class="bi bi-caret-down"></i>
-                        </a>
-                        <div id="drop-content">
-                            <a href="#">Kurikulum Merdeka</a>
-                            <a href="#">Kurikulum K13</a>
-                            <a href="#">Nonteks</a>
-                        </div>
-                    </li>
-                </div>
-            </ul>
-            <ul>
-                <div class="right">
-                    @if (Auth::guard('websiswa')->check())
-                    <li class="navbar-list">
-                        <a href="{{ url('logout') }}">Logout</a>
-                    </li>
-                    @else
-                    <li class="navbar-list">
-                        <a href="{{ url('login') }}" class="link">Masuk</a>
-                    </li> @endif
-                </div>
-            </ul>
-        </div>
+        <ul class="container">
+            <div class="left">
+                <li class="navbar-logo" id="navbar-logo">
+                    <a href="{{ url('/') }}">
+                        <img src="{{ asset("imgassets/e-lib-logo-notitle-nobg.png") }}" alt="">
+                    </a>
+                </li>
+                <li class="navbar-list active">
+                    <a href="{{ url('/') }}">Beranda</a>
+                </li>
+                <li class="navbar-list">
+                    <a href="{{ url('katalog') }}">Katalog</a>
+                </li>
+                <li class="navbar-list">
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">Panduan</i>
+                    </a>
+                </li>
+            </div>
+            <div class="right">
+                <li class="navbar-list">
+                    <a href="{{ url('login') }}" class="link">Masuk</a>
+                </li>
+            </div>
+        </ul>
     </nav>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-center modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"><span class="yellow">Panduan </span>Meminjam Buku
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Bagaimana <span class="yellow">Cara Meminjam Buku</span> Di Perpustakaan SMK Negeri 7 Samarinda?
+                    </p>
+                    <ol>
+                        <li>Login akun menggunakkan NISN Anda</li>
+                        <li>Buka detail buku fisik yang ingin Anda pinjam</li>
+                        <li>Klik pinjam buku dan masukkan nomor telepon Anda, lalu klik <b class="yellow">Booking
+                                Now</b></li>
+                        <li>Setelah membooking buku, silahkan datang ke perpustakaan sekolah, dan konfirmasi ke petugas
+                            perpustakaan untuk memverifikasi-nya</li>
+                        <li>Batas waktu peminjaman buku adalah <b class="yellow">1 Minggu</b> mulai dari petugas
+                            memverifikasi</li>
+                        <li>Anda akan dihubungi oleh petugas jika batas waktu yang ditentukan sudah melewati batas, dan
+                            akan dikenakan denda oleh petugas perpustakaan</li>
+                        <li>Jika ada kendala teknis, silahkan hubungi operator yang bertugas</li>
+                    </ol>
+                </div>
+                <!-- <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                     <button type="button" class="btn btn-primary"></button>
+                </div> -->
+            </div>
+        </div>
+    </div>
     {{-- Content --}}
     @yield('content')
     {{-- Content --}}
     <footer>
-        <div class="row">
-    <div class="col-lg">
-        <div class="footer-logo">
-            <img src="{{ asset('imgassets/Logo perpus-3 cut.png') }}" alt="">
+        <div class="footer-grid">
+            <div class="footer-grid-item">
+                <div class="footer-logo">
+                    <img src="{{ asset('imgassets/e-lib-logo-title-right-nobg.png') }}" alt="">
+                </div>
+            </div>
+            <div class="footer-grid-item footer-link">
+                <ul>
+                    <li>
+                        <h5>LINK TERKAIT</h5>
+                    </li>
+                    <li><a href="https://smkn7-smr.sch.id/">SMK NEGERI 7 SAMARINDA</a></li>
+                    <li><a href="https://buku.kemdikbud.go.id/">SISTEM INFORMASI PERBUKUAN INDONESIA</a></li>
+                    <li><a href="https://www.kemdikbud.go.id/">KEMDIKBUDRISTEK</a>
+                    </li>
+                    <li><a href="https://web.disdikbud.kaltimprov.go.id/">DINAS PENDIDIKAN PROVINSI KALIMANTAN
+                            TIMUR</a>
+                    </li>
+                    <li><a href="https://disdik.samarindakota.go.id/">DINAS PENDIDIKAN KOTA SAMARINDA</a></li>
+                    <li><a href="https://nisn.data.kemdikbud.go.id/">NOMOR INDUK SISWA NASIONAL</a></li>
+                </ul>
+            </div>
+            <div class="col-lg footer-link">
+                <ul>
+                    <li>
+                        <h5>APLIKASI TERKAIT</h5>
+                    </li>
+                    <li><a href="https://cabdinsamarinda.siap-ppdb.com/">PPDB ONLINE</a></li>
+                    <li><a href="https://siswa.smkn7-smr.sch.id/">PORTAL AKADEMIK SISWA</a></li>
+                    <li><a href="https://lulus.smkn7-smr.sch.id/">KELULUSAN UJIAN NASIONAL</a></li>
+                    <li><a href="https://surat.smkn7-smr.sch.id/pengajuan">PENGAJUAN SURAT SISWA</a></li>
+                    <li><a href="https://siapel.smkn7-smr.sch.id/">SISTEM PELAYANAN SISWA BARU</a></li>
+                    <li><a href="https://siapel.smkn7-smr.sch.id/"></a></li>
+                    <li><a href="https://bkk.smkn7-smr.sch.id/">DATA ALUMNI</a></li>
+                    <li><a href="#">E-LIBRARY SMK 7</a></li>
+                </ul>
+            </div>
+            <div class="col-lg footer-link">
+                <ul>
+                    <li>
+                        <h5>MEDIA SOSIAL</h5>
+                    </li>
+                    <li><a href="https://www.instagram.com/smkn7_smr">INSTAGRAM</a></li>
+                    <li><a href="https://www.facebook.com/smkn7smr/">FACEBOOK</a></li>
+                    <li><a href="https://www.youtube.com/c/SMKN7SamarindaTV">YOUTUBE</a></li>
+                </ul>
+            </div>
         </div>
-    </div>
-    <div class="col-lg footer-link">
-        <ul>
-            <li>
-                <h5>LINK TERKAIT</h5>
-            </li>
-            <li><a href="https://smkn7-smr.sch.id/">SMK NEGERI 7 SAMARINDA</a></li>
-            <li><a href="https://buku.kemdikbud.go.id/">SISTEM INFORMASI PERBUKUAN INDONESIA</a></li>
-            <li><a href="https://www.kemdikbud.go.id/">KEMDIKBUDRISTEK</a>
-            </li>
-            <li><a href="https://web.disdikbud.kaltimprov.go.id/">DINAS PENDIDIKAN PROVINSI KALIMANTAN TIMUR</a>
-            </li>
-            <li><a href="https://disdik.samarindakota.go.id/">DINAS PENDIDIKAN KOTA SAMARINDA</a></li>
-            <li><a href="https://nisn.data.kemdikbud.go.id/">NOMOR INDUK SISWA NASIONAL</a></li>
-        </ul>
-    </div>
-    <div class="col-lg footer-link">
-        <ul>
-            <li>
-                <h5>APLIKASI TERKAIT</h5>
-            </li>
-            <li><a href="https://cabdinsamarinda.siap-ppdb.com/">PPDB ONLINE</a></li>
-            <li><a href="https://siswa.smkn7-smr.sch.id/">PORTAL AKADEMIK SISWA</a></li>
-            <li><a href="https://lulus.smkn7-smr.sch.id/">KELULUSAN UJIAN NASIONAL</a></li>
-            <li><a href="https://surat.smkn7-smr.sch.id/pengajuan">PENGAJUAN SURAT SISWA</a></li>
-            <li><a href="https://siapel.smkn7-smr.sch.id/">SISTEM PELAYANAN SISWA BARU</a></li>
-            <li><a href="https://siapel.smkn7-smr.sch.id/"></a></li>
-            <li><a href="https://bkk.smkn7-smr.sch.id/">DATA ALUMNI</a></li>
-            <li><a href="#">E-LIBRARY SMK 7</a></li>
-        </ul>
-    </div>
-    <div class="col-lg footer-link">
-        <ul>
-            <li>
-                <h5>MEDIA SOSIAL</h5>
-            </li>
-            <li><a href="https://www.instagram.com/smkn7_smr">INSTAGRAM</a></li>
-            <li><a href="https://www.facebook.com/smkn7smr/">FACEBOOK</a></li>
-            <li><a href="https://www.youtube.com/c/SMKN7SamarindaTV">YOUTUBE</a></li>
-        </ul>
-    </div>
-    </div>
     </footer>
     <div class="copyright">
         <p>
-            Copyright <a href="https://pplg2021.smkn7-smr.sch.id" class="link">PPLG 2021</a> | ALL RIGHTS RESERVED ©
+            Copyright <a href="https://pplg2021.smkn7-smr.sch.id" class="link">PPLG 2021</a> | ALL RIGHTS RESERVED
+            &copy;
         </p>
     </div>
 
@@ -195,12 +221,25 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('myjs/sidebar.js') }}"></script>
     <script src="{{ asset('myjs/countUp.js') }}"></script>
+
+    {{-- Navigation --}}
     <script>
+        $(document).ready(function() {
+            $(".icon-bar").click(function() {
+                $(this).toggleClass('openbar');
+                $('.nav-menu').toggleClass('show-nav');
+                $('.navbar-right').toggleClass('show-right');
+                $('.navbar-left').toggleClass('show-left');
+
+                console.log(1)
+            });
+        });
+
+
         window.onscroll = function() {
             scrollFunction()
         };
-        if (window.location.href == 'http://127.0.0.1:8000/' &&
-            'http://127.0.0.1:8000/') {
+        if (window.location.href == 'http://127.0.0.1:8000/' && 'http://127.0.0.1:8000/') {
             function scrollFunction() {
                 if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
                     document.getElementById("navbar").classList.add("scroll")
@@ -208,14 +247,14 @@
                     document.getElementById("sidebar-burger").classList.add("scroll")
                     document.getElementById("sidebar-burger").classList.add("shadow-sm")
                     document.getElementById("navbar-logo").innerHTML =
-                        "<a href='{{ url('/') }}'><img src='{{ asset('imgassets/Logo perpus-3 cut.png') }}' alt=''>"
+                        '<a href="{{ url('/') }}"><img src="{{ asset("imgassets/e-lib-logo-notitle-nobg.png") }}" alt="">'
                 } else {
                     document.getElementById("navbar").classList.remove("scroll")
                     document.getElementById("navbar").classList.remove("shadow-sm")
                     document.getElementById("sidebar-burger").classList.remove("scroll")
                     document.getElementById("sidebar-burger").classList.remove("shadow-sm")
                     document.getElementById("navbar-logo").innerHTML =
-                        "<a href='{{ url('/') }}'><img src='{{ asset('imgassets/logo1.png') }}' alt=''>"
+                        '<a href="{{ url('/') }}"><img src="{{ asset("imgassets/e-lib-logo-notitle-nobg.png") }}" alt="">'
                 }
             }
         } else {
@@ -230,6 +269,6 @@
     <script src="{{ asset('myjs/owl-carousel.js') }}"></script>
 
     @yield('script')
-    </body>
+</body>
 
 </html>

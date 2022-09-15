@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\BookingModel;
+use App\Models\BukuDetailModel;
+use App\Models\BukuModel;
 use App\Models\KategoriModel;
 
 use Illuminate\Http\Request;
@@ -41,8 +43,21 @@ class AdminController extends Controller
     }
     public function bukufisik()
     {
+        $buku = BukuModel::join('tbelib_kategori', 'tbelib_buku.kategori_id', '=', 'tbelib_kategori.id')
+            ->join('tbelib_jenis_buku', 'tbelib_buku.jenis_id', '=', 'tbelib_jenis_buku.id')
+            ->where('tbelib_jenis_buku.keterangan', 'Fisik')
+            ->select(
+            'tbelib_buku.cover',
+            'tbelib_buku.judul',
+            'tbelib_buku.pengarang',
+            'tbelib_buku.penerbit',
+            'tbelib_jenis_buku.keterangan'
+            )
+            ->get();
+        // dd($buku);
         $data = [
             'title' => 'Admin Perpustakaan | Data Buku',
+            'buku' => $buku
         ];
         return view('admin.bukufisik', $data);
     }

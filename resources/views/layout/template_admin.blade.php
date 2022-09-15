@@ -18,9 +18,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Nunito&display=swap" rel="stylesheet">
 
     {{-- Datatable --}}
-    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css"> --}}
-    {{-- <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css"> --}}
-    <link rel="stylesheet" href="https://cdn.datatables.net/v/dt/dt-1.10.16/r-2.2.1/datatables.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+    
+    {{-- Lightbox --}}
+    <link rel="stylesheet" href="{{ asset('mycss/lightbox.css') }}">
 
     <link rel="stylesheet" href="{{ asset('assets_admin/css/main/app.css') }}">
     <link rel="stylesheet" href="{{ asset('assets_admin/css/main/app-dark.css') }}">
@@ -135,10 +137,9 @@
                     <i class="bi bi-justify fs-3"></i>
                 </a>
             </header>
-
             @if (session('status'))
                 <div class="position-fixed top-0 end-0 p-3" style="z-index: 11">
-                    <div id="liveToast" class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div id="liveToast" class="toast show" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
                         <div class="toast-header">
                             <svg class="bd-placeholder-img rounded me-2" width="20" height="20"
                                 xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
@@ -159,7 +160,7 @@
 
             @yield('content')
 
-            <footer class=" position-absolute bottom-0" style="width: 75%">
+            <footer>
                 <div class="footer clearfix mb-0 text-muted">
                     <div class="float-start">
                         <p>2021 © Mazer</p>
@@ -175,10 +176,14 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('assets_admin/js/app.js') }}"></script>
 
+    {{-- Lightbox --}}
+    {{-- <script src="{{ asset('myjs/lightbox.js') }}"></script> --}}
+    <script src="{{ asset('myjs/lightbox-plus-jquery.js') }}"></script>
+
     {{-- Datatable --}}
-    {{-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script> --}}
-    {{-- <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script> --}}
-    {{-- <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script> --}}
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
     <script src="https://cdn.datatables.net/v/dt/dt-1.10.16/r-2.2.1/datatables.min.js"></script>
     <script>
         $(document).ready(function() {

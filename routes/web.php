@@ -49,10 +49,10 @@ Route::group(['middleware' => ['admin']], function () {
     // Kurikulum
     Route::get('admin/tambah-kurikulum', [CrudController::class, 'createKurikulum']);
     Route::post('admin/simpan-kurikulum', [CrudController::class, 'storeKurikulum']);
-    Route::post('admin/hapus-kurikulum', [CrudController::class, 'destroyKurikulum']);
+    Route::delete('admin/hapus-kurikulum/{id}', [CrudController::class, 'destroyKurikulum']);
 });
 
 // Siswa
 Route::get('/', [SiswaController::class, 'index']);
 Route::get('/book-detail', [SiswaController::class, 'detail']);
-Route::get('/all-book', [SiswaController::class, 'allbook']);
+Route::get('/katalog', [SiswaController::class, 'katalog']);

@@ -57,10 +57,10 @@
                             <td>{{ $item->name }}</td>
                             <td>
                                 <a href="#" class="btn btn-primary mb-1"><i class="bi bi-pencil"></i></a>
-                                <form action="{{ url('admin/hapus-kurikulum') }}" method="post">
+                                <form action="{{ url('admin/hapus-kurikulum/' . $item->id) }}" method="post">
                                     @method('delete')
                                     @csrf
-                                    <button class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus ' . {{ $item->name }} . '?')"><i class="bi bi-trash3"></i></button>
+                                    <button class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus {{ $item->name }} ?')"><i class="bi bi-trash3"></i></button>
                                 </form>
                             </td>
                         </tr>

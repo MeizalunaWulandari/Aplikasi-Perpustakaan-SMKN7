@@ -25,9 +25,9 @@ class SiswaController extends Controller
     {
         return view('siswa.detail');
     }
-    public function allbook()
+    public function katalog()
     {
-        return view('siswa.allbook');
+        return view('siswa.katalog');
     }
     public function user()
     {

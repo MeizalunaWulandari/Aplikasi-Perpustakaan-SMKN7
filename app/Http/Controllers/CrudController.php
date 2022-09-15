@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\KategoriModel;
 use Illuminate\Http\Request;
 
+use Cviebrock\EloquentSluggable\Services\SlugService;
+
 class CrudController extends Controller
 {
+
     // Kategori
     public function createKategori()
     {
@@ -66,7 +69,8 @@ class CrudController extends Controller
 
         KategoriModel::create([
             'name' => $request->name,
-            'type' => '2'
+            'type' => '2',
+            'slug' => SlugService::createSlug(KategoriModel::class, 'slug', $request->name),
         ]);
 
         return redirect()->to('admin/kurikulum-buku')->with('status', 'Berhasil menambah ' . $request->name);
@@ -88,7 +92,7 @@ class CrudController extends Controller
     public function destroyKurikulum($id)
     {
         $kur = KategoriModel::where('id', $id)->first();
-        $id->delete();
-        return redirect()->to('admin/kurikulum-buku')->with('status', 'Berhasil menghapus ' . $kur);
+        $kur->delete();
+        return redirect()->to('admin/kurikulum-buku')->with('status', 'Berhasil menghapus ' . $kur->name);
     }
 }

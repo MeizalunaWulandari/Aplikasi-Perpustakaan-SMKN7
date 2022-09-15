@@ -12,6 +12,10 @@
             background-size: 40px;
         }
 
+        /* table.dataTable tbody tr {
+            background-color: unset !important;
+        } */
+
         div.slider {
             display: none;
             margin: 0px;

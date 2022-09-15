@@ -56,7 +56,7 @@
                 </div>
                 <div>
                     <h5>
-                        <a class="link-blue" href="{{ url('all-book') }}">Lihat Semua <i class="bi bi-arrow-right"></i></a>
+                        <a class="link-blue" href="{{ url('katalog') }}">Lihat Semua <i class="bi bi-arrow-right"></i></a>
                     </h5>
                 </div>
             </div>
@@ -235,7 +235,7 @@
                 </div>
                 <div>
                     <h5>
-                        <a class="link-blue" href="{{ url('all-book') }}">Lihat Semua <i
+                        <a class="link-blue" href="{{ url('katalog') }}">Lihat Semua <i
                                 class="bi bi-arrow-right"></i></a>
                     </h5>
                 </div>
