@@ -34,6 +34,9 @@ Route::group(['middleware' => ['admin']], function () {
     Route::get('admin/getMapel/', [AdminController::class, 'getMapel']);
     // Route::get('admin/data-booking', [AdminController::class, 'bookingunverif']);
     Route::get('admin/buku-fisik', [AdminController::class, 'bukufisik']);
+    Route::get('api/admin/buku-fisik', [AdminController::class, 'getBukuFisik'])->name('api.admin.buku-fisik');
+    Route::get('api/admin/buku-fisik/{id}', [AdminController::class, 'getBukuFisikDetailById'])->name('api.admin.buku-fisik-detail');
+
     Route::get('admin/buku-digital', [AdminController::class, 'bukudigital']);
     Route::get('admin/buku-kejuruan', [AdminController::class, 'bukukejuruan']);
     Route::get('admin/kategori-buku', [AdminController::class, 'kategori']);

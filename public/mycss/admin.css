@@ -1,26 +1,17 @@
 * {
     font-family: "Montserrat", sans-serif;
 }
-
-/* Admin Page ~~~ Admin Page */
-/* Databooking start */
-button.active.status {
-    /* border: 2px solid blueviolet; */
+#table-buku .Ready {
+    background-color: rgb(0, 255, 0, 0.75);
+    padding: 5px;
+    border-radius: 3px;
+    text-align: center;
+    color: white;
 }
-.status.red {
-    background-color: unset !important;
-    /* border-radius: 100%; */
-    /* padding: 10px; */
-    border: unset;
-    color: gray;
+#table-buku .Dipinjam {
+    background-color: rgba(255, 0, 0, 0.75);
+    padding: 5px;
+    border-radius: 3px;
+    text-align: center;
+    color: white;
 }
-
-.status.green {
-    background-color: unset !important;
-    /* background-color: green; */
-    /* border-radius: 100%; */
-    /* padding: 10px; */
-    border: unset;
-    color: green;
-}
-/* Databooking end */
