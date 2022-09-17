@@ -55,7 +55,7 @@
                         <th>Pengarang</th>
                         <th>Penerbit</th>
                         <th>Jenis Buku</th>
-                        <th>Aksi</th>
+                        <th>Action</th>
                         <th>Detail</th>
                     </tr>
                 </thead>
@@ -71,7 +71,6 @@
                             <td>{{ $item->pengarang }}</td>
                             <td>{{ $item->penerbit }}</td>
                             <td>{{ $item->keterangan }}</td>
-                            <td>Edit Hapus</td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -83,11 +82,200 @@
                         <th>Pengarang</th>
                         <th>Penerbit</th>
                         <th>Jenis Buku</th>
-                        <th>Aksi</th>
+                        <th>Action</th>
                         <th>Detail</th>
                     </tr>
                 </tfoot>
             </table>
         </div>
     </div>
+@endsection
+
+@section('script')
+    <script>
+        const table = $('#table-buku').DataTable({
+            dom: '<lf<t>ip>',
+            // pageLength: 10,
+            // bLengthChange: false,
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "{{ route('api.admin.buku-fisik') }}",
+                data: function(d) {
+                    // d.status = $('select[name=filter_status]').val();
+                }
+            },
+            columns: [{
+                    data: 'DT_RowIndex',
+                    name: 'DT_RowIndex'
+                },
+                {
+                    data: 'cover',
+                    name: 'cover'
+                },
+                {
+                    data: 'judul',
+                    name: 'judul'
+                },
+                {
+                    data: 'pengarang',
+                    name: 'pengarang'
+                },
+                {
+                    data: 'penerbit',
+                    name: 'penerbit'
+                },
+                {
+                    data: 'keterangan',
+                    name: 'keterangan'
+                },
+                {
+                    className: 'actions-control',
+                    data: 'null',
+                    defaultContent: ''
+                },
+                {
+                    className: 'details-control',
+                    data: 'null',
+                    defaultContent: ''
+                }
+            ],
+            columnDefs: [{
+                render: function(data, type, row, meta) {
+                    const cover = "{{ asset('imgassets') }}/" + row.cover;
+
+                    const html = `<a class="example-image-link" href="${cover}"
+                                    data-lightbox="example-1"><img style="width: 100px;" class="example-image"
+                                        src="${cover}" alt="image-1" /></a>`;
+
+                    return html;
+                },
+                targets: [1]
+            }, ],
+            order: [],
+            language: {
+                search: "",
+                searchPlaceholder: "Search"
+            }
+        });
+
+        $('#table-buku tbody').on('click', 'td.details-control', function() {
+            const tr = $(this).closest('tr');
+            const row = table.row(tr);
+
+            if (row.child.isShown()) {
+                $('div.slider', row.child()).slideUp(function() {
+                    row.child.hide();
+                    tr.removeClass('shown');
+                });
+            } else {
+                $.ajax({
+                    url: "{{ url('/api/admin/buku-fisik') }}/" + row.data().id,
+                    success: function(res) {
+                        row.child(formatDetail(res), 'no-padding').show();
+                        tr.addClass('shown');
+                        $('div.slider', row.child()).slideDown();
+                    }
+                });
+            }
+        });
+
+        formatDetail = (d) => {
+            const buku = d.buku;
+            const detail = d.detail;
+
+            let table = `<table class="table">
+                            <thead>
+                                <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">No Induk</th>
+                                <th scope="col">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>`;
+
+            let no = 1;
+            for (const v of detail) {
+                table += `  <tr>
+                                <th scope="row">${no}</th>
+                                <td>${v.no_induk}</td>
+                                <td>${v.status==1 ?'Ready' : 'Dipinjam'}</td>
+                            </tr>`;
+                no++;
+            }
+
+            table += `</tbody>
+                      </table>
+                      </div>`;
+
+            const slider = `<div class="slider">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <label>Singkatan Pengarang</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>${buku.singkatan_pengarang}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <label>Tempat Terbit</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>${buku.tempat_terbit}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <label>Tahun Terbit</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>${buku.tahun_terbit}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <label>Tahun Buku</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>${buku.tahun_buku}</p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <label>No klasifikasi</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>${buku.no_klasifikasi}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <label>Insial Buku</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>${buku.inisial_buku}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <label>ISBN</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>001-001-001-001-0</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                ${table}`;
+
+            return slider;
+        }
+    </script>
 @endsection
