@@ -30,7 +30,7 @@
                 </div> 
                 @endif
                 <div class="mb-3">
-                    <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" placeholder="NISN">
+                    <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" placeholder="NISN" autofocus>
                     @error('username')
                         <div class="invalid-feedback">
                             {{ $message }}

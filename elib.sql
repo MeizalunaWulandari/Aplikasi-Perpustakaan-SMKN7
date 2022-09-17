@@ -14,12 +14,10 @@
 
 
 -- Dumping database structure for elibrary
-DROP DATABASE IF EXISTS `elibrary`;
 CREATE DATABASE IF NOT EXISTS `elibrary` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `elibrary`;
 
 -- Dumping structure for table elibrary.tbelib_admin
-DROP TABLE IF EXISTS `tbelib_admin`;
 CREATE TABLE IF NOT EXISTS `tbelib_admin` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(50) NOT NULL,
@@ -36,7 +34,6 @@ REPLACE INTO `tbelib_admin` (`id`, `username`, `password`, `level`, `login_terak
 /*!40000 ALTER TABLE `tbelib_admin` ENABLE KEYS */;
 
 -- Dumping structure for table elibrary.tbelib_booking
-DROP TABLE IF EXISTS `tbelib_booking`;
 CREATE TABLE IF NOT EXISTS `tbelib_booking` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nisn` int(11) NOT NULL,
@@ -68,7 +65,6 @@ REPLACE INTO `tbelib_booking` (`id`, `nisn`, `nama`, `notelp`, `buku_id`, `statu
 /*!40000 ALTER TABLE `tbelib_booking` ENABLE KEYS */;
 
 -- Dumping structure for table elibrary.tbelib_buku
-DROP TABLE IF EXISTS `tbelib_buku`;
 CREATE TABLE IF NOT EXISTS `tbelib_buku` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `cover` varchar(50) NOT NULL,
@@ -99,10 +95,10 @@ REPLACE INTO `tbelib_buku` (`id`, `cover`, `judul`, `slug`, `pengarang`, `singka
 /*!40000 ALTER TABLE `tbelib_buku` ENABLE KEYS */;
 
 -- Dumping structure for table elibrary.tbelib_buku_detail
-DROP TABLE IF EXISTS `tbelib_buku_detail`;
 CREATE TABLE IF NOT EXISTS `tbelib_buku_detail` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `no_induk` varchar(25) NOT NULL DEFAULT '0',
+  `isbn` varchar(50) NOT NULL DEFAULT '0',
   `status` tinyint(4) NOT NULL DEFAULT '0',
   `buku_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -110,14 +106,13 @@ CREATE TABLE IF NOT EXISTS `tbelib_buku_detail` (
   CONSTRAINT `FK_tbelib_buku_detail_tbelib_buku` FOREIGN KEY (`buku_id`) REFERENCES `tbelib_buku` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='Status\r\n0 = Not Ready\r\n1 = Ready';
 
--- Dumping data for table elibrary.tbelib_buku_detail: ~0 rows (approximately)
+-- Dumping data for table elibrary.tbelib_buku_detail: ~1 rows (approximately)
 /*!40000 ALTER TABLE `tbelib_buku_detail` DISABLE KEYS */;
-REPLACE INTO `tbelib_buku_detail` (`id`, `no_induk`, `status`, `buku_id`) VALUES
-	(1, '262/SMKN7/H.2021', 1, 2);
+REPLACE INTO `tbelib_buku_detail` (`id`, `no_induk`, `isbn`, `status`, `buku_id`) VALUES
+	(1, '262/SMKN7/H.2021', '111-111-111-111-0', 1, 2);
 /*!40000 ALTER TABLE `tbelib_buku_detail` ENABLE KEYS */;
 
 -- Dumping structure for table elibrary.tbelib_count
-DROP TABLE IF EXISTS `tbelib_count`;
 CREATE TABLE IF NOT EXISTS `tbelib_count` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `total_count` int(11) NOT NULL,
@@ -134,21 +129,19 @@ REPLACE INTO `tbelib_count` (`id`, `total_count`, `keterangan`) VALUES
 /*!40000 ALTER TABLE `tbelib_count` ENABLE KEYS */;
 
 -- Dumping structure for table elibrary.tbelib_jenis_buku
-DROP TABLE IF EXISTS `tbelib_jenis_buku`;
 CREATE TABLE IF NOT EXISTS `tbelib_jenis_buku` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `keterangan` varchar(50) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- Dumping data for table elibrary.tbelib_jenis_buku: ~1 rows (approximately)
+-- Dumping data for table elibrary.tbelib_jenis_buku: ~0 rows (approximately)
 /*!40000 ALTER TABLE `tbelib_jenis_buku` DISABLE KEYS */;
 REPLACE INTO `tbelib_jenis_buku` (`id`, `keterangan`) VALUES
 	(1, 'Fisik');
 /*!40000 ALTER TABLE `tbelib_jenis_buku` ENABLE KEYS */;
 
 -- Dumping structure for table elibrary.tbelib_kategori
-DROP TABLE IF EXISTS `tbelib_kategori`;
 CREATE TABLE IF NOT EXISTS `tbelib_kategori` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(150) NOT NULL,
@@ -157,14 +150,13 @@ CREATE TABLE IF NOT EXISTS `tbelib_kategori` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='type :\r\n1 = kategori\r\n2 = kurikulum';
 
--- Dumping data for table elibrary.tbelib_kategori: ~1 rows (approximately)
+-- Dumping data for table elibrary.tbelib_kategori: ~0 rows (approximately)
 /*!40000 ALTER TABLE `tbelib_kategori` DISABLE KEYS */;
 REPLACE INTO `tbelib_kategori` (`id`, `name`, `type`, `slug`) VALUES
 	(1, 'Kurikulum Merdeka', 2, 'kurikulum-merdeka');
 /*!40000 ALTER TABLE `tbelib_kategori` ENABLE KEYS */;
 
 -- Dumping structure for table elibrary.tb_user
-DROP TABLE IF EXISTS `tb_user`;
 CREATE TABLE IF NOT EXISTS `tb_user` (
   `id_user` int(11) NOT NULL AUTO_INCREMENT,
   `nama` varchar(50) NOT NULL,

@@ -51,6 +51,7 @@ class AdminController extends Controller
             'tbelib_buku.judul',
             'tbelib_buku.pengarang',
             'tbelib_buku.penerbit',
+            'tbelib_buku.stock',
             'tbelib_jenis_buku.keterangan'
             )
             ->get();

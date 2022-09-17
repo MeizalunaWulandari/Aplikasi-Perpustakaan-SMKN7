@@ -77,14 +77,25 @@
                             </span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="{{ url('login') }}" class="nav-link">
-                            <i class="bi bi-box-arrow-in-right nav-icon"></i>
-                            <span class="nav-name">
-                                Login
-                            </span>
-                        </a>
-                    </li>
+                    @if (Auth::guard('websiswa')->check() == false)
+                        <li class="nav-item">
+                            <a href="{{ url('login') }}" class="nav-link">
+                                <i class="bi bi-box-arrow-in-right nav-icon"></i>
+                                <span class="nav-name">
+                                    Login
+                                </span>
+                            </a>
+                        </li>
+                    @else
+                        <li class="nav-item">
+                            <a href="{{ url('logout') }}" class="nav-link">
+                                <i class="bi bi-box-arrow-left"></i>
+                                <span class="nav-name">
+                                    Logout
+                                </span>
+                            </a>
+                        </li>
+                    @endif
                 </div>
             </ul>
         </div>
@@ -94,7 +105,7 @@
             <div class="left">
                 <li class="navbar-logo" id="navbar-logo">
                     <a href="{{ url('/') }}">
-                        <img src="{{ asset("imgassets/e-lib-logo-notitle-nobg.png") }}" alt="">
+                        <img src="{{ asset('imgassets/e-lib-logo-notitle-nobg.png') }}" alt="">
                     </a>
                 </li>
                 <li class="navbar-list active">
@@ -109,44 +120,50 @@
                 </li>
             </div>
             <div class="right">
+                @if (Auth::guard('websiswa')->check() == false)
                 <li class="navbar-list">
-                    <a href="{{ url('login') }}" class="link">Masuk</a>
+                    <a href="{{ url('login') }}" class="link">Login</a>
                 </li>
+                @else
+                <li class="navbar-list">
+                    <a href="{{ url('logout') }}" class="link">Logout</a>
+                </li> @endif
             </div>
         </ul>
     </nav>
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl modal-dialog-center modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"><span class="yellow">Panduan </span>Meminjam Buku
-                    </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Bagaimana <span class="yellow">Cara Meminjam Buku</span> Di Perpustakaan SMK Negeri 7 Samarinda?
-                    </p>
-                    <ol>
-                        <li>Login akun menggunakkan NISN Anda</li>
-                        <li>Buka detail buku fisik yang ingin Anda pinjam</li>
-                        <li>Klik pinjam buku dan masukkan nomor telepon Anda, lalu klik <b class="yellow">Booking
-                                Now</b></li>
-                        <li>Setelah membooking buku, silahkan datang ke perpustakaan sekolah, dan konfirmasi ke petugas
-                            perpustakaan untuk memverifikasi-nya</li>
-                        <li>Batas waktu peminjaman buku adalah <b class="yellow">1 Minggu</b> mulai dari petugas
-                            memverifikasi</li>
-                        <li>Anda akan dihubungi oleh petugas jika batas waktu yang ditentukan sudah melewati batas, dan
-                            akan dikenakan denda oleh petugas perpustakaan</li>
-                        <li>Jika ada kendala teknis, silahkan hubungi operator yang bertugas</li>
-                    </ol>
-                </div>
-                <!-- <div class="modal-footer">
+    <div class="modal
+        fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-center modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"><span class="yellow">Panduan </span>Meminjam Buku
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Bagaimana <span class="yellow">Cara Meminjam Buku</span> Di Perpustakaan SMK Negeri 7 Samarinda?
+                </p>
+                <ol>
+                    <li>Login akun menggunakkan NISN Anda</li>
+                    <li>Buka detail buku fisik yang ingin Anda pinjam</li>
+                    <li>Klik pinjam buku dan masukkan nomor telepon Anda, lalu klik <b class="yellow">Booking
+                            Now</b></li>
+                    <li>Setelah membooking buku, silahkan datang ke perpustakaan sekolah, dan konfirmasi ke petugas
+                        perpustakaan untuk memverifikasi-nya</li>
+                    <li>Batas waktu peminjaman buku adalah <b class="yellow">1 Minggu</b> mulai dari petugas
+                        memverifikasi</li>
+                    <li>Anda akan dihubungi oleh petugas jika batas waktu yang ditentukan sudah melewati batas, dan
+                        akan dikenakan denda oleh petugas perpustakaan</li>
+                    <li>Jika ada kendala teknis, silahkan hubungi operator yang bertugas</li>
+                </ol>
+            </div>
+            <!-- <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                      <button type="button" class="btn btn-primary"></button>
                 </div> -->
-            </div>
         </div>
+    </div>
     </div>
     {{-- Content --}}
     @yield('content')
@@ -247,14 +264,14 @@
                     document.getElementById("sidebar-burger").classList.add("scroll")
                     document.getElementById("sidebar-burger").classList.add("shadow-sm")
                     document.getElementById("navbar-logo").innerHTML =
-                        '<a href="{{ url('/') }}"><img src="{{ asset("imgassets/e-lib-logo-notitle-nobg.png") }}" alt="">'
+                        '<a href="{{ url('/') }}"><img src="{{ asset('imgassets/e-lib-logo-notitle-nobg.png') }}" alt="">'
                 } else {
                     document.getElementById("navbar").classList.remove("scroll")
                     document.getElementById("navbar").classList.remove("shadow-sm")
                     document.getElementById("sidebar-burger").classList.remove("scroll")
                     document.getElementById("sidebar-burger").classList.remove("shadow-sm")
                     document.getElementById("navbar-logo").innerHTML =
-                        '<a href="{{ url('/') }}"><img src="{{ asset("imgassets/e-lib-logo-notitle-nobg.png") }}" alt="">'
+                        '<a href="{{ url('/') }}"><img src="{{ asset('imgassets/e-lib-logo-notitle-nobg.png') }}" alt="">'
                 }
             }
         } else {
@@ -269,6 +286,6 @@
     <script src="{{ asset('myjs/owl-carousel.js') }}"></script>
 
     @yield('script')
-</body>
+    </body>
 
 </html>

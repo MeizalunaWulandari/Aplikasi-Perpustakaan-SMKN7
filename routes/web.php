@@ -54,5 +54,8 @@ Route::group(['middleware' => ['admin']], function () {
 
 // Siswa
 Route::get('/', [SiswaController::class, 'index']);
-Route::get('/book-detail', [SiswaController::class, 'detail']);
-Route::get('/katalog', [SiswaController::class, 'katalog']);
+Route::get('/book-detail/{slug}', [SiswaController::class, 'detail']);
+Route::get('/katalog', function(){
+    return redirect()->to('/katalog/kurikulum-merdeka');
+});
+Route::get('/katalog/{slug}', [SiswaController::class, 'katalog']);

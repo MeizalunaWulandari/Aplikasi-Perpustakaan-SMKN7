@@ -61,159 +61,25 @@
                 </div>
             </div>
             <div class="owl-carousel section-two owl-theme">
-                <div class="grid-item">
-                    <div class="book">
-                        <a href="{{ url('book-detail') }}">
-                            <div class="card ">
-                                <span class="cover">
-                                    <img src="{{ asset('imgassets/coverbook.png') }}" alt="">
-                                </span>
-                                <div class="description">
-                                    <p class="card-text small muted blue">Availble Book <b>20</b></p>
-                                    <p class="card-text small muted yellow fw-bold">Airlangga</p>
-                                    <span class="jenis-buku small">Fisik</span>
-                                    <p>Pendidikan Agama Katholik Dan Budi Pekerti Untuk SMA/SMK Kelas X</p>
+                @foreach ($bukuFisik as $item)
+                    <div class="grid-item">
+                        <div class="book">
+                            <a href="{{ url('book-detail/' . $item->slug_buku) }}">
+                                <div class="card ">
+                                    <span class="cover">
+                                        <img src="{{ asset('imgassets/coverbook.png') }}" alt="">
+                                    </span>
+                                    <div class="description">
+                                        <p class="card-text small muted blue">Availble Book <b>20</b></p>
+                                        <p class="card-text small muted yellow fw-bold">Airlangga</p>
+                                        <span class="jenis-buku small">Fisik</span>
+                                        <p>Pendidikan Agama Katholik Dan Budi Pekerti Untuk SMA/SMK Kelas X</p>
+                                    </div>
                                 </div>
-                            </div>
-                        </a>
+                            </a>
+                        </div>
                     </div>
-                </div>
-                <div class="grid-item">
-                    <div class="book">
-                        <a href="{{ url('book-detail') }}">
-                            <div class="card">
-                                <span class="cover">
-                                    <img src="{{ asset('imgassets/coverbook.png') }}" alt="">
-                                </span>
-                                <div class="description">
-                                    <p class="card-text small muted blue">Availble Book <b>20</b></p>
-                                    <p class="card-text small muted yellow fw-bold">Airlangga</p>
-                                    <span class="jenis-buku small">Fisik</span>
-                                    <p>Pendidikan Agama Katholik Dan Budi Pekerti Untuk SMA/SMK Kelas X</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="grid-item">
-                    <div class="book">
-                        <a href="{{ url('book-detail') }}">
-                            <div class="card shadow">
-                                <span class="cover">
-                                    <img src="{{ asset('imgassets/coverbook.png') }}" alt="">
-                                </span>
-                                <div class="description">
-                                    <p class="card-text small muted blue">Availble Book <b>20</b></p>
-                                    <p class="card-text small muted yellow fw-bold">Airlangga</p>
-                                    <span class="jenis-buku small">Fisik</span>
-                                    <p>Pendidikan Agama Katholik Dan Budi Pekerti Untuk SMA/SMK Kelas X</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="grid-item">
-                    <div class="book">
-                        <a href="{{ url('book-detail') }}">
-                            <div class="card">
-                                <span class="cover">
-                                    <img src="{{ asset('imgassets/coverbook.png') }}" alt="">
-                                </span>
-                                <div class="description">
-                                    <p class="card-text small muted blue">Availble Book <b>20</b></p>
-                                    <p class="card-text small muted yellow fw-bold">Airlangga</p>
-                                    <span class="jenis-buku small">Fisik</span>
-                                    <p>Pendidikan Agama Katholik Dan Budi Pekerti Untuk SMA/SMK Kelas X</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="grid-item">
-                    <div class="book">
-                        <a href="{{ url('book-detail') }}">
-                            <div class="card">
-                                <span class="cover">
-                                    <img src="{{ asset('imgassets/coverbook.png') }}" alt="">
-                                </span>
-                                <div class="description">
-                                    <p class="card-text small muted blue">Availble Book <b>20</b></p>
-                                    <p class="card-text small muted yellow fw-bold">Airlangga</p>
-                                    <span class="jenis-buku small">PDF</span>
-                                    <p>Pendidikan Agama Katholik Dan Budi Pekerti Untuk SMA/SMK Kelas X</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="grid-item">
-                    <div class="book">
-                        <a href="{{ url('book-detail') }}">
-                            <div class="card">
-                                <span class="cover">
-                                    <img src="{{ asset('imgassets/coverbook.png') }}" alt="">
-                                </span>
-                                <div class="description">
-                                    <p class="card-text small muted blue">Availble Book <b>20</b></p>
-                                    <p class="card-text small muted yellow fw-bold">Airlangga</p>
-                                    <span class="jenis-buku small">PDF</span>
-                                    <p>Pendidikan Agama Katholik Dan Budi Pekerti Untuk SMA/SMK Kelas X</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="grid-item">
-                    <div class="book">
-                        <a href="{{ url('book-detail') }}">
-                            <div class="card">
-                                <span class="cover">
-                                    <img src="{{ asset('imgassets/coverbook.png') }}" alt="">
-                                </span>
-                                <div class="description">
-                                    <p class="card-text small muted blue">Availble Book <b>20</b></p>
-                                    <p class="card-text small muted yellow fw-bold">Airlangga</p>
-                                    <span class="jenis-buku small">PDF</span>
-                                    <p>Pendidikan Agama Katholik Dan Budi Pekerti Untuk SMA/SMK Kelas X</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="grid-item">
-                    <div class="book">
-                        <a href="{{ url('book-detail') }}">
-                            <div class="card">
-                                <span class="cover">
-                                    <img src="{{ asset('imgassets/coverbook.png') }}" alt="">
-                                </span>
-                                <div class="description">
-                                    <p class="card-text small muted blue">Availble Book <b>20</b></p>
-                                    <p class="card-text small muted yellow fw-bold">Airlangga</p>
-                                    <span class="jenis-buku small">PDF</span>
-                                    <p>Pendidikan Agama Katholik Dan Budi Pekerti Untuk SMA/SMK Kelas X</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="grid-item">
-                    <div class="book">
-                        <a href="{{ url('book-detail') }}">
-                            <div class="card">
-                                <span class="cover">
-                                    <img src="{{ asset('imgassets/coverbook.png') }}" alt="">
-                                </span>
-                                <div class="description">
-                                    <p class="card-text small muted blue">Availble Book <b>20</b></p>
-                                    <p class="card-text small muted yellow fw-bold">Airlangga</p>
-                                    <span class="jenis-buku small">PDF</span>
-                                    <p>Pendidikan Agama Katholik Dan Budi Pekerti Untuk SMA/SMK Kelas X</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>
@@ -235,97 +101,30 @@
                 </div>
                 <div>
                     <h5>
-                        <a class="link-blue" href="{{ url('katalog') }}">Lihat Semua <i
-                                class="bi bi-arrow-right"></i></a>
+                        <a class="link-blue" href="{{ url('katalog') }}">Lihat Semua <i class="bi bi-arrow-right"></i></a>
                     </h5>
                 </div>
             </div>
             <div class="owl-carousel section-two owl-theme">
-                <div class="grid-item">
-                    <div class="book">
-                        <a href="{{ url('book-detail') }}">
-                            <div class="card ">
-                                <span class="cover">
-                                    <img src="{{ asset('imgassets/coverbook.png') }}" alt="">
-                                </span>
-                                <div class="description">
-                                    <p class="card-text small muted blue">Availble Book <b>20</b></p>
-                                    <p class="card-text small muted yellow fw-bold">Airlangga</p>
-                                    <span class="jenis-buku small">PDF</span>
-                                    <p>Pendidikan Agama Katholik Dan Budi Pekerti Untuk SMA/SMK Kelas X</p>
+                @foreach ($bukuFisik as $item)
+                    <div class="grid-item">
+                        <div class="book">
+                            <a href="{{ url('book-detail/' . $item->slug_buku) }}">
+                                <div class="card ">
+                                    <span class="cover">
+                                        <img src="{{ asset('imgassets/coverbook.png') }}" alt="">
+                                    </span>
+                                    <div class="description">
+                                        <p class="card-text small muted blue">Availble Book <b>20</b></p>
+                                        <p class="card-text small muted yellow fw-bold">Airlangga</p>
+                                        <span class="jenis-buku small">Fisik</span>
+                                        <p>Pendidikan Agama Katholik Dan Budi Pekerti Untuk SMA/SMK Kelas X</p>
+                                    </div>
                                 </div>
-                            </div>
-                        </a>
+                            </a>
+                        </div>
                     </div>
-                </div>
-                <div class="grid-item">
-                    <div class="book">
-                        <a href="{{ url('book-detail') }}">
-                            <div class="card">
-                                <span class="cover">
-                                    <img src="{{ asset('imgassets/coverbook.png') }}" alt="">
-                                </span>
-                                <div class="description">
-                                    <p class="card-text small muted blue">Availble Book <b>20</b></p>
-                                    <p class="card-text small muted yellow fw-bold">Airlangga</p>
-                                    <span class="jenis-buku small">PDF</span>
-                                    <p>Pendidikan Agama Katholik Dan Budi Pekerti Untuk SMA/SMK Kelas X</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="grid-item">
-                    <div class="book">
-                        <a href="{{ url('book-detail') }}">
-                            <div class="card shadow">
-                                <span class="cover">
-                                    <img src="{{ asset('imgassets/coverbook.png') }}" alt="">
-                                </span>
-                                <div class="description">
-                                    <p class="card-text small muted blue">Availble Book <b>20</b></p>
-                                    <p class="card-text small muted yellow fw-bold">Airlangga</p>
-                                    <span class="jenis-buku small">PDF</span>
-                                    <p>Pendidikan Agama Katholik Dan Budi Pekerti Untuk SMA/SMK Kelas X</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="grid-item">
-                    <div class="book">
-                        <a href="{{ url('book-detail') }}">
-                            <div class="card">
-                                <span class="cover">
-                                    <img src="{{ asset('imgassets/coverbook.png') }}" alt="">
-                                </span>
-                                <div class="description">
-                                    <p class="card-text small muted blue">Availble Book <b>20</b></p>
-                                    <p class="card-text small muted yellow fw-bold">Airlangga</p>
-                                    <span class="jenis-buku small">PDF</span>
-                                    <p>Pendidikan Agama Katholik Dan Budi Pekerti Untuk SMA/SMK Kelas X</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="grid-item">
-                    <div class="book">
-                        <a href="{{ url('book-detail') }}">
-                            <div class="card">
-                                <span class="cover">
-                                    <img src="{{ asset('imgassets/coverbook.png') }}" alt="">
-                                </span>
-                                <div class="description">
-                                    <p class="card-text small muted blue">Availble Book <b>20</b></p>
-                                    <p class="card-text small muted yellow fw-bold">Airlangga</p>
-                                    <span class="jenis-buku small">PDF</span>
-                                    <p>Pendidikan Agama Katholik Dan Budi Pekerti Untuk SMA/SMK Kelas X</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>

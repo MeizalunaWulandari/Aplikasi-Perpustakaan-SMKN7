@@ -115,7 +115,7 @@
                                 <span>Kategori</span>
                             </a>
                         </li>
-                        <li class="sidebar-item <?= Request::url() == url('/admin/kurikulum-buku') ? 'active' : '' ?>"">
+                        <li class="sidebar-item <?= Request::url() == url('/admin/kurikulum-buku') ? 'active' : '' ?>">
                             <a href="/admin/kurikulum-buku" class='sidebar-link'>
                                 <i class="bi bi-clipboard2"></i>
                                 <span>Kurikulum</span>
