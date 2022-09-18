@@ -49,7 +49,7 @@
                                                         <label for="exampleFormControlInput1" class="form-label">Nomor
                                                             Telepon</label>
                                                         <input type="number" class="form-control"
-                                                            id="exampleFormControlInput1" placeholder="628**********">
+                                                            id="exampleFormControlInput1" placeholder="628**********" name="notelp">
                                                     </div>
                                                 </form>
                                                 <button type="button" class="btn btn-primary">Booking Now</button>

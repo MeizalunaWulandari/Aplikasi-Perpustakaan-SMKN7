@@ -122,8 +122,8 @@
                     name: 'notelp'
                 },
                 {
-                    data: 'buku_id',
-                    name: 'buku_id'
+                    data: 'buku_detail_id',
+                    name: 'buku_detail_id'
                 },
                 {
                     data: 'status',

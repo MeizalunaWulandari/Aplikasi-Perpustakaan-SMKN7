@@ -6,23 +6,26 @@
                 <div class="row">
                     <div class="col-lg text-intro">
                         <h1 class="yellow">E - Library</h1>
-                        <h5>SMK Negeri 7 Samarinda</h5>
-                        <form action="">
+                        <h3>SMK Negeri 7 Samarinda</h3>
+                        {{-- <form action="{{ url('search-book') }}" method="post">
+                            @csrf
                             <div class="mb-3 d-flex search-book">
                                 <span class="icon-search d-flex">
                                     <i class="bi bi-search"></i>
                                 </span>
-                                <input type="text" class="form-control" placeholder="Cari buku disini" />
-                                <select class="form-select" aria-label="Default select example">
-                                    <option value="1">Kurikulum Merdeka</option>
+                                <input type="text" class="form-control" placeholder="Cari buku disini" / name="book">
+                                <select class="form-select" aria-label="Default select example" name="kategori">
+                                    @foreach ($kategori as $item)
+                                        <option value="{{ $item->slug }}">{{ $item->name }}</option>
+                                    @endforeach
                                 </select>
                                 <button class="btn btn-primary" type="submit">Cari</button>
                             </div>
-                        </form>
+                        </form> --}}
                     </div>
-                    <div class="col-lg">
+                    {{-- <div class="col-lg">
                         <img src="{{ asset('imgassets/header.png') }}" alt="" />
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
@@ -67,13 +70,13 @@
                             <a href="{{ url('book-detail/' . $item->slug_buku) }}">
                                 <div class="card ">
                                     <span class="cover">
-                                        <img src="{{ asset('imgassets/coverbook.png') }}" alt="">
+                                        <img src="{{ asset('imgassets/coverbook.png') }}" alt="{{ $item->judul }}">
                                     </span>
                                     <div class="description">
-                                        <p class="card-text small muted blue">Availble Book <b>20</b></p>
-                                        <p class="card-text small muted yellow fw-bold">Airlangga</p>
-                                        <span class="jenis-buku small">Fisik</span>
-                                        <p>Pendidikan Agama Katholik Dan Budi Pekerti Untuk SMA/SMK Kelas X</p>
+                                        <p class="card-text small muted blue">Availble Book <b>{{ $item->stock }}</b></p>
+                                        <p class="card-text small muted yellow fw-bold">{{ $item->penerbit }}</p>
+                                        <span class="jenis-buku small">{{ $item->jenis_buku }}</span>
+                                        <p>{{ $item->judul }}</p>
                                     </div>
                                 </div>
                             </a>
@@ -112,13 +115,13 @@
                             <a href="{{ url('book-detail/' . $item->slug_buku) }}">
                                 <div class="card ">
                                     <span class="cover">
-                                        <img src="{{ asset('imgassets/coverbook.png') }}" alt="">
+                                        <img src="{{ asset('imgassets/coverbook.png') }}" alt="{{ $item->judul }}">
                                     </span>
                                     <div class="description">
-                                        <p class="card-text small muted blue">Availble Book <b>20</b></p>
-                                        <p class="card-text small muted yellow fw-bold">Airlangga</p>
-                                        <span class="jenis-buku small">Fisik</span>
-                                        <p>Pendidikan Agama Katholik Dan Budi Pekerti Untuk SMA/SMK Kelas X</p>
+                                        <p class="card-text small muted blue">Availble Book <b>{{ $item->stock }}</b></p>
+                                        <p class="card-text small muted yellow fw-bold">{{ $item->penerbit }}</p>
+                                        <span class="jenis-buku small">{{ $item->jenis_buku }}</span>
+                                        <p>{{ $item->judul }}</p>
                                     </div>
                                 </div>
                             </a>

@@ -16,8 +16,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
-    <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.2/css/fontawesome.min.css"
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.2/css/fontawesome.min.css"
         integrity="sha384-X8QTME3FCg1DLb58++lPvsjbQoCT9bp3MsUU3grbIny/3ZwUJkRNO8NPW6zqzuW9" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css" />
     <!-- Bootstrap CSS -->
@@ -51,7 +50,7 @@
         <div class="nav-menu">
             <ul class="nav-list">
                 <div class="navbar-left">
-                    <li class="nav-item active">
+                    <li class="nav-item <?= Request::url() == url('/') ? 'active' : '' ?>">
                         <a href="{{ url('/') }}" class="nav-link">
                             <i class="bi bi-house nav-icon"></i>
                             <span class="nav-name">
@@ -108,10 +107,10 @@
                         <img src="{{ asset('imgassets/e-lib-logo-notitle-nobg.png') }}" alt="">
                     </a>
                 </li>
-                <li class="navbar-list active">
+                <li class="navbar-list <?= Request::url() == url('/') ? 'active' : '' ?>">
                     <a href="{{ url('/') }}">Beranda</a>
                 </li>
-                <li class="navbar-list">
+                <li class="navbar-list <?= Request::url() == url('katalog') ? 'active' : '' ?>">
                     <a href="{{ url('katalog') }}">Katalog</a>
                 </li>
                 <li class="navbar-list">
@@ -165,6 +164,26 @@
         </div>
     </div>
     </div>
+    @if (session('status'))
+        <div class="position-fixed top-0 end-0 p-3" style="z-index: 11">
+            <div id="liveToast" class="toast show" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
+                <div class="toast-header">
+                    <svg class="bd-placeholder-img rounded me-2" width="20" height="20"
+                                xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
+                                preserveAspectRatio="xMidYMid slice" focusable="false">
+                        <rect width="100%" height="100%" fill="#007aff"></rect>
+                    </svg>
+                    <strong class="me-auto">Notification</strong>
+                    <small>Now</small>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast"
+                                aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    {{ session('status') }}
+                </div>
+            </div>
+        </div>
+    @endif
     {{-- Content --}}
     @yield('content')
     {{-- Content --}}
@@ -256,7 +275,7 @@
         window.onscroll = function() {
             scrollFunction()
         };
-        if (window.location.href == 'http://127.0.0.1:8000/' && 'http://127.0.0.1:8000/') {
+        if (window.location.href == 'https://e-library.stevanandreas.com/') {
             function scrollFunction() {
                 if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
                     document.getElementById("navbar").classList.add("scroll")
@@ -285,6 +304,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
     <script src="{{ asset('myjs/owl-carousel.js') }}"></script>
 
+    {{-- Toast --}}
+    @if (session('status'))
+    <script>
+        $(document).ready(function() {
+            // $("#liveToastBtn").click(function() {
+            $("#liveToast").toast("show");
+            // });
+        });
+    </script> @endif
     @yield('script')
     </body>
 

@@ -11,12 +11,13 @@ body {
 /* Loader */
 /* #loader-wrapper {
     display: flex;
-    position: absolute;
     width: 100%;
     background-color: white;
     z-index: 9999;
     height: 100vh;
-    
+    position: fixed;
+    top: 0;
+    overflow: hidden;
 }
 #loader-wrapper .loader {
     border: 2px solid #f3f3f3;
@@ -110,7 +111,7 @@ margin: auto;
 
 .navbar {
     width: 100%;
-    background-color: #caefff;
+    /* background-color: #caefff; */
     transition: background-color 0.4s;
     top: 0;
 }
@@ -160,7 +161,8 @@ margin: auto;
 }
 
 .navbar ul li a {
-    color: black;
+    /* color: black; */
+    color: white;
     text-decoration: none;
 }
 
@@ -199,13 +201,51 @@ nav .active .nav-name {
 
 /* JUMBOTRON */
 
-.jumbotron {
+/* .jumbotron {
     background-color: #caefff;
     align-items: center;
     height: 85vh;
     display: flex;
     justify-content: center;
     width: 100%;
+} */
+
+.jumbotron::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #004296;
+    opacity: .8;
+}
+.jumbotron::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://e-library.stevanandreas.com/imgassets/bgheader.jpg');
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: .7;
+}
+.jumbotron {
+    height: 85vh;
+    display: flex;
+    color: white;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    position: relative;
+}
+
+.jumbotron > * {
+    z-index: 1;
 }
 
 .jumbotron .row {
@@ -220,6 +260,7 @@ nav .active .nav-name {
 
 .jumbotron .text-intro h1 {
     font-weight: 700;
+    font-size: 50px;
 }
 
 .jumbotron .search-book {
@@ -286,6 +327,7 @@ nav .active .nav-name {
 }
 
 .count-view {
+    border: 3px solid #f5ab35;
     border-radius: 25px;
     color: white;
     background-color: #0f4ea3;
@@ -385,11 +427,44 @@ section {
     font-weight: 600;
 }
 
+#daftar-login::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #004296;
+    opacity: .9;
+}
+#daftar-login::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://e-library.stevanandreas.com/imgassets/foto1.jpg');
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: .7;
+}
 #daftar-login {
     text-align: center;
     padding: 50px;
-    background-color: #004296;
+    display: flex;
     color: white;
+    position: relative;
+}
+
+#daftar-login > * {
+    z-index: 1;
+}
+
+#daftar-login .btn {
+    border: 2px solid #f5ab35 !important;
 }
 
 #daftar-login hr {
@@ -439,7 +514,7 @@ section {
 .detail-wrapper {
     height: 55vh;
     background-color: #caefff;
-    background-image: url("./assets/contoh wave.png");
+    background-image: url("https://e-library.stevanandreas.com/imgassets/contoh wave.png");
     border-radius: 5px;
 }
 
@@ -553,15 +628,42 @@ section {
 }
 
 /* All Book */
-.all-book-header {
-    background-color: #caefff;
-    padding: 3rem;
-    margin-top: 75px;
+.all-book-header {  
+    text-align: center;
+    /* padding: 50px; */
+    display: flex;
+    align-items: center;
+    color: white;
+    position: relative;
 }
 
-.all-book-header img {
-    width: 8%;
-    margin-right: 10px;
+.all-book-header::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #004296;
+    opacity: .8;
+}
+.all-book-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://e-library.stevanandreas.com/imgassets//allbookbg.jpg');
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: .7;
+}
+
+.all-book-header > * {
+    z-index: 1;
 }
 
 .all-book-header a {
@@ -582,11 +684,9 @@ section {
     flex-direction: row;
 }
 
-.all-book-header .block {
-    padding: 20px;
-    background-color: #004296;
-    border-radius: 5px;
-    width: 20px;
+.all-book-header img {
+    width: 6%;
+    margin-right: 10px;
 }
 
 .all-book-header .card.active {
@@ -755,7 +855,7 @@ footer h5 {
 }
 
 footer .footer-logo img {
-    width: 50%;
+    width: 80%;
 }
 
 .footer-link ul li {
@@ -1099,7 +1199,7 @@ footer .footer-logo img {
     }
 
     footer .footer-logo {
-        width: 50%;
+        width: 80%;
         display: flex;
         justify-content: center;
         align-items: center;
