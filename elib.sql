@@ -14,12 +14,10 @@
 
 
 -- Dumping database structure for elibrary
-DROP DATABASE IF EXISTS `elibrary`;
 CREATE DATABASE IF NOT EXISTS `elibrary` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `elibrary`;
 
 -- Dumping structure for table elibrary.tbelib_admin
-DROP TABLE IF EXISTS `tbelib_admin`;
 CREATE TABLE IF NOT EXISTS `tbelib_admin` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(50) CHARACTER SET utf8 NOT NULL,
@@ -36,30 +34,29 @@ REPLACE INTO `tbelib_admin` (`id`, `username`, `password`, `level`, `login_terak
 /*!40000 ALTER TABLE `tbelib_admin` ENABLE KEYS */;
 
 -- Dumping structure for table elibrary.tbelib_booking
-DROP TABLE IF EXISTS `tbelib_booking`;
 CREATE TABLE IF NOT EXISTS `tbelib_booking` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nisn` int(11) NOT NULL,
   `nama` varchar(50) CHARACTER SET utf8 NOT NULL DEFAULT '',
   `notelp` char(50) CHARACTER SET utf8 NOT NULL DEFAULT '',
-  `buku_detail_id` int(11) DEFAULT NULL,
+  `buku_id` int(11) DEFAULT NULL,
   `status` int(11) NOT NULL,
   `tanggal_booking` datetime DEFAULT NULL,
   `created_at` varchar(20) CHARACTER SET utf8 NOT NULL,
   `updated_at` varchar(20) CHARACTER SET utf8 NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK_tbelib_booking_tbelib_buku` (`buku_detail_id`) USING BTREE,
-  CONSTRAINT `FK_tbelib_booking_tbelib_buku_detail` FOREIGN KEY (`buku_detail_id`) REFERENCES `tbelib_buku_detail` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='Status :\r\n1 = Unverified\r\n2 = Verified\r\n3 = Due Date';
+  KEY `FK_tbelib_booking_tbelib_buku` (`buku_id`) USING BTREE,
+  CONSTRAINT `FK_tbelib_booking_tbelib_buku` FOREIGN KEY (`buku_id`) REFERENCES `tbelib_buku` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COMMENT='Status :\r\n1 = Unverified\r\n2 = Verified\r\n3 = Due Date';
 
--- Dumping data for table elibrary.tbelib_booking: ~0 rows (approximately)
+-- Dumping data for table elibrary.tbelib_booking: ~2 rows (approximately)
 /*!40000 ALTER TABLE `tbelib_booking` DISABLE KEYS */;
-REPLACE INTO `tbelib_booking` (`id`, `nisn`, `nama`, `notelp`, `buku_detail_id`, `status`, `tanggal_booking`, `created_at`, `updated_at`) VALUES
-	(3, 21834761, 'RAKEIN NARAYA PUTRA', '85845947669', NULL, 1, NULL, '2022-09-18 09:49:42', '2022-09-18 09:49:42');
+REPLACE INTO `tbelib_booking` (`id`, `nisn`, `nama`, `notelp`, `buku_id`, `status`, `tanggal_booking`, `created_at`, `updated_at`) VALUES
+	(3, 21834761, 'RAKEIN NARAYA PUTRA', '85845947669', NULL, 1, NULL, '2022-09-18 09:49:42', '2022-09-18 09:49:42'),
+	(4, 32277549, 'AFINA KHOIRI AZIZAH', '6285845947669', NULL, 1, NULL, '2022-09-18 21:16:54', '2022-09-18 21:16:54');
 /*!40000 ALTER TABLE `tbelib_booking` ENABLE KEYS */;
 
 -- Dumping structure for table elibrary.tbelib_buku
-DROP TABLE IF EXISTS `tbelib_buku`;
 CREATE TABLE IF NOT EXISTS `tbelib_buku` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `cover` varchar(50) CHARACTER SET utf8 NOT NULL,
@@ -89,11 +86,10 @@ CREATE TABLE IF NOT EXISTS `tbelib_buku` (
 REPLACE INTO `tbelib_buku` (`id`, `cover`, `judul`, `slug`, `pengarang`, `singkatan_pengarang`, `tempat_terbit`, `penerbit`, `tahun_terbit`, `no_klasifikasi`, `tahun_buku`, `inisial_buku`, `quantity`, `stock`, `jenis_id`, `kategori_id`) VALUES
 	(2, 'coverbook.png', 'Pendidikan Agama Katholik Dan Budi Pekerti Untuk SMA/SMK Kelas X', 'pendidikan-agama-katholik-dan-budi-pekerti-untuk-sma-smk-kelas-x', 'F. Sulis Bayu Setyawan', 'Bay', 'Jakarta', 'Kementrian Pendidikan', '2021', '200,1', '2021', 'P', 1, 1, 1, 1),
 	(3, 'coverbook.png', 'Pendidikan Agama Katholik K13 Dan Budi Pekerti Untuk SMA/SMK Kelas X', 'pendidikan-agama-katholik-k13-dan-budi-pekerti-untuk-sma-smk-kelas-x', 'F. Sulis Bayu Setyawan', 'Bay', 'Jakarta', 'Kementrian Pendidikan', '2021', '200,1', '2021', 'P', 1, 1, 1, 2),
-	(4, 'coverbook.png', 'Pendidikan Agama Kristen Dan Budi Pekerti Untuk SMA/SMK Kelas X', 'pendidikan-agama-kristen-dan-budi-pekerti-untuk-sma-smk-kelas-x', 'F. Sulis Bayu Setyawan', 'Bay', 'Jakarta', 'Kementrian Pendidikan', '2021', '200,1', '2021', 'P', 1, 1, 1, 1);
+	(4, 'coverbook.png', 'Pendidikan Agama Kristen Dan Budi Pekerti Untuk SMA/SMK Kelas X', 'pendidikan-agama-kristen-dan-budi-pekerti-untuk-sma-smk-kelas-x', 'F. Sulis Bayu Setyawan', 'Bay', 'Jakarta', 'Kementrian Pendidikan', '2021', '200,1', '2021', 'P', 1, 1, 2, 1);
 /*!40000 ALTER TABLE `tbelib_buku` ENABLE KEYS */;
 
 -- Dumping structure for table elibrary.tbelib_buku_detail
-DROP TABLE IF EXISTS `tbelib_buku_detail`;
 CREATE TABLE IF NOT EXISTS `tbelib_buku_detail` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `no_induk` varchar(25) CHARACTER SET utf8 NOT NULL DEFAULT '0',
@@ -105,7 +101,7 @@ CREATE TABLE IF NOT EXISTS `tbelib_buku_detail` (
   CONSTRAINT `FK_tbelib_buku_detail_tbelib_buku` FOREIGN KEY (`buku_id`) REFERENCES `tbelib_buku` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='Status\r\n0 = Not Ready\r\n1 = Ready';
 
--- Dumping data for table elibrary.tbelib_buku_detail: ~3 rows (approximately)
+-- Dumping data for table elibrary.tbelib_buku_detail: ~2 rows (approximately)
 /*!40000 ALTER TABLE `tbelib_buku_detail` DISABLE KEYS */;
 REPLACE INTO `tbelib_buku_detail` (`id`, `no_induk`, `isbn`, `status`, `buku_id`) VALUES
 	(1, '262/SMKN7/H.2021', '111-111-111-111-0', 1, 2),
@@ -114,7 +110,6 @@ REPLACE INTO `tbelib_buku_detail` (`id`, `no_induk`, `isbn`, `status`, `buku_id`
 /*!40000 ALTER TABLE `tbelib_buku_detail` ENABLE KEYS */;
 
 -- Dumping structure for table elibrary.tbelib_count
-DROP TABLE IF EXISTS `tbelib_count`;
 CREATE TABLE IF NOT EXISTS `tbelib_count` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `total_count` int(11) NOT NULL,
@@ -131,21 +126,20 @@ REPLACE INTO `tbelib_count` (`id`, `total_count`, `keterangan`) VALUES
 /*!40000 ALTER TABLE `tbelib_count` ENABLE KEYS */;
 
 -- Dumping structure for table elibrary.tbelib_jenis_buku
-DROP TABLE IF EXISTS `tbelib_jenis_buku`;
 CREATE TABLE IF NOT EXISTS `tbelib_jenis_buku` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `keterangan` varchar(50) CHARACTER SET utf8 NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table elibrary.tbelib_jenis_buku: ~0 rows (approximately)
 /*!40000 ALTER TABLE `tbelib_jenis_buku` DISABLE KEYS */;
 REPLACE INTO `tbelib_jenis_buku` (`id`, `keterangan`) VALUES
-	(1, 'Fisik');
+	(1, 'Fisik'),
+	(2, 'PDF');
 /*!40000 ALTER TABLE `tbelib_jenis_buku` ENABLE KEYS */;
 
 -- Dumping structure for table elibrary.tbelib_kategori
-DROP TABLE IF EXISTS `tbelib_kategori`;
 CREATE TABLE IF NOT EXISTS `tbelib_kategori` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(150) CHARACTER SET utf8 NOT NULL,
@@ -162,7 +156,6 @@ REPLACE INTO `tbelib_kategori` (`id`, `name`, `type`, `slug`) VALUES
 /*!40000 ALTER TABLE `tbelib_kategori` ENABLE KEYS */;
 
 -- Dumping structure for table elibrary.tb_user
-DROP TABLE IF EXISTS `tb_user`;
 CREATE TABLE IF NOT EXISTS `tb_user` (
   `id_user` int(11) NOT NULL AUTO_INCREMENT,
   `nama` varchar(50) NOT NULL,

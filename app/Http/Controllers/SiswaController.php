@@ -46,9 +46,11 @@ class SiswaController extends Controller
                 'tbelib_kategori.slug as slug_kategori',
                 'tbelib_jenis_buku.keterangan as jenis_buku',
             )
-            // ->whereNot(function ($query) {
-            //     $query->where('keterangan', 'Fisik');
-            // })
+            ->where(function($query){
+                $query->whereNotNull("tbelib_jenis_buku.keterangan")
+                      ->where("tbelib_jenis_buku.keterangan", "!=", 'Fisik');
+              })
+            // ->where('tbelib_jenis_buku.keterangan', '!=', 'Fisik')
             ->get();
         // $tes = BukuModel::whereHas('tbelib_jenis_buku', function ($query) {
         //     $query->where('keterangan', '!=', 'Fisik');
@@ -176,14 +178,14 @@ class SiswaController extends Controller
 
         // dd(Auth::guard('websiswa')->user()->nama);
         BookingModel::create([
-            'buku_id' => $booking->id,
+            // 'buku_id' => $booking->id,
             'notelp' => $request->notelp,
             'nisn' => Auth::guard('websiswa')->user()->username,
             'nama' => Auth::guard('websiswa')->user()->nama,
             'status' => 1,
         ]);
 
-        return redirect()->back()->with('status', 'Berhasil mem-booking buku'. $booking->buku_id .', silahkan ambil buku ke perpustakaan dengan batas waktu 2 hari!');
+        return redirect()->back()->with('status', 'Berhasil mem-booking buku, silahkan ambil buku ke perpustakaan dengan batas waktu 2 hari!');
     }
     public function user()
     {

@@ -65,7 +65,7 @@
                             <td>{{ $item->nama }}</td>
                             <td><a href="https://wa.me/{{ $item->notelp }}" target="_break"
                                     title="Hubungi {{ $item->nama }}">{{ $item->notelp }}</a></td>
-                            <td>{{ $item->buku_id }}</td>
+                            <td>{{ $item->judul_buku }}</td>
                             <td>
                                 <div class="form-check form-switch">
                                     <input class="form-check-input" type="checkbox" role="switch"
@@ -122,8 +122,8 @@
                     name: 'notelp'
                 },
                 {
-                    data: 'buku_detail_id',
-                    name: 'buku_detail_id'
+                    data: 'buku_id',
+                    name: 'buku_id'
                 },
                 {
                     data: 'status',

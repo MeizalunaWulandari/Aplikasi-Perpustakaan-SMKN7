@@ -44,12 +44,11 @@
                                             <div class="modal-body">
                                                 <form action="{{ url('booking') }}" method="post">
                                                     @csrf
-                                                    <input type="hidden" name="id" value="{{ $buku->id_buku }}">
                                                     <div class="mb-3">
                                                         <label for="exampleFormControlInput1" class="form-label">Nomor
                                                             Telepon</label>
                                                         <input type="number" class="form-control"
-                                                            id="exampleFormControlInput1" placeholder="628**********" name="notelp">
+                                                            id="exampleFormControlInput1" placeholder="628**********" name="notelp" value="628">
                                                     </div>
                                                 </form>
                                                 <button type="button" class="btn btn-primary">Booking Now</button>
