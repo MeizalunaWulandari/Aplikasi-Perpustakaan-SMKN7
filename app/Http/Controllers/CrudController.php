@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BukuDetailModel;
+use App\Models\BukuModel;
 use App\Models\KategoriModel;
 use Illuminate\Http\Request;
 
@@ -9,6 +11,79 @@ use Cviebrock\EloquentSluggable\Services\SlugService;
 
 class CrudController extends Controller
 {
+
+    // Kategori
+    public function createBukufisik($id)
+    {
+        $buku = BukuModel::where('tbelib_buku.id', $id)
+        ->join('tbelib_kategori', 'tbelib_buku.kategori_id', '=', 'tbelib_kategori.id')
+        ->join('tbelib_jenis_buku', 'tbelib_buku.jenis_id', '=', 'tbelib_jenis_buku.id')
+        ->select(
+            'tbelib_buku.id',
+            'tbelib_buku.judul',
+            'tbelib_buku.pengarang',
+            'tbelib_buku.penerbit',
+            'tbelib_jenis_buku.keterangan as jenis_buku',
+            'tbelib_kategori.name as kategori_buku',
+        )
+        ->first();
+        $data = [
+            'title' => 'CRUD',
+            'buku' => $buku
+        ];
+        return view('admin.crud.addbuku', $data);
+    }
+    public function storeBukufisik(Request $request)
+    {
+        BukuDetailModel::create([
+            'no_induk' => $request->no_induk,
+            'isbn' => $request->isbn,
+            'status' => 1,
+            'buku_id' => $request->id
+        ]);
+        
+        return redirect()->to('/admin/buku-fisik')->with('status', 'Buku berhasil ditambah');
+    }
+    public function editBukufisik($id)
+    {
+        $data = [
+            'title' => 'CRUD',
+        ];
+        //
+    }
+    public function updateBukufisik(Request $request, $id)
+    {
+        $data = [
+            'title' => 'CRUD',
+        ];
+        //
+    }
+    public function destroyBukufisik(BukuModel $id)
+    {
+        $id->delete();
+        // return redirect('/admin/buku-fisik')->with('status', 'Buku berhasil dihapus!');
+    }
+    public function editBukuDetailfisik($id)
+    {
+        $data = [
+            'title' => 'CRUD',
+        ];
+        //
+    }
+    public function updateBukuDetailfisik(Request $request, $id)
+    {
+        $data = [
+            'title' => 'CRUD',
+        ];
+        //
+    }
+    public function destroyBukuDetailfisik($id)
+    {
+        $data = [
+            'title' => 'CRUD',
+        ];
+        //
+    }
 
     // Kategori
     public function createKategori()

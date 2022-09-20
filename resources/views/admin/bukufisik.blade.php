@@ -24,7 +24,7 @@
 @endsection
 @section('content')
     <div class="page-heading">
-        <h3>Data Booking</h3><br><br>
+        <h3>Data Buku Fisik</h3><br><br>
         <div class="d-sm-flex align-items-center justify-content-between">
             {{-- <div class="d-sm-inline-block">
                 <div class="form-group">
@@ -160,7 +160,7 @@
                 {
                     className: 'actions-control',
                     data: 'null',
-                    defaultContent: ''
+                    defaultContent: '<a href="/admin/tambah-buku/2" class="btn btn-primary"><i class="bi bi-file-earmark-plus"></i></a>'
                 },
                 {
                     className: 'details-control',
@@ -169,21 +169,57 @@
                 }
             ],
             columnDefs: [{
-                render: function(data, type, row, meta) {
-                    const cover = "{{ asset('imgassets') }}/" + row.cover;
+                    render: function(data, type, row, meta) {
+                        const cover = "{{ asset('imgassets') }}/" + row.cover;
 
-                    const html = `<a class="example-image-link" href="${cover}"
+                        const html = `<a class="example-image-link" href="${cover}"
                                     data-lightbox="example-1"><img style="width: 100px;" class="example-image"
                                         src="${cover}" alt="image-1" /></a>`;
 
-                    return html;
+                        return html;
+                    },
+                    targets: [1]
                 },
-                targets: [1]
-            }, ],
+                {
+                    render: function(data, type, row, meta) {
+                        // console.log(row);
+                        const cover = "{{ asset('imgassets') }}/" + row.cover;
+
+                        const html =
+                            `<a href="/admin/tambah-buku/${row.id}" class="btn btn-primary mb-2" title="Tambah buku baru dengan judul ${row.judul} "><i class="bi bi-file-earmark-plus"></i></a>` +
+                            `<button class="btn btn-danger hapus-buku" data-id="${row.id}" data-judul="${row.judul}"><i class="bi bi-trash3"></i></button>`;
+
+                        return html;
+                    },
+                    targets: [9]
+                },
+            ],
             order: [],
             language: {
                 search: "",
                 searchPlaceholder: "Search"
+            }
+        });
+
+        $('#table-buku tbody').on('click', 'td button.hapus-buku ', function() {
+            // console.log($(this).attr("data-judul"));
+            const judul = $(this).attr("data-judul");
+            if (confirm(`Yakin ingin menghapus ${judul} ?`) == true) {
+
+                const id = $(this).attr("data-id");
+
+                $.ajax({
+                    type: "POST",
+                    url: "{{ url('/admin/hapus-buku') }}/" + id,
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        _method: 'DELETE',
+                    },
+                    success: function(data) {
+                        table.draw();
+                    }
+                });
+
             }
         });
 
@@ -221,6 +257,7 @@
                                 <th scope="col">No Induk</th>
                                 <th scope="col">Inisial Buku</th>
                                 <th scope="col">ISBN</th>
+                                <th scope="col">Action</th>
                                 <th scope="col">Status</th>
                                 </tr>
                             </thead>
@@ -228,6 +265,7 @@
 
             let no = 1;
             for (const v of detail) {
+                console.log(v);
                 table += `  <tr>
                                 <th scope="row">${no}</th>
                                 <td>${v.tempat_terbit}</td>
@@ -235,6 +273,9 @@
                                 <td>${v.no_induk}</td>
                                 <td>${v.inisial_buku}</td>
                                 <td>${v.isbn}</td>
+                                <td>
+                                    <a href="/admin/edit-buku/${v.id_detail}" class="btn btn-primary"><i class="bi bi-pencil-square"></i></a>
+                                </td>
                                 <td>
                                     <div class="${v.status==1 ? 'Ready' : 'Dipinjam'}">
                                     ${v.status==1 ?'Ready' : 'Dipinjam'}

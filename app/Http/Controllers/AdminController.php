@@ -96,7 +96,17 @@ class AdminController extends Controller
             ->where('tbelib_buku.id', $id)
             ->first();
 
-        $detail = BukuDetailModel::where('buku_id', $id)->join('tbelib_buku', 'tbelib_buku_detail.buku_id', '=', 'tbelib_buku.id')->get();
+        $detail = BukuDetailModel::where('buku_id', $id)->join('tbelib_buku', 'tbelib_buku_detail.buku_id', '=', 'tbelib_buku.id')
+        ->select(
+            'tbelib_buku.judul',
+            'tbelib_buku.tahun_terbit',
+            'tbelib_buku.tempat_terbit',
+            'tbelib_buku.inisial_buku',
+            'tbelib_buku_detail.id as id_detail',
+            'tbelib_buku_detail.no_induk',
+            'tbelib_buku_detail.isbn',
+            'tbelib_buku_detail.status',
+        )->get();
 
         return response()->json(['buku' => $buku, 'detail' => $detail]);
     }

@@ -20,7 +20,7 @@
     {{-- Datatable --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
-    
+
     {{-- Lightbox --}}
     <link rel="stylesheet" href="{{ asset('mycss/lightbox.css') }}">
 
@@ -139,13 +139,10 @@
             </header>
             @if (session('status'))
                 <div class="position-fixed top-0 end-0 p-3" style="z-index: 11">
-                    <div id="liveToast" class="toast show" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
+                    <div id="liveToast" class="toast show" role="alert" aria-live="assertive" aria-atomic="true"
+                        data-bs-autohide="false">
                         <div class="toast-header">
-                            <svg class="bd-placeholder-img rounded me-2" width="20" height="20"
-                                xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
-                                preserveAspectRatio="xMidYMid slice" focusable="false">
-                                <rect width="100%" height="100%" fill="#007aff"></rect>
-                            </svg>
+                            <img src="{{ asset('imgassets/buku.png') }}" alt="">
                             <strong class="me-auto">Notification</strong>
                             <small>Now</small>
                             <button type="button" class="btn-close" data-bs-dismiss="toast"

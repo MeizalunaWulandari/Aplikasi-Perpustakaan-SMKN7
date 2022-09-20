@@ -46,6 +46,11 @@ Route::group(['middleware' => ['admin']], function () {
     Route::put('admin/booking/status/{id}', [AdminController::class, 'updateStatus'])->name('admin.booking.update-status');
 
     // CRUD
+    // Buku
+    Route::get('admin/tambah-buku/{id}', [CrudController::class, 'createBukufisik']);
+    Route::post('admin/simpan-buku/', [CrudController::class, 'storeBukufisik']);
+    Route::delete('admin/hapus-buku/{id}', [CrudController::class, 'destroyBukufisik']);
+
     // Kategori
     Route::get('admin/tambah-kategori', [CrudController::class, 'createKategori']);
 
@@ -53,6 +58,7 @@ Route::group(['middleware' => ['admin']], function () {
     Route::get('admin/tambah-kurikulum', [CrudController::class, 'createKurikulum']);
     Route::post('admin/simpan-kurikulum', [CrudController::class, 'storeKurikulum']);
     Route::delete('admin/hapus-kurikulum/{id}', [CrudController::class, 'destroyKurikulum']);
+
 });
 
 // Siswa
