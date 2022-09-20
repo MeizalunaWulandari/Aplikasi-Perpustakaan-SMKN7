@@ -131,6 +131,71 @@
             </div>
         </div>
     </section>
+    <section id="kurikulum">
+        <div class="container">
+            <h4>Akses Buku Lebih Mudah</h4>
+            <hr class="bg-yellow">
+            <div class="row">
+                @foreach ($kategoriLoop as $item)
+                    <div class="col-lg mb-3">
+                        {{-- <div
+                            class="card d-flex align-items-center <?= Request::url() == url('katalog/' . $item->slug) ? 'active' : '' ?> shadow">
+                            <img src="{{ url('imgassets/buku.png') }}" alt="">
+                            <span>
+                                <p>{{ $item->name }}</p>
+                                <a  href="{{ url('katalog/' . $item->slug) }}">Lihat Selengkapnya</a>
+                            </span>
+                        </div> --}}
+                        <a href="{{ url('katalog/' . $item->slug) }}">
+                            <div
+                                class="card align-items-center <?= Request::url() == url('katalog/' . $item->slug) ? 'active' : '' ?> shadow">
+                                <img src="{{ url('imgassets/buku.png') }}" alt="">
+                                <span>
+                                    <p>{{ $item->name }}</p>
+                                    <p>Lihat Selengkapnya</p>
+                                </span>
+                            </div>
+                        </a>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            <div class="d-flex justify-content-between mb-4">
+                <div>
+                    <h2>Buku <span class="yellow">Nonteks</span></h2>
+                </div>
+                <div>
+                    <h5>
+                        <a class="link-blue" href="{{ url('katalog') }}">Lihat Semua <i class="bi bi-arrow-right"></i></a>
+                    </h5>
+                </div>
+            </div>
+            <div class="owl-carousel section-two owl-theme">
+                @foreach ($bukuFisik as $item)
+                    <div class="grid-item">
+                        <div class="book">
+                            <a href="{{ url('book-detail/' . $item->slug_buku) }}">
+                                <div class="card ">
+                                    <span class="cover">
+                                        <img src="{{ asset('imgassets/covernonteks.jpg') }}" alt="{{ $item->judul }}">
+                                    </span>
+                                    <div class="description">
+                                        <p class="card-text small muted blue">Availble Book <b>{{ $item->stock }}</b></p>
+                                        <p class="card-text small muted yellow fw-bold">{{ $item->penerbit }}</p>
+                                        <span class="jenis-buku small">{{ $item->jenis_buku }}</span>
+                                        <p>{{ $item->judul }}</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
 @endsection
 
 @section('script')
