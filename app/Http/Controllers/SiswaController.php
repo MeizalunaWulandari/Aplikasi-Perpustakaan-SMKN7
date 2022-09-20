@@ -57,6 +57,7 @@ class SiswaController extends Controller
         // })->get();
 
         $kategori = KategoriModel::all();
+        $kategoriLoop = KategoriModel::all();
 
         $data = [
             'countTelahDibaca' => $countBukuTelahDibaca,
@@ -64,7 +65,8 @@ class SiswaController extends Controller
             'countBukuTersedia' => $countBukuTersedia,
             'bukuFisik' => $bukuFisik,
             'bukuDigital' => $bukuDigital,
-            'kategori' => $kategori
+            'kategori' => $kategori,
+            'kategoriLoop' => $kategoriLoop,
         ];
         // dd($data);
         return view('siswa.home', $data);
