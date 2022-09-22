@@ -24,7 +24,7 @@
                         </form> --}}
                     </div>
                     {{-- <div class="col-lg">
-                        <img src="{{ asset('imgassets/header.png') }}" alt="" />
+                        <img src="{{ asset('storage/header.png') }}" alt="" />
                     </div> --}}
                 </div>
             </div>
@@ -70,7 +70,7 @@
                             <a href="{{ url('book-detail/' . $item->slug_buku) }}">
                                 <div class="card ">
                                     <span class="cover">
-                                        <img src="{{ asset('imgassets/coverbook.png') }}" alt="{{ $item->judul }}">
+                                        <img src="{{ asset('storage/' . $item->cover) }}" alt="{{ $item->judul }}">
                                     </span>
                                     <div class="description">
                                         <p class="card-text small muted blue">Availble Book <b>{{ $item->stock }}</b></p>
@@ -109,13 +109,13 @@
                 </div>
             </div>
             <div class="owl-carousel section-two owl-theme">
-                @foreach ($bukuFisik as $item)
+                @foreach ($bukuDigital as $item)
                     <div class="grid-item">
                         <div class="book">
                             <a href="{{ url('book-detail/' . $item->slug_buku) }}">
                                 <div class="card ">
                                     <span class="cover">
-                                        <img src="{{ asset('imgassets/coverbook.png') }}" alt="{{ $item->judul }}">
+                                        <img src="{{ asset('storage/' . $item->cover) }}" alt="{{ $item->judul }}">
                                     </span>
                                     <div class="description">
                                         <p class="card-text small muted blue">Availble Book <b>{{ $item->stock }}</b></p>
@@ -174,13 +174,13 @@
                 </div>
             </div>
             <div class="owl-carousel section-two owl-theme">
-                @foreach ($bukuFisik as $item)
+                @foreach ($bukuNonteks as $item)
                     <div class="grid-item">
                         <div class="book">
                             <a href="{{ url('book-detail/' . $item->slug_buku) }}">
                                 <div class="card ">
                                     <span class="cover">
-                                        <img src="{{ asset('imgassets/covernonteks.jpg') }}" alt="{{ $item->judul }}">
+                                        <img src="{{ asset('storage/' . $item->cover) }}" alt="{{ $item->judul }}">
                                     </span>
                                     <div class="description">
                                         <p class="card-text small muted blue">Availble Book <b>{{ $item->stock }}</b></p>

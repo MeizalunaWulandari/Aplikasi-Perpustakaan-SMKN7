@@ -30,7 +30,7 @@
                 </div> 
                 @endif
                 <div class="mb-3">
-                    <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" placeholder="NISN" autofocus>
+                    <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" placeholder="Username" autofocus>
                     @error('username')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -38,7 +38,7 @@
                     @enderror
                 </div>
                 <div class="mb-4">
-                    <input type="password" name="password" class="form-control mb-2 @error('password') is-invalid @enderror" placeholder="PASSWORD" id="password">
+                    <input type="password" name="password" class="form-control mb-2 @error('password') is-invalid @enderror" placeholder="Password" id="password">
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" onclick="myFunction()" id="flexCheckDefault">
                         <label class="form-check-label" for="flexCheckDefault">

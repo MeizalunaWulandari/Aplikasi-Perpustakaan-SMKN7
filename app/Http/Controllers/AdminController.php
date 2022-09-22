@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\BookingModel;
 use App\Models\BukuDetailModel;
 use App\Models\BukuModel;
+use App\Models\JenisModel;
 use App\Models\KategoriModel;
 
 use Illuminate\Http\Request;
@@ -41,8 +42,10 @@ class AdminController extends Controller
 
         return response()->json(['success' => 'true']);
     }
-    public function bukufisik()
+    public function buku()
     {
+        $jenis = JenisModel::all();
+        $kategori = KategoriModel::all();
         $buku = BukuModel::join('tbelib_kategori', 'tbelib_buku.kategori_id', '=', 'tbelib_kategori.id')
             ->join('tbelib_jenis_buku', 'tbelib_buku.jenis_id', '=', 'tbelib_jenis_buku.id')
             ->where('tbelib_jenis_buku.keterangan', 'Fisik')
@@ -61,11 +64,13 @@ class AdminController extends Controller
         // dd($buku);
         $data = [
             'title' => 'Admin Perpustakaan | Data Buku',
-            'buku' => $buku
+            'jenis_buku' => $jenis,
+            'buku' => $buku,
+            'kategori' => $kategori,
         ];
-        return view('admin.bukufisik', $data);
+        return view('admin.buku', $data);
     }
-    public function getBukuFisik()
+    public function getBuku(Request $request)
     {
         $data = BukuModel::query()
             ->select(
@@ -81,15 +86,24 @@ class AdminController extends Controller
                 'tbelib_kategori.name as kategori'
             )
             ->join('tbelib_kategori', 'tbelib_buku.kategori_id', 'tbelib_kategori.id')
-            ->join('tbelib_jenis_buku', 'tbelib_buku.jenis_id', 'tbelib_jenis_buku.id')
-            ->where('tbelib_buku.jenis_id', 1) // Buku Fisik
-            ->get();
+            ->join('tbelib_jenis_buku', 'tbelib_buku.jenis_id', 'tbelib_jenis_buku.id');
+            // ->where('tbelib_buku.jenis_id', 1) // Buku Fisik
+        // ->get();
+        // dd($request->jenis_id)
+        ;
+        if ($request->jenis_id) {
+            $data = $data->where('tbelib_buku.jenis_id', $request->jenis_id);
+        }
+        if ($request->kategori_id) {
+            $data = $data->where('tbelib_buku.kategori_id', $request->kategori_id);
+        }
+        $data = $data->get();
 
         return DataTables::of($data)
             ->addIndexColumn()
             ->toJson();
     }
-    public function getBukuFisikDetailById($id)
+    public function getBukuDetailById($id)
     {
         $buku = BukuModel::query()
             ->selectRaw('tbelib_buku.*')
@@ -97,32 +111,18 @@ class AdminController extends Controller
             ->first();
 
         $detail = BukuDetailModel::where('buku_id', $id)->join('tbelib_buku', 'tbelib_buku_detail.buku_id', '=', 'tbelib_buku.id')
-        ->select(
-            'tbelib_buku.judul',
-            'tbelib_buku.tahun_terbit',
-            'tbelib_buku.tempat_terbit',
-            'tbelib_buku.inisial_buku',
-            'tbelib_buku_detail.id as id_detail',
-            'tbelib_buku_detail.no_induk',
-            'tbelib_buku_detail.isbn',
-            'tbelib_buku_detail.status',
-        )->get();
+            ->select(
+                'tbelib_buku.judul',
+                'tbelib_buku.tahun_terbit',
+                'tbelib_buku.tempat_terbit',
+                'tbelib_buku.inisial_buku',
+                'tbelib_buku_detail.id as id_detail',
+                'tbelib_buku_detail.no_induk',
+                'tbelib_buku_detail.isbn',
+                'tbelib_buku_detail.status',
+            )->get();
 
         return response()->json(['buku' => $buku, 'detail' => $detail]);
-    }
-    public function bukudigital()
-    {
-        $data = [
-            'title' => 'Admin Perpustakaan | Data Buku',
-        ];
-        return view('admin.bukudigital', $data);
-    }
-    public function bukukejuruan()
-    {
-        $data = [
-            'title' => 'Admin Perpustakaan | Data Buku',
-        ];
-        return view('admin.bukukejuruan', $data);
     }
     public function kategori()
     {

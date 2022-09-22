@@ -147,7 +147,7 @@
                                     <a href="{{ url('book-detail/' . $item->slug_buku) }}">
                                         <div class="card">
                                             <span class="cover">
-                                                <img src="{{ asset('imgassets/' . $item->cover) }}"
+                                                <img src="{{ asset('storage/' . $item->cover) }}"
                                                     alt="{{ $item->judul }}">
                                             </span>
                                             <div class="description">

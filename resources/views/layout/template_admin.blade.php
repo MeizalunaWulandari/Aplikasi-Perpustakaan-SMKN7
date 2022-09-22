@@ -88,26 +88,11 @@
                                 <span>Data Booking</span>
                             </a>
                         </li>
-                        <li class="sidebar-item has-sub">
-                            <a href="#" class="sidebar-link">
+                        <li class="sidebar-item <?= Request::url() == url('/admin/data-buku') ? 'active' : '' ?>">
+                            <a href="/admin/data-buku" class='sidebar-link'>
                                 <i class="bi bi-book"></i>
                                 <span>Data Buku</span>
                             </a>
-                            <ul
-                                class="submenu <?= ((Request::url() == url('/admin/buku-fisik') ? 'active' : Request::url() == url('/admin/buku-digital')) ? 'active' : Request::url() == url('/admin/buku-kejuruan')) ? 'active' : '' ?>">
-                                <li
-                                    class="submenu-item <?= Request::url() == url('/admin/buku-fisik') ? 'active' : '' ?>">
-                                    <a href="{{ url('/admin/buku-fisik') }}">Buku Fisik</a>
-                                </li>
-                                <li
-                                    class="submenu-item <?= Request::url() == url('/admin/buku-digital') ? 'active' : '' ?>">
-                                    <a href="{{ url('/admin/buku-digital') }}">Buku Digital</a>
-                                </li>
-                                <li
-                                    class="submenu-item <?= Request::url() == url('/admin/buku-kejuruan') ? 'active' : '' ?>">
-                                    <a href="{{ url('/admin/buku-kejuruan') }}">Buku Kejuruan</a>
-                                </li>
-                            </ul>
                         </li>
                         <li class="sidebar-item <?= Request::url() == url('/admin/kategori-buku') ? 'active' : '' ?>">
                             <a href="/admin/kategori-buku" class='sidebar-link'>
