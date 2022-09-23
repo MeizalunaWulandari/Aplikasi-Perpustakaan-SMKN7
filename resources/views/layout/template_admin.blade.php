@@ -106,6 +106,12 @@
                                 <span>Kurikulum</span>
                             </a>
                         </li>
+                        <li class="sidebar-item <?= Request::url() == url('/admin/jenis-buku') ? 'active' : '' ?>">
+                            <a href="/admin/jenis-buku" class='sidebar-link'>
+                                <i class="bi bi-clipboard2"></i>
+                                <span>Jenis Buku</span>
+                            </a>
+                        </li>
                         <li class="sidebar-item">
                             <a href="/logout" class='sidebar-link'>
                                 <i class="bi bi-box-arrow-left"></i>

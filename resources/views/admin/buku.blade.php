@@ -295,7 +295,8 @@
                                 <td>${v.inisial_buku}</td>
                                 <td>${v.isbn}</td>
                                 <td>
-                                    <a href="/admin/edit-buku/${v.id_detail}" class="btn btn-primary"><i class="bi bi-pencil-square"></i></a>
+                                    <a href="/admin/edit-detail-buku/${v.id_detail}" class="btn btn-primary"><i class="bi bi-pencil-square"></i></a>
+                                    <button class="btn btn-danger hapus-detail-buku" data-id="${v.id_detail}" data-no_induk="${v.no_induk}"><i class="bi bi-trash3"></i></button>
                                 </td>
                                 <td>
                                     <div class="${v.status==1 ? 'Ready' : 'Dipinjam'}">
@@ -305,6 +306,28 @@
                             </tr>`;
                 no++;
             }
+
+            $('#table-buku tbody').on('click', 'td button.hapus-detail-buku ', function() {
+                // console.log($(this).attr("data-judul"));
+                const no_induk = $(this).attr("data-no_induk");
+                if (confirm(`Yakin ingin menghapus ${no_induk} ?`) == true) {
+
+                    const id = $(this).attr("data-id");
+
+                    $.ajax({
+                        type: "POST",
+                        url: "{{ url('/admin/hapus-detail-buku') }}/" + id,
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                            _method: 'DELETE',
+                        },
+                        success: function(data) {
+                            location.reload()
+                        }
+                    });
+
+                }
+            });
 
             const slider = `
                             <div class="slider">
@@ -350,7 +373,7 @@
                                                 <label>No klasifikasi</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p>${buku.no_klasifikasi}</p>
+                                                <p>${buku.no_klasifikasi}</p>   
                                             </div>
                                         </div>
                                         <div class="row">

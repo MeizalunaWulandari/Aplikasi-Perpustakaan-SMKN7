@@ -142,4 +142,13 @@ class AdminController extends Controller
         ];
         return view('admin.kurikulum', $data);
     }
+    public function jenisBuku()
+    {
+        $jenis = JenisModel::all();
+        $data = [
+            'title' => 'Admin Perpustakaan | Jenis Buku',
+            'jenis' => $jenis,
+        ];
+        return view('admin.jenis', $data);
+    }
 }

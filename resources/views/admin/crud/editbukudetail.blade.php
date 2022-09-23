@@ -3,12 +3,12 @@
 @section('content')
     {{-- @dd($buku) --}}
     <div class="page-heading">
-        <h3>Tambah Kategori</h3>
+        <h3>Edit Detail Buku</h3>
     </div>
     <div class="page-body">
-        <form action="{{ url('admin/simpan-buku') }}" method="POST">
+        <form action="{{ url('admin/update-detail-buku/' . $bukuDetail->id_detail) }}" method="POST">
             @csrf
-            <input type="hidden" name="id" value="{{ $buku->id }}">
+            <input type="hidden" name="id" value="{{ $bukuDetail->id_buku }}">
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Judul Buku</label>
                 <input type="text" class="form-control @error('judul') is-invalid @enderror"
@@ -57,7 +57,7 @@
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Nomor Induk Buku</label>
                 <input type="text" class="form-control @error('no_induk') is-invalid @enderror"
-                    id="exampleFormControlInput1" placeholder=".../SMKN7/H.2021" name="no_induk" autofocus required>
+                    id="exampleFormControlInput1" placeholder="No Induk Buku" name="no_induk" autofocus required value="{{ $bukuDetail->no_induk }}">
                 @error('no_induk')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -65,7 +65,7 @@
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">ISBN Buku</label>
                 <input type="text" class="form-control @error('isbn') is-invalid @enderror" id="exampleFormControlInput1"
-                    placeholder="ISBN (International Standard Book Number)" name="isbn" autofocus>
+                    placeholder="ISBN (International Standard Book Number)" name="isbn" autofocus value="{{ $bukuDetail->isbn }}">
                 @error('isbn')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
