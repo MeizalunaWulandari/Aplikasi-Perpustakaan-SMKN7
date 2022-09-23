@@ -34,12 +34,15 @@ class LoginController extends Controller
         // dd($siswa);
         if ($siswa) {
             Auth::guard('websiswa')->login($siswa);
+            $siswa->login_terakhir = date("Y-m-d H:i:s");
+            $siswa->update();
             return redirect()->intended('/');
         }
         if ($admin) {
             if (Auth::guard('webadmin')->attempt(['username' => $request->username, 'password' => $request->password])) {
                 $request->session()->regenerate();
-
+                $admin->login_terakhir = date("Y-m-d H:i:s");
+                $admin->update();
                 return redirect()->intended('/admin');
             }
         }

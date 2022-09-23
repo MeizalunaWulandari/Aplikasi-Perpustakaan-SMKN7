@@ -26,30 +26,30 @@
     <div class="page-heading">
         <h3>Data Buku</h3><br><br>
         <div class="d-sm-flex align-items-center justify-content-between">
-            <div class="d-sm-inline-block">
-                <a href="{{ url('admin/tambah-buku') }}" class="btn btn-primary">Tambah Buku</a>
-            </div>
-            <div class="form-group">
-                <label for="filter">Filter Jenis Buku</label>
-                <select name="filter_jenis" id="filter_jenis" class="form-control" required>
-                    <option value="" selected>Pilih Jenis Buku</option>
-                    @foreach ($jenis_buku as $item)
-                        <option value="{{ $item->id }}">{{ $item->keterangan }}</option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="filter">Filter Kategori</label>
-                <select name="filter_kategori" id="filter_kategori" class="form-control" required>
-                    <option value="" selected>Pilih Kategori Buku</option>
-                    @foreach ($kategori as $item)
-                        <option value="{{ $item->id }}">{{ $item->name }}</option>
-                    @endforeach
-                </select>
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="form-group">
+                    <label for="filter">Filter Jenis Buku</label>
+                    <select name="filter_jenis" id="filter_jenis" class="form-control" required>
+                        <option value="" selected>Pilih Jenis Buku</option>
+                        @foreach ($jenis_buku as $item)
+                            <option value="{{ $item->id }}">{{ $item->keterangan }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="filter">Filter Kategori</label>
+                    <select name="filter_kategori" id="filter_kategori" class="form-control" required>
+                        <option value="" selected>Pilih Kategori Buku</option>
+                        @foreach ($kategori as $item)
+                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
             {{-- </div> --}}
             {{-- <div class="d-sm-flex align-items-center justify-content-end"> --}}
             <div class="d-sm-inline-block">
+                <a href="{{ url('admin/tambah-buku') }}" class="btn btn-primary">Tambah Buku</a>
                 <a href="#" class="btn btn-primary">Export</a>
             </div>
         </div>
@@ -172,7 +172,7 @@
                 {
                     className: 'actions-control',
                     data: 'null',
-                    defaultContent: '<a href="/admin/tambah-detail-buku/2" class="btn btn-primary"><i class="bi bi-file-earmark-plus"></i></a>'
+                    defaultContent: '<a href="/admin/tambah-detail-buku/2" class="btn btn-primary"><i class="bi bi-file-earmark-plus"></i></a> <a href="/admin/edit-buku/2" class="btn btn-primary"><i class="bi bi-pencil-square"></i></a>'
                 },
                 {
                     className: 'details-control',
@@ -199,6 +199,7 @@
 
                         const html =
                             `<a href="/admin/tambah-detail-buku/${row.id}" class="btn btn-primary mb-2" title="Tambah buku baru dengan judul ${row.judul} "><i class="bi bi-file-earmark-plus"></i></a>` +
+                            `<a href="/admin/edit-buku/${row.id}" class="btn btn-primary mb-2"><i class="bi bi-pencil-square"></i></a>` +
                             `<button class="btn btn-danger hapus-buku" data-id="${row.id}" data-judul="${row.judul}"><i class="bi bi-trash3"></i></button>`;
 
                         return html;

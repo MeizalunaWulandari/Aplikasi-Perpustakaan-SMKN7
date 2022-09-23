@@ -14,6 +14,8 @@ class SiswalogModel extends Authenticatable
     protected $table = 'tb_user';
 
     protected $primaryKey = 'id_user';
+
+    public $timestamps = false;
     /**
      * The attributes that are mass assignable.
      *

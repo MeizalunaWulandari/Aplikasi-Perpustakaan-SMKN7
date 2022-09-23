@@ -12,6 +12,8 @@ class AdminlogModel extends Authenticatable
     protected $guard = 'webadmin';
 
     protected $table = 'tbelib_admin';
+
+    public $timestamps = false;
     /**
      * The attributes that are mass assignable.
      *

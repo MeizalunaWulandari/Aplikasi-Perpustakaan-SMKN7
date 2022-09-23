@@ -49,6 +49,8 @@ Route::group(['middleware' => ['admin']], function () {
     // Buku
     Route::get('admin/tambah-buku/', [CrudController::class, 'createBuku']);
     Route::post('admin/simpan-buku/', [CrudController::class, 'storeBuku']);
+    Route::get('admin/edit-buku/{id}', [CrudController::class, 'editBuku']);
+    Route::post('admin/update-buku/{id}', [CrudController::class, 'updateBuku']);
     Route::delete('admin/hapus-buku/{id}', [CrudController::class, 'destroyBuku']);
 
     Route::get('admin/tambah-detail-buku/{id}', [CrudController::class, 'createDetailBuku']);

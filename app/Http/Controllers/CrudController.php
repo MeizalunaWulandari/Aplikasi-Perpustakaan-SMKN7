@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 
 use Cviebrock\EloquentSluggable\Services\SlugService;
 use Facade\FlareClient\Stacktrace\File;
+use Illuminate\Support\Facades\Storage;
 
 class CrudController extends Controller
 {
@@ -27,7 +28,6 @@ class CrudController extends Controller
         ];
         return view('admin.crud.addbuku', $data);
     }
-
     public function storeBuku(Request $request)
     {
         // dd($request);
@@ -40,7 +40,6 @@ class CrudController extends Controller
             'tempat_terbit' => 'required',
             'penerbit' => 'required',
             'tahun_terbit' => 'required',
-            'no_klasifikasi' => 'required',
             'tahun_buku' => 'required',
             'inisial' => 'required',
             'kategori_id' => 'required',
@@ -64,26 +63,140 @@ class CrudController extends Controller
             'kategori_id.required' => 'Kategori buku wajib diisi!',
             'jenis_id.required' => 'Jenis buku wajib diisi!',
         ];
-        // $this->validate($request, $validated, $customMessages);
-        // dd($request->inisial_buku);
-        // dd($request->file('pdf')->getClientOriginalName());
+        if ($request->jenis_id == 1) {
+            $validated['no_klasifikasi'] = 'required';
+        } else if ($request->jenis_id != 1) {
+            $validated['pdf'] = 'required';
+        }
         if ($request->file('cover')) {
             $validated['cover'] = $request->file('cover')->store('book-cover');
         }
-        // $file_pdf = $request->file('pdf')->getClientOriginalName();
-        if ($request->file('pdf')) {
+        $this->validate($request, $validated, $customMessages);
+        // if ($request->file('pdf')) {
+        //     $save = SlugService::createSlug(BukuModel::class, 'slug', $request->file('pdf')->getClientOriginalName()) . '.pdf';
+        //     $request->file('pdf')->storeAs(
+        //         'buku-digital',
+        //         $save
+        //     );
+        // } else {
+        //     $save = null;
+        // }
+
+        // BukuModel::create([
+        //     'slug' => SlugService::createSlug(BukuModel::class, 'slug', $request->judul),
+        //     'cover' => $request->file('cover')->store('book-cover'),
+        //     'judul' => $request->judul,
+        //     'pengarang' => $request->pengarang,
+        //     'singkatan_pengarang' => $request->singkatan_pengarang,
+        //     'tempat_terbit' => $request->tempat_terbit,
+        //     'penerbit' => $request->penerbit,
+        //     'tahun_terbit' => $request->tahun_terbit,
+        //     'no_klasifikasi' => $request->no_klasifikasi,
+        //     'tahun_buku' => $request->tahun_buku,
+        //     'inisial_buku' => $request->inisial,
+        //     'file_pdf' => $save,
+        //     'jenis_id' => $request->jenis_id,
+        //     'kategori_id' => $request->kategori_id,
+        // ]);
+
+        return redirect()->to('admin/data-buku')->with('status', 'Berhasil menambah buku ' . $request->judul);
+    }
+    public function editBuku($id)
+    {
+        $buku = BukuModel::where('id', $id)->first();
+        $kategori = KategoriModel::all();
+        $jenis = JenisModel::all();
+
+        $data = [
+            'title' => 'CRUD',
+            'buku' => $buku,
+            'kategori' => $kategori,
+            'jenis' => $jenis,
+        ];
+
+        return view('admin.crud.editbuku', $data);
+    }
+    public function updateBuku(Request $request, BukuModel $id)
+    {
+        $validated = [
+            'pengarang' => 'required',
+            'singkatan_pengarang' => 'required',
+            'tempat_terbit' => 'required',
+            'penerbit' => 'required',
+            'tahun_terbit' => 'required',
+            'tahun_buku' => 'required',
+            'inisial' => 'required',
+            'kategori_id' => 'required',
+            'jenis_id' => 'required',
+        ];
+
+        $customMessages = [
+            'cover.required' => 'Cover buku wajib diisi!',
+            // 'cover.image' => 'Cover buku harus berupa gambar!',
+            'judul.required' => 'Judul buku wajib diisi!',
+            'judul.unique' => 'Judul buku tidak boleh sama!',
+            'pengarang.required' => 'Pengarang buku wajib diisi!',
+            'singkatan_pengarang.required' => 'Singkatan nama pengarang buku wajib diisi!',
+            'tempat_terbit.required' => 'Tempat terbit buku wajib diisi!',
+            'penerbit.required' => 'Penerbit buku wajib diisi!',
+            'tahun_terbit.required' => 'Tahun terbit buku wajib diisi!',
+            'no_klasifikasi.required' => 'Nomor klasifikasi buku wajib diisi!',
+            'tahun_buku.required' => 'Tahun buku wajib diisi!',
+            'inisial.required' => 'Inisial buku wajib diisi!',
+            'kategori_id.required' => 'Kategori buku wajib diisi!',
+            'jenis_id.required' => 'Jenis buku wajib diisi!',
+            'pdf.required' => 'File pdf wajib diisi!',
+        ];
+        if ($request->old_cover == '') {
+            $validated['cover'] = 'required';
+        }
+        if ($request->judul != $id->judul) {
+            $validated['judul'] = 'required|unique:tbelib_buku';
+        }
+        if ($request->jenis_id == 1) {
+            $validated['no_klasifikasi'] = 'required';
+        } else if ($request->jenis_id != 1) {
+            $validated['pdf'] = 'required';
+        }
+        $this->validate($request, $validated, $customMessages);
+
+        if ($request->file('pdf') == '') {
+            $save = $request->old_pdf;
+            $id->file_pdf = $save;
+        } else if ($request->file('pdf')) {
+            if ($request->old_pdf) {
+                Storage::delete('buku-digital/' . $request->old_pdf);
+            }
+            Storage::delete($request->old_pdf);
             $save = SlugService::createSlug(BukuModel::class, 'slug', $request->file('pdf')->getClientOriginalName()) . '.pdf';
             $request->file('pdf')->storeAs(
-                'buku-digital', $save
+                'buku-digital',
+                $save
             );
-
-        } else {
-            $save = null;
+            $id->file_pdf = $save;
         }
 
-        BukuModel::create([
-            'slug' => SlugService::createSlug(BukuModel::class, 'slug', $request->judul),
-            'cover' => $request->file('cover')->store('book-cover'),
+
+
+        if ($request->judul == $id->judul) {
+            $slug = $request->old_slug;
+        } else {
+            $slug = SlugService::createSlug(BukuModel::class, 'slug', $request->judul);
+        }
+
+        if ($request->file('cover') != '') {
+            if ($request->old_cover) {
+                Storage::delete($request->old_cover);
+            }
+            $img = $request->file('cover')->store('book-cover');
+            $id->cover = $img;
+            // dd($img);
+        }
+
+        // dd($request);
+        $id->update([
+            'slug' => $slug,
+            // 'cover' => $request->file('cover')->store('book-cover'),
             'judul' => $request->judul,
             'pengarang' => $request->pengarang,
             'singkatan_pengarang' => $request->singkatan_pengarang,
@@ -93,16 +206,34 @@ class CrudController extends Controller
             'no_klasifikasi' => $request->no_klasifikasi,
             'tahun_buku' => $request->tahun_buku,
             'inisial_buku' => $request->inisial,
-            'file_pdf' => $save,
+            // 'file_pdf' => $save,
             'jenis_id' => $request->jenis_id,
             'kategori_id' => $request->kategori_id,
         ]);
+        // BukuModel::where('id', $id)
+        //     ->update([
+        //         'slug' => $slug,
+        //         // 'cover' => $request->file('cover')->store('book-cover'),
+        //         'judul' => $request->judul,
+        //         'pengarang' => $request->pengarang,
+        //         'singkatan_pengarang' => $request->singkatan_pengarang,
+        //         'tempat_terbit' => $request->tempat_terbit,
+        //         'penerbit' => $request->penerbit,
+        //         'tahun_terbit' => $request->tahun_terbit,
+        //         'no_klasifikasi' => $request->no_klasifikasi,
+        //         'tahun_buku' => $request->tahun_buku,
+        //         'inisial_buku' => $request->inisial,
+        //         'file_pdf' => $save,
+        //         'jenis_id' => $request->jenis_id,
+        //         'kategori_id' => $request->kategori_id,
+        //     ]);
 
-        return redirect()->to('admin/data-buku')->with('status', 'Berhasil menambah buku ' . $request->judul);
+        return redirect()->to('admin/data-buku')->with('status', 'Berhasil mengubah buku ' . $request->judul);
     }
     public function destroyBuku(BukuModel $id)
     {
         $id->delete();
+        Storage::delete([$id->cover, 'buku-digital/' . $id->file_pdf]);
     }
 
     // Detail Buku
