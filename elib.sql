@@ -14,10 +14,27 @@
 
 
 -- Dumping database structure for elibrary
+DROP DATABASE IF EXISTS `elibrary`;
 CREATE DATABASE IF NOT EXISTS `elibrary` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `elibrary`;
 
+-- Dumping structure for procedure elibrary.sp_reset_quantity_stock_buku
+DROP PROCEDURE IF EXISTS `sp_reset_quantity_stock_buku`;
+DELIMITER //
+CREATE PROCEDURE `sp_reset_quantity_stock_buku`()
+BEGIN
+
+UPDATE tbelib_buku SET quantity = 
+	(SELECT COUNT(*) FROM tbelib_buku_detail WHERE buku_id = tbelib_buku.id);
+
+UPDATE tbelib_buku SET stock = 
+	(SELECT COUNT(*) FROM tbelib_buku_detail WHERE buku_id = tbelib_buku.id AND `status` = 1);
+
+END//
+DELIMITER ;
+
 -- Dumping structure for table elibrary.tbelib_admin
+DROP TABLE IF EXISTS `tbelib_admin`;
 CREATE TABLE IF NOT EXISTS `tbelib_admin` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(50) CHARACTER SET utf8 NOT NULL,
@@ -30,33 +47,32 @@ CREATE TABLE IF NOT EXISTS `tbelib_admin` (
 -- Dumping data for table elibrary.tbelib_admin: ~0 rows (approximately)
 /*!40000 ALTER TABLE `tbelib_admin` DISABLE KEYS */;
 REPLACE INTO `tbelib_admin` (`id`, `username`, `password`, `level`, `login_terakhir`) VALUES
-	(1, 'Admin', '$2y$10$JHoiNis267ppKdYTiNrAeu7rnSTnZuhKuQSdnWfCksBzJuDTP7TvW', 1, '2022-09-23 12:58:42');
+	(1, 'Admin', '$2y$10$JHoiNis267ppKdYTiNrAeu7rnSTnZuhKuQSdnWfCksBzJuDTP7TvW', 1, '2022-09-23 21:51:20');
 /*!40000 ALTER TABLE `tbelib_admin` ENABLE KEYS */;
 
 -- Dumping structure for table elibrary.tbelib_booking
+DROP TABLE IF EXISTS `tbelib_booking`;
 CREATE TABLE IF NOT EXISTS `tbelib_booking` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nisn` int(11) NOT NULL,
   `nama` varchar(50) CHARACTER SET utf8 NOT NULL DEFAULT '',
   `notelp` char(50) CHARACTER SET utf8 NOT NULL DEFAULT '',
-  `buku_id` int(11) DEFAULT NULL,
+  `buku_detail_id` int(11) DEFAULT NULL,
   `status` int(11) NOT NULL,
   `tanggal_booking` datetime DEFAULT NULL,
   `created_at` varchar(20) CHARACTER SET utf8 NOT NULL,
   `updated_at` varchar(20) CHARACTER SET utf8 NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK_tbelib_booking_tbelib_buku` (`buku_id`) USING BTREE,
-  CONSTRAINT `FK_tbelib_booking_tbelib_buku` FOREIGN KEY (`buku_id`) REFERENCES `tbelib_buku` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COMMENT='Status :\r\n1 = Unverified\r\n2 = Verified\r\n3 = Due Date';
+  KEY `FK_tbelib_booking_tbelib_buku` (`buku_detail_id`) USING BTREE,
+  CONSTRAINT `FK_tbelib_booking_tbelib_buku_detail` FOREIGN KEY (`buku_detail_id`) REFERENCES `tbelib_buku_detail` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Status :\r\n1 = Unverified\r\n2 = Verified\r\n3 = Due Date';
 
--- Dumping data for table elibrary.tbelib_booking: ~2 rows (approximately)
+-- Dumping data for table elibrary.tbelib_booking: ~0 rows (approximately)
 /*!40000 ALTER TABLE `tbelib_booking` DISABLE KEYS */;
-REPLACE INTO `tbelib_booking` (`id`, `nisn`, `nama`, `notelp`, `buku_id`, `status`, `tanggal_booking`, `created_at`, `updated_at`) VALUES
-	(3, 21834761, 'RAKEIN NARAYA PUTRA', '85845947669', NULL, 1, NULL, '2022-09-18 09:49:42', '2022-09-18 09:49:42'),
-	(4, 32277549, 'AFINA KHOIRI AZIZAH', '6285845947669', NULL, 1, NULL, '2022-09-18 21:16:54', '2022-09-18 21:16:54');
 /*!40000 ALTER TABLE `tbelib_booking` ENABLE KEYS */;
 
 -- Dumping structure for table elibrary.tbelib_buku
+DROP TABLE IF EXISTS `tbelib_buku`;
 CREATE TABLE IF NOT EXISTS `tbelib_buku` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `cover` varchar(100) CHARACTER SET utf8 NOT NULL,
@@ -80,15 +96,16 @@ CREATE TABLE IF NOT EXISTS `tbelib_buku` (
   KEY `FK_tbelib_buku_index_tbelib_jenis_buku` (`jenis_id`),
   CONSTRAINT `FK_tbelib_buku_index_tbelib_jenis_buku` FOREIGN KEY (`jenis_id`) REFERENCES `tbelib_jenis_buku` (`id`),
   CONSTRAINT `FK_tbelib_buku_tbelib_kategori` FOREIGN KEY (`kategori_id`) REFERENCES `tbelib_kategori` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table elibrary.tbelib_buku: ~1 rows (approximately)
 /*!40000 ALTER TABLE `tbelib_buku` DISABLE KEYS */;
 REPLACE INTO `tbelib_buku` (`id`, `cover`, `judul`, `slug`, `pengarang`, `singkatan_pengarang`, `tempat_terbit`, `penerbit`, `tahun_terbit`, `no_klasifikasi`, `tahun_buku`, `inisial_buku`, `file_pdf`, `quantity`, `stock`, `jenis_id`, `kategori_id`) VALUES
-	(15, 'book-cover/Cw9SvZQX6YAD98ZXG92UW19yokSoTBwE97BYQn60.png', 'Cerdas Cergas Berbahasa dan Bersastra Indonesia', 'cerdas-cergas-berbahasa-dan-bersastra-indonesia', 'Heny Marwati, K. Waskitaningtyas', 'HM', 'Jakarta', 'Pusat Perbukuan  Badan Standar, Kurikulum, dan Asesmen Pendidikan  Kementerian Pendidikan, Kebudayaan, Riset, dan Teknologi', '2021', NULL, '2021', 'C', 'bahasa-indonesia-bs-kls-xi-pdf.pdf', 0, 0, 2, 1);
+	(2, 'book-cover/BFL7SiUTx2UiEVEA7y0aBOQuqikcZ3leu8OfVZui.png', 'Pendidikan Agama Islam dan Budi Pekerti', 'pendidikan-agama-islam-dan-budi-pekerti', 'Ahmad Taufik, Nurwastuti Setyowati', 'TAU', 'Jakarta', 'Kementrian Pendidikan, Kebudayaan, Riset dan Teknologi', '2021', '377', '2021', 'P', NULL, 0, 4, 1, 1);
 /*!40000 ALTER TABLE `tbelib_buku` ENABLE KEYS */;
 
 -- Dumping structure for table elibrary.tbelib_buku_detail
+DROP TABLE IF EXISTS `tbelib_buku_detail`;
 CREATE TABLE IF NOT EXISTS `tbelib_buku_detail` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `no_induk` varchar(25) CHARACTER SET utf8 NOT NULL DEFAULT '0',
@@ -98,13 +115,14 @@ CREATE TABLE IF NOT EXISTS `tbelib_buku_detail` (
   PRIMARY KEY (`id`),
   KEY `FK_tbelib_buku_tbelib_buku_index` (`buku_id`) USING BTREE,
   CONSTRAINT `FK_tbelib_buku_detail_tbelib_buku` FOREIGN KEY (`buku_id`) REFERENCES `tbelib_buku` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COMMENT='Status\r\n0 = Not Ready\r\n1 = Ready';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Status\r\n0 = Not Ready\r\n1 = Ready';
 
 -- Dumping data for table elibrary.tbelib_buku_detail: ~0 rows (approximately)
 /*!40000 ALTER TABLE `tbelib_buku_detail` DISABLE KEYS */;
 /*!40000 ALTER TABLE `tbelib_buku_detail` ENABLE KEYS */;
 
 -- Dumping structure for table elibrary.tbelib_count
+DROP TABLE IF EXISTS `tbelib_count`;
 CREATE TABLE IF NOT EXISTS `tbelib_count` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `total_count` int(11) NOT NULL,
@@ -121,6 +139,7 @@ REPLACE INTO `tbelib_count` (`id`, `total_count`, `keterangan`) VALUES
 /*!40000 ALTER TABLE `tbelib_count` ENABLE KEYS */;
 
 -- Dumping structure for table elibrary.tbelib_jenis_buku
+DROP TABLE IF EXISTS `tbelib_jenis_buku`;
 CREATE TABLE IF NOT EXISTS `tbelib_jenis_buku` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `keterangan` varchar(50) CHARACTER SET utf8 NOT NULL DEFAULT '',
@@ -135,6 +154,7 @@ REPLACE INTO `tbelib_jenis_buku` (`id`, `keterangan`) VALUES
 /*!40000 ALTER TABLE `tbelib_jenis_buku` ENABLE KEYS */;
 
 -- Dumping structure for table elibrary.tbelib_kategori
+DROP TABLE IF EXISTS `tbelib_kategori`;
 CREATE TABLE IF NOT EXISTS `tbelib_kategori` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(150) CHARACTER SET utf8 NOT NULL,
@@ -151,6 +171,7 @@ REPLACE INTO `tbelib_kategori` (`id`, `name`, `type`, `slug`) VALUES
 /*!40000 ALTER TABLE `tbelib_kategori` ENABLE KEYS */;
 
 -- Dumping structure for table elibrary.tb_user
+DROP TABLE IF EXISTS `tb_user`;
 CREATE TABLE IF NOT EXISTS `tb_user` (
   `id_user` int(11) NOT NULL AUTO_INCREMENT,
   `nama` varchar(50) NOT NULL,
@@ -171,6 +192,88 @@ REPLACE INTO `tb_user` (`id_user`, `nama`, `username`, `password`, `level`, `kel
 	(108, 'AJI DANANG KUSUMA', '0034271005', 'a530181561aebab430c70e5e503ac5b6', 4, 0, '2020-12-08 07:29:46'),
 	(109, 'ALDY RULANDA FIRMANSYAH', '0028792732', '351a1a85f9ce3933e089452d16fc3271', 4, 0, '2020-11-30 07:09:37');
 /*!40000 ALTER TABLE `tb_user` ENABLE KEYS */;
+
+-- Dumping structure for trigger elibrary.tbelib_buku_detail_after_delete
+DROP TRIGGER IF EXISTS `tbelib_buku_detail_after_delete`;
+SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
+DELIMITER //
+CREATE TRIGGER `tbelib_buku_detail_after_delete` AFTER DELETE ON `tbelib_buku_detail` FOR EACH ROW BEGIN
+ UPDATE tbelib_buku
+    SET quantity = quantity - 1
+	 WHERE id = OLD.buku_id;
+ 
+ IF OLD.status = 1
+ THEN
+	 UPDATE tbelib_buku
+   	SET stock = stock - 1
+	 WHERE id = OLD.buku_id;
+ END IF;
+END//
+DELIMITER ;
+SET SQL_MODE=@OLDTMP_SQL_MODE;
+
+-- Dumping structure for trigger elibrary.tbelib_buku_detail_after_insert
+DROP TRIGGER IF EXISTS `tbelib_buku_detail_after_insert`;
+SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
+DELIMITER //
+CREATE TRIGGER `tbelib_buku_detail_after_insert` AFTER INSERT ON `tbelib_buku_detail` FOR EACH ROW BEGIN
+ UPDATE tbelib_buku
+    SET quantity = quantity + 1
+	 WHERE id = NEW.buku_id;
+ 
+ IF NEW.status = 1
+ THEN
+	 UPDATE tbelib_buku
+   	SET stock = stock + 1
+	 WHERE id = NEW.buku_id;
+ END IF;
+END//
+DELIMITER ;
+SET SQL_MODE=@OLDTMP_SQL_MODE;
+
+-- Dumping structure for trigger elibrary.tbelib_buku_detail_after_update
+DROP TRIGGER IF EXISTS `tbelib_buku_detail_after_update`;
+SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
+DELIMITER //
+CREATE TRIGGER `tbelib_buku_detail_after_update` AFTER UPDATE ON `tbelib_buku_detail` FOR EACH ROW BEGIN
+ IF NEW.status = 1
+ THEN
+	 UPDATE tbelib_buku
+   	SET stock = stock + 1
+	 WHERE id = NEW.buku_id;
+ END IF;
+ 
+ IF NEW.status = 0
+ THEN
+	 UPDATE tbelib_buku
+   	SET stock = stock - 1
+	 WHERE id = NEW.buku_id;
+ END IF;
+ 
+ IF OLD.buku_id <> NEW.buku_id
+ THEN
+ 	 UPDATE tbelib_buku
+   	SET quantity = quantity - 1
+	 WHERE id = OLD.buku_id;
+	 
+	 UPDATE tbelib_buku
+   	SET quantity = quantity + 1
+	 WHERE id = NEW.buku_id;
+ 
+	IF NEW.status = 1
+	THEN
+	 UPDATE tbelib_buku
+   	SET stock = stock - 1
+	 WHERE id = OLD.buku_id;
+	 
+	 UPDATE tbelib_buku
+   	SET stock = stock + 1
+	 WHERE id = NEW.buku_id;
+	 END IF;
+ END IF;
+END//
+DELIMITER ;
+SET SQL_MODE=@OLDTMP_SQL_MODE;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
