@@ -6,9 +6,10 @@ use App\Models\BookingModel;
 use App\Models\BukuDetailModel;
 use App\Models\BukuModel;
 use App\Models\JenisModel;
-use App\Models\KategoriModel;
+use App\Models\KatkurModel;
 
 use Illuminate\Http\Request;
+use Yajra\DataTables\Contracts\DataTable;
 use Yajra\DataTables\DataTables;
 
 class AdminController extends Controller
@@ -45,7 +46,7 @@ class AdminController extends Controller
     public function buku()
     {
         $jenis = JenisModel::all();
-        $kategori = KategoriModel::all();
+        $kategori = KatkurModel::all();
         $buku = BukuModel::join('tbelib_kategori', 'tbelib_buku.kategori_id', '=', 'tbelib_kategori.id')
             ->join('tbelib_jenis_buku', 'tbelib_buku.jenis_id', '=', 'tbelib_jenis_buku.id')
             ->where('tbelib_jenis_buku.keterangan', 'Fisik')
@@ -88,8 +89,8 @@ class AdminController extends Controller
             ->join('tbelib_kategori', 'tbelib_buku.kategori_id', 'tbelib_kategori.id')
             ->join('tbelib_jenis_buku', 'tbelib_buku.jenis_id', 'tbelib_jenis_buku.id');
             // ->where('tbelib_buku.jenis_id', 1) // Buku Fisik
-        // ->get();
-        // dd($request->jenis_id)
+            // ->get();
+            // dd($request->jenis_id)
         ;
         if ($request->jenis_id) {
             $data = $data->where('tbelib_buku.jenis_id', $request->jenis_id);
@@ -124,24 +125,30 @@ class AdminController extends Controller
 
         return response()->json(['buku' => $buku, 'detail' => $detail]);
     }
-    public function kategori()
+
+    public function katkur()
     {
-        $kategori = KategoriModel::where('type', '1')->get();
         $data = [
-            'title' => 'Admin Perpustakaan | Kategori',
-            'kategori' => $kategori,
+            'title' => 'Admin Perpustakaan | Kategori - Kurikulum',
         ];
-        return view('admin.kategori', $data);
+        return view('admin.katkur', $data);
     }
-    public function kurikulum()
+    public function getKatkur(Request $request)
     {
-        $kurikulum = KategoriModel::where('type', '2')->get();
-        $data = [
-            'title' => 'Admin Perpustakaan | Kurikulum',
-            'kurikulum' => $kurikulum,
-        ];
-        return view('admin.kurikulum', $data);
+
+        if ($request->katkur == 1) {
+            $katkur = KatkurModel::where('type', 1)->get();
+        } else if ($request->katkur == 2) {
+            $katkur = KatkurModel::where('type', 2)->get();
+        } else {
+            $katkur = KatkurModel::all();
+        }
+
+        return DataTables::of($katkur)
+            ->addIndexColumn()
+            ->toJson();
     }
+    
     public function jenisBuku()
     {
         $jenis = JenisModel::all();
@@ -150,5 +157,14 @@ class AdminController extends Controller
             'jenis' => $jenis,
         ];
         return view('admin.jenis', $data);
+    }
+    public function getJenis()
+    {
+        $data = JenisModel::all();
+        // $data = $data->get();
+
+        return DataTables::of($data)
+            ->addIndexColumn()
+            ->toJson();
     }
 }

@@ -74,7 +74,7 @@
                         <th>Detail</th>
                     </tr>
                 </thead>
-                <tbody id="nampel">
+                <tbody>
                     <?php $no = 1; ?>
                     @foreach ($buku as $item)
                         <tr>

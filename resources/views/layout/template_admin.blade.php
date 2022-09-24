@@ -94,21 +94,15 @@
                                 <span>Data Buku</span>
                             </a>
                         </li>
-                        <li class="sidebar-item <?= Request::url() == url('/admin/kategori-buku') ? 'active' : '' ?>">
-                            <a href="/admin/kategori-buku" class='sidebar-link'>
-                                <i class="bi bi-grid-fill"></i>
-                                <span>Kategori</span>
-                            </a>
-                        </li>
                         <li class="sidebar-item <?= Request::url() == url('/admin/kurikulum-buku') ? 'active' : '' ?>">
-                            <a href="/admin/kurikulum-buku" class='sidebar-link'>
+                            <a href="/admin/katkur-buku" class='sidebar-link'>
                                 <i class="bi bi-clipboard2"></i>
-                                <span>Kurikulum</span>
+                                <span>Kategori - Kurikulum</span>
                             </a>
                         </li>
                         <li class="sidebar-item <?= Request::url() == url('/admin/jenis-buku') ? 'active' : '' ?>">
                             <a href="/admin/jenis-buku" class='sidebar-link'>
-                                <i class="bi bi-clipboard2"></i>
+                                <i class="bi bi-bookmark-star"></i>
                                 <span>Jenis Buku</span>
                             </a>
                         </li>

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 
-class KategoriModel extends Model
+class KatkurModel extends Model
 {
     use HasFactory;
     use Sluggable;

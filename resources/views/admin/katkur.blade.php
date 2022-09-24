@@ -1,25 +1,35 @@
 @extends('layout.template_admin')
 @section('content')
     <div class="page-heading">
-        <h3>Jenis Buku</h3><br><br>
+        <h3>Kategori - Kurikulum Buku</h3><br><br>
         <div>
-            <a href="{{ url('admin/tambah-jenis-buku') }}" class="btn btn-primary">Add</a>
+            <a href="{{ url('admin/tambah-katkur') }}" class="btn btn-primary">Add</a>
+            <div class="d-sm-inline-block">
+                <div class="form-group">
+                    <label for="filter">Filter </label>
+                    <select name="filter_katkur" id="filter" class="form-control" required>
+                        <option value="">Filter</option>
+                        <option value="1">Kategori</option>
+                        <option value="2">Kurikulum</option>
+                    </select>
+                </div>
+            </div>
         </div><br><br>
     </div>
     <div class="page-body">
         <div class="datatable">
-            <table id="table-jenis" class="table table-striped" style="width:100%">
+            <table id="table-katkur" class="table table-striped" style="width:100%">
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Jenis Buku</th>
+                        <th>Nama</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
                 <tfoot>
                     <tr>
                         <th>No</th>
-                        <th>Nama Kurikulum</th>
+                        <th>Nama</th>
                         <th>Aksi</th>
                     </tr>
                 </tfoot>
@@ -30,23 +40,30 @@
 
 @section('script')
     <script>
-        const table = $('#table-jenis').DataTable({
+        const table = $('#table-katkur').DataTable({
             dom: '<lf<t>ip>',
             // pageLength: 10,
             // bLengthChange: false,
             processing: true,
             serverSide: true,
             ajax: {
-                url: "{{ route('api.admin.jenis-buku') }}",
+                url: "{{ route('api.admin.katkur') }}",
+                data: function(d) {
+                    d.katkur = $('select[name=filter_katkur]').val();
+                }
             },
             columns: [{
                     data: 'DT_RowIndex',
                     name: 'DT_RowIndex'
                 },
                 {
-                    data: 'keterangan',
-                    name: 'keterangan'
+                    data: 'name',
+                    name: 'name'
                 },
+                // {
+                //     data: 'type',
+                //     name: 'type'
+                // },
                 {
                     className: 'actions-control',
                     data: 'null',
@@ -57,8 +74,8 @@
                 render: function(data, type, row, meta) {
 
                     const html =
-                        `<a href="/admin/edit-jenis-buku/${row.id}" class="btn btn-primary"><i class="bi bi-pencil-square"></i></a>` +
-                        `<button class="btn btn-danger hapus-jenis-buku" data-id="${row.id}" data-keterangan="${row.keterangan}"><i class="bi bi-trash3"></i></button>`;
+                        `<a href="/admin/edit-katkur/${row.id}" class="btn btn-primary"><i class="bi bi-pencil-square"></i></a>` +
+                        `<button class="btn btn-danger hapus-katkur" data-id="${row.id}" data-katkur="${row.name}"><i class="bi bi-trash3"></i></button>`;
 
                     return html;
                 },
@@ -71,16 +88,20 @@
             }
         });
 
-        $('#table-jenis tbody').on('click', 'td button.hapus-jenis-buku ', function() {
-            // console.log($(this).attr("data-judul"));
-            const keterangan = $(this).attr("data-keterangan");
-            if (confirm(`Yakin ingin menghapus jenis buku ${keterangan} ?`) == true) {
+        $('#filter').change(function() {
+            table.draw();
+        });
+
+        $('#table-katkur tbody').on('click', 'td button.hapus-katkur ', function() {
+            // console.log($(this).attr("data-katkur"));
+            const katkur = $(this).attr("data-katkur");
+            if (confirm(`Yakin ingin menghapus ${katkur} ?`) == true) {
 
                 const id = $(this).attr("data-id");
 
                 $.ajax({
                     type: "POST",
-                    url: "{{ url('/admin/hapus-jenis-buku') }}/" + id,
+                    url: "{{ url('/admin/hapus-katkur') }}/" + id,
                     data: {
                         _token: "{{ csrf_token() }}",
                         _method: 'DELETE',

@@ -43,9 +43,12 @@ Route::group(['middleware' => ['admin']], function () {
     Route::get('admin/buku-digital', [AdminController::class, 'bukudigital']);
     Route::get('admin/buku-kejuruan', [AdminController::class, 'bukukejuruan']);
     Route::get('admin/kategori-buku', [AdminController::class, 'kategori']);
-    Route::get('admin/kurikulum-buku', [AdminController::class, 'kurikulum']);
+    
+    Route::get('admin/katkur-buku', [AdminController::class, 'katkur']);
+    Route::get('api/admin/katkur-buku', [AdminController::class, 'getKatkur'])->name('api.admin.katkur');
 
     Route::get('admin/jenis-buku', [AdminController::class, 'jenisBuku']);
+    Route::get('api/admin/jenis-buku', [AdminController::class, 'getJenis'])->name('api.admin.jenis-buku');
 
     // CRUD
     // Buku
@@ -65,9 +68,16 @@ Route::group(['middleware' => ['admin']], function () {
     Route::get('admin/tambah-kategori', [CrudController::class, 'createKategori']);
 
     // Kurikulum
-    Route::get('admin/tambah-kurikulum', [CrudController::class, 'createKurikulum']);
-    Route::post('admin/simpan-kurikulum', [CrudController::class, 'storeKurikulum']);
-    Route::delete('admin/hapus-kurikulum/{id}', [CrudController::class, 'destroyKurikulum']);
+    Route::get('admin/tambah-katkur', [CrudController::class, 'createKatkur']);
+    Route::post('admin/simpan-katkur', [CrudController::class, 'storeKatkur']);
+    Route::delete('admin/hapus-katkur/{id}', [CrudController::class, 'destroyKatkur']);
+
+    // Jenis Buku
+    Route::get('admin/tambah-jenis-buku', [CrudController::class, 'createJenisBuku']);
+    Route::post('admin/simpan-jenis-buku', [CrudController::class, 'storeJenisBuku']);
+    Route::get('admin/edit-jenis-buku/{id}', [CrudController::class, 'editJenisBuku']);
+    Route::post('admin/update-jenis-buku/{id}', [CrudController::class, 'updateJenisBuku']);
+    Route::delete('admin/hapus-jenis-buku/{id}', [CrudController::class, 'destroyJenisBuku']);
 });
 
 // Siswa

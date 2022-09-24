@@ -6,7 +6,7 @@ use App\Models\BookingModel;
 use App\Models\BukuDetailModel;
 use App\Models\BukuModel;
 use App\Models\CountModel;
-use App\Models\KategoriModel;
+use App\Models\KatkurModel;
 use Facade\FlareClient\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -67,8 +67,8 @@ class SiswaController extends Controller
             ->where('tbelib_jenis_buku.keterangan', '==', 'Nonteks')
             ->get();
 
-        $kategori = KategoriModel::all();
-        $kategoriLoop = KategoriModel::all();
+        $kategori = KatkurModel::all();
+        $kategoriLoop = KatkurModel::all();
 
         $data = [
             'countTelahDibaca' => $countBukuTelahDibaca,
@@ -100,8 +100,8 @@ class SiswaController extends Controller
             )
             ->where('tbelib_kategori.slug', $slug)
             ->get();
-        $kategoriLoop = KategoriModel::all();
-        $kategori = KategoriModel::where('slug', $slug)->first();
+        $kategoriLoop = KatkurModel::all();
+        $kategori = KatkurModel::where('slug', $slug)->first();
         // dd($kategori);
         if (request('search-book')) {
             // dd($slug);

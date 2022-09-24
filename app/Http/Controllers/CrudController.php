@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\BukuDetailModel;
 use App\Models\BukuModel;
 use App\Models\JenisModel;
-use App\Models\KategoriModel;
+use App\Models\KatkurModel;
 use Illuminate\Http\Request;
 
 use Cviebrock\EloquentSluggable\Services\SlugService;
@@ -18,7 +18,7 @@ class CrudController extends Controller
     // Buku
     public function createBuku()
     {
-        $kategori = KategoriModel::all();
+        $kategori = KatkurModel::all();
         $jenis = JenisModel::all();
 
         $data = [
@@ -105,7 +105,7 @@ class CrudController extends Controller
     public function editBuku($id)
     {
         $buku = BukuModel::where('id', $id)->first();
-        $kategori = KategoriModel::all();
+        $kategori = KatkurModel::all();
         $jenis = JenisModel::all();
 
         $data = [
@@ -339,51 +339,133 @@ class CrudController extends Controller
     }
 
     // Kurikulum
-    public function createKurikulum()
+    public function createKatkur()
     {
         $data = [
             'title' => 'CRUD',
         ];
-        return view('admin.crud.addkurikulum', $data);
+        return view('admin.crud.addkatkur', $data);
     }
-    public function storeKurikulum(Request $request)
+    public function storeKatkur(Request $request)
     {
-        $validated = [
-            'name' => 'required|unique:tbelib_kategori|max:150',
-        ];
-        $customMessages = [
-            'name.required' => 'Kurikulum wajib diisi!',
-            'name.unique' => 'Kurikulum tidak boleh sama!',
-            'name.max' => 'Kurikulum tidak boleh lebih dari 150 karakter!',
-        ];
+        if ($request->jenis == 1) {
+            $validated = [
+                'name' => 'required|unique:tbelib_kategori|max:150',
+                'jenis' => 'required',
+            ];
+            $customMessages = [
+                'name.required' => 'Kategori wajib diisi!',
+                'name.unique' => 'Kategori tidak boleh sama!',
+                'name.max' => 'Kategori tidak boleh lebih dari 150 karakter!',
+                'jenis.required' => 'Jenis wajib diisi!',
+            ];
+        } else if ($request->jenis == 2) {
+            $validated = [
+                'name' => 'required|unique:tbelib_kategori|max:150',
+                'jenis' => 'required',
+            ];
+            $customMessages = [
+                'name.required' => 'Kurikulum wajib diisi!',
+                'name.unique' => 'Kurikulum tidak boleh sama!',
+                'name.max' => 'Kurikulum tidak boleh lebih dari 150 karakter!',
+                'jenis.required' => 'Jenis wajib diisi!',
+            ];
+        } else {
+            $validated = [
+                'name' => 'required|unique:tbelib_kategori|max:150',
+                'jenis' => 'required',
+            ];
+            $customMessages = [
+                'name.required' => 'Wajib diisi!',
+                'name.unique' => 'Tidak boleh sama!',
+                'name.max' => 'Tidak boleh lebih dari 150 karakter!',
+                'jenis.required' => 'Jenis wajib diisi!',
+            ];
+        }
         $this->validate($request, $validated, $customMessages);
 
-        KategoriModel::create([
+        KatkurModel::create([
             'name' => $request->name,
-            'type' => '2',
-            'slug' => SlugService::createSlug(KategoriModel::class, 'slug', $request->name),
+            'type' => $request->jenis,
+            'slug' => SlugService::createSlug(KatkurModel::class, 'slug', $request->name),
         ]);
 
-        return redirect()->to('admin/kurikulum-buku')->with('status', 'Berhasil menambah ' . $request->name);
+        return redirect()->to('admin/katkur-buku')->with('status', 'Berhasil menambah ' . $request->name);
     }
-    public function editKurikulum($id)
+    public function editKatkur($id)
     {
         $data = [
             'title' => 'CRUD',
         ];
         //
     }
-    public function updateKurikulum(Request $request, $id)
+    public function updateKatkur(Request $request, $id)
     {
         $data = [
             'title' => 'CRUD',
         ];
         //
     }
-    public function destroyKurikulum($id)
+    public function destroyKatkur(KatkurModel $id)
     {
-        $kur = KategoriModel::where('id', $id)->first();
-        $kur->delete();
-        return redirect()->to('admin/kurikulum-buku')->with('status', 'Berhasil menghapus ' . $kur->name);
+        $id->delete();
+    }
+
+    public function createJenisBuku()
+    {
+        $data = [
+            'title' => 'CRUD',
+        ];
+
+        return view('admin.crud.addjenisbuku', $data);
+    }
+    public function storeJenisBuku(Request $request)
+    {
+        $validated = [
+            'keterangan' => 'required|unique:tbelib_jenis_buku'
+        ];
+
+        $customMessages = [
+            'keterangan.required' => 'Jenis buku tidak boleh kosong!',
+            'keterangan.unique' => 'Jenis buku tidak boleh sama!',
+        ];
+
+        $this->validate($request, $validated, $customMessages);
+
+        JenisModel::create($request->all());
+
+        return redirect()->to('/admin/jenis-buku')->with('status', 'Berhasil menambah jenis buku baru');
+    }
+    public function editJenisBuku($id)
+    {
+        $jenis = JenisModel::where('id', $id)->first();
+
+        $data = [
+            'title' => 'CRUD',
+            'jenis' => $jenis,
+        ];
+
+        return view('admin.crud.editjenisbuku', $data);
+    }
+    public function updateJenisBuku(Request $request, JenisModel $id)
+    {
+        $validated = [
+            'keterangan' => 'required|unique:tbelib_jenis_buku'
+        ];
+
+        $customMessages = [
+            'keterangan.required' => 'Jenis buku tidak boleh kosong!',
+            'keterangan.unique' => 'Jenis buku tidak boleh sama!',
+        ];
+
+        $this->validate($request, $validated, $customMessages);
+
+        $id->update($request->all());
+
+        return redirect()->to('/admin/jenis-buku')->with('status', 'Berhasil mengubah jenis buku ' . $request->keterangan);
+    }
+    public function destroyJenisBuku(JenisModel $id)
+    {
+        $id->delete();
     }
 }
