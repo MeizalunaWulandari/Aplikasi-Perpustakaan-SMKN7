@@ -152,13 +152,14 @@
                     </div>
                 </div>
             </div>
-        @endsection
+    </section>
+@endsection
 
-        @section('script')
-            <script>
-                var pdfViewer = new PDFjsViewer($('.viewer'));
-                pdfViewer.loadDocument('{{ asset('storage/buku-digital/' . $buku->file_pdf) }}');
-                var pdfjsLib = window['pdfjs-dist/build/pdf'];
-                pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.worker.min.js';
-            </script>
-        @endsection
+@section('script')
+    <script>
+        var pdfViewer = new PDFjsViewer($('.viewer'));
+        pdfViewer.loadDocument('{{ asset('storage/buku-digital/' . $buku->file_pdf) }}');
+        var pdfjsLib = window['pdfjs-dist/build/pdf'];
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.worker.min.js';
+    </script>
+@endsection
