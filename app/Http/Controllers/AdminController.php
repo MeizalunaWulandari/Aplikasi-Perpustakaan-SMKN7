@@ -39,6 +39,7 @@ class AdminController extends Controller
     public function updateStatus(Request $request, BookingModel $id)
     {
         $id->status = $request->status;
+        $id->buku_detail_id = $request->detail_id;
         $id->update();
 
         return response()->json(['success' => 'true']);
@@ -88,10 +89,10 @@ class AdminController extends Controller
             )
             ->join('tbelib_kategori', 'tbelib_buku.kategori_id', 'tbelib_kategori.id')
             ->join('tbelib_jenis_buku', 'tbelib_buku.jenis_id', 'tbelib_jenis_buku.id');
-            // ->where('tbelib_buku.jenis_id', 1) // Buku Fisik
-            // ->get();
-            // dd($request->jenis_id)
-        ;
+        // ->where('tbelib_buku.jenis_id', 1) // Buku Fisik
+        // ->get();
+        // dd($request->jenis_id);
+
         if ($request->jenis_id) {
             $data = $data->where('tbelib_buku.jenis_id', $request->jenis_id);
         }
@@ -126,6 +127,22 @@ class AdminController extends Controller
         return response()->json(['buku' => $buku, 'detail' => $detail]);
     }
 
+    public function getBukuDetailByBookingId($id)
+    {
+        $detail = BookingModel::query()
+            ->select(
+                'tbelib_buku_detail.id',
+                'tbelib_buku_detail.no_induk',
+                'tbelib_buku_detail.status',
+            )
+            ->join('tbelib_buku_detail', 'tbelib_buku_detail.buku_id', 'tbelib_booking.buku_id')
+            ->where('tbelib_booking.id', $id)
+            ->where('tbelib_buku_detail.status', 1)
+            ->get();
+
+        return response()->json(['data' => $detail]);
+    }
+
     public function katkur()
     {
         $data = [
@@ -148,7 +165,7 @@ class AdminController extends Controller
             ->addIndexColumn()
             ->toJson();
     }
-    
+
     public function jenisBuku()
     {
         $jenis = JenisModel::all();

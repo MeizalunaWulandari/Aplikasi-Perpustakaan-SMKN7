@@ -13,8 +13,8 @@
         }
 
         /* table.dataTable tbody tr {
-            background-color: unset !important;
-        } */
+                                            background-color: unset !important;
+                                        } */
 
         div.slider {
             display: none;
@@ -23,6 +23,32 @@
     </style>
 @endsection
 @section('content')
+    <!-- Modal Verifikasi -->
+    <div class="modal fade" id="modalVerifikasi" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Verifikasi</h5>
+                    <button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <input type="hidden" name="id">
+                        <div class="mb-3">
+                            <label for="detail_id" class="form-label">No Induk</label>
+                            <select class="custom-select" id="noInduk" name="detail_id" required>
+                                <option>No Induk</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="page-heading">
         <h3>Data Booking</h3><br><br>
         <div class="d-sm-flex align-items-center justify-content-between">
@@ -93,7 +119,7 @@
 
 @section('script')
     <script>
-        var table = $('#table-booking').DataTable({
+        const table = $('#table-booking').DataTable({
             dom: '<lf<t>ip>',
             // pageLength: 10,
             // bLengthChange: false,
@@ -175,29 +201,93 @@
         });
 
         $('#table-booking tbody').on('change', 'td input[name=status]', function() {
+            const status = $(this).is(':checked') ? 2 : 1;
+            const id = $(this).val();
 
-            if (confirm("Apakah Anda yakin ingin mengubah status ini?") == true) {
+            if (status == 1) {
+                if (confirm("Apakah Anda yakin ingin mengubah status ini?") == true) {
 
-                const status = $(this).is(':checked') ? 2 : 1;
-                const id = $(this).val();
+                    $.ajax({
+                        type: "POST",
+                        url: "{{ url('/admin/booking/status') }}/" + id,
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                            _method: 'PUT',
+                            status: status,
+                        },
+                        success: function(data) {
+                            // table.draw();
+                        }
+                    });
+
+                } else {
+                    const returnVal = $(this).is(':checked') ? false : true;
+                    $(this).prop("checked", returnVal);
+                }
+            } else {
+                $("#modalVerifikasi").modal('show');
+
+                $('#modalVerifikasi form input[name=id]').val(id);
 
                 $.ajax({
-                    type: "POST",
-                    url: "{{ url('/admin/booking/status') }}/" + id,
-                    data: {
-                        _token: "{{ csrf_token() }}",
-                        _method: 'PUT',
-                        status: status,
-                    },
-                    success: function(data) {
-                        // table.draw();
+                    url: "{{ url('/api/admin/detail-buku') }}/" + id,
+                    success: function(res) {
+                        $("#noInduk").empty();
+
+                        if (res) {
+                            res.data.forEach(value => {
+                                $("#noInduk").append(
+                                    `<option value="${value.id}">${value.no_induk}</option>`
+                                    );
+                            });
+
+                        }
                     }
                 });
-
-            } else {
-                const returnVal = $(this).is(':checked') ? false : true;
-                $(this).prop("checked", returnVal);
             }
+
+            // if (confirm("Apakah Anda yakin ingin mengubah status ini?") == true) {
+
+            //     $.ajax({
+            //         type: "POST",
+            //         url: "{{ url('/admin/booking/status') }}/" + id,
+            //         data: {
+            //             _token: "{{ csrf_token() }}",
+            //             _method: 'PUT',
+            //             status: status,
+            //         },
+            //         success: function(data) {
+            //             // table.draw();
+            //         }
+            //     });
+
+            // } else {
+            //     const returnVal = $(this).is(':checked') ? false : true;
+            //     $(this).prop("checked", returnVal);
+            // }
+        });
+
+        $('#modalVerifikasi form').submit(function(e) {
+            e.preventDefault();
+
+            const id = $(this).find('input[name=id]').val();
+            const detailId = $(this).find('select[name=detail_id]').val();
+
+            $.ajax({
+                type: "POST",
+                url: "{{ url('/admin/booking/status') }}/" + id,
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    _method: 'PUT',
+                    detail_id: detailId,
+                    status: 2
+                },
+                success: function(data) {
+                    $("#modalVerifikasi").modal('hide');
+                    // table.draw();
+                    alert('Berhasil');
+                }
+            });
         });
 
         function formatDetail(d) {
