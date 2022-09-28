@@ -7,25 +7,7 @@
                     <div class="col-lg text-intro">
                         <h1 class="yellow">E - Library</h1>
                         <h3>SMK Negeri 7 Samarinda</h3>
-                        {{-- <form action="{{ url('search-book') }}" method="post">
-                            @csrf
-                            <div class="mb-3 d-flex search-book">
-                                <span class="icon-search d-flex">
-                                    <i class="bi bi-search"></i>
-                                </span>
-                                <input type="text" class="form-control" placeholder="Cari buku disini" / name="book">
-                                <select class="form-select" aria-label="Default select example" name="kategori">
-                                    @foreach ($kategori as $item)
-                                        <option value="{{ $item->slug }}">{{ $item->name }}</option>
-                                    @endforeach
-                                </select>
-                                <button class="btn btn-primary" type="submit">Cari</button>
-                            </div>
-                        </form> --}}
                     </div>
-                    {{-- <div class="col-lg">
-                        <img src="{{ asset('storage/header.png') }}" alt="" />
-                    </div> --}}
                 </div>
             </div>
         </div>
@@ -55,10 +37,10 @@
         <div class="container">
             <div class="d-flex justify-content-between mb-4">
                 <div>
-                    <h2>Buku <span class="yellow">Fisik</span></h2>
+                    <h2 class="book-option">Buku <span class="yellow">Fisik</span></h2>
                 </div>
                 <div>
-                    <h5>
+                    <h5 class="katalog-link">
                         <a class="link-blue" href="{{ url('katalog') }}">Lihat Semua <i class="bi bi-arrow-right"></i></a>
                     </h5>
                 </div>
@@ -74,9 +56,9 @@
                                     </span>
                                     <div class="description">
                                         <p class="card-text small muted blue">Availble Book <b>{{ $item->stock }}</b></p>
-                                        <p class="card-text small muted yellow fw-bold">{{ $item->penerbit }}</p>
+                                        <p class="penerbit card-text small muted yellow fw-bold">{{ $item->penerbit }}</p>
                                         <span class="jenis-buku small">{{ $item->jenis_buku }}</span>
-                                        <p>{{ $item->judul }}</p>
+                                        <p class="judul">{{ $item->judul }}</p>
                                     </div>
                                 </div>
                             </a>
@@ -100,10 +82,10 @@
         <div class="container">
             <div class="d-flex justify-content-between mb-4">
                 <div>
-                    <h2>Buku <span class="yellow">Digital</span></h2>
+                    <h2 class="book-option">Buku <span class="yellow">Digital</span></h2>
                 </div>
                 <div>
-                    <h5>
+                    <h5 class="katalog-link">
                         <a class="link-blue" href="{{ url('katalog') }}">Lihat Semua <i class="bi bi-arrow-right"></i></a>
                     </h5>
                 </div>
@@ -119,7 +101,7 @@
                                     </span>
                                     <div class="description">
                                         <p class="card-text small muted blue">Availble Book <b>{{ $item->stock }}</b></p>
-                                        <p class="card-text small muted yellow fw-bold">{{ $item->penerbit }}</p>
+                                        <p class="penerbit card-text small muted yellow fw-bold">{{ $item->penerbit }}</p>
                                         <span class="jenis-buku small">{{ $item->jenis_buku }}</span>
                                         <p>{{ $item->judul }}</p>
                                     </div>
@@ -138,14 +120,6 @@
             <div class="row">
                 @foreach ($kategoriLoop as $item)
                     <div class="col-lg mb-3">
-                        {{-- <div
-                            class="card d-flex align-items-center <?= Request::url() == url('katalog/' . $item->slug) ? 'active' : '' ?> shadow">
-                            <img src="{{ url('imgassets/buku.png') }}" alt="">
-                            <span>
-                                <p>{{ $item->name }}</p>
-                                <a  href="{{ url('katalog/' . $item->slug) }}">Lihat Selengkapnya</a>
-                            </span>
-                        </div> --}}
                         <a href="{{ url('katalog/' . $item->slug) }}">
                             <div
                                 class="card align-items-center <?= Request::url() == url('katalog/' . $item->slug) ? 'active' : '' ?> shadow">
@@ -165,10 +139,10 @@
         <div class="container">
             <div class="d-flex justify-content-between mb-4">
                 <div>
-                    <h2>Buku <span class="yellow">Nonteks</span></h2>
+                    <h2 class="book-option">Buku <span class="yellow">Nonteks</span></h2>
                 </div>
                 <div>
-                    <h5>
+                    <h5 class="katalog-link">
                         <a class="link-blue" href="{{ url('katalog') }}">Lihat Semua <i class="bi bi-arrow-right"></i></a>
                     </h5>
                 </div>
@@ -184,7 +158,7 @@
                                     </span>
                                     <div class="description">
                                         <p class="card-text small muted blue">Availble Book <b>{{ $item->stock }}</b></p>
-                                        <p class="card-text small muted yellow fw-bold">{{ $item->penerbit }}</p>
+                                        <p class="penerbit card-text small muted yellow fw-bold">{{ $item->penerbit }}</p>
                                         <span class="jenis-buku small">{{ $item->jenis_buku }}</span>
                                         <p>{{ $item->judul }}</p>
                                     </div>
@@ -202,7 +176,7 @@
     {{-- @dd($countTelahDibaca->total_count) --}}
     <script>
         const options = {
-            duration: 50,
+            duration: 20,
             startVal: 1,
         };
         let read = new CountUp('readCount', {{ $countTelahDibaca->total_count }}, options);

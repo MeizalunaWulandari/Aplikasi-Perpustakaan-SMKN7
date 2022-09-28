@@ -51,58 +51,51 @@
         <div class="loader"></div>
     </div>
     <nav class="nav-container bottom shadow-lg">
-        <div class="icon-bar">
-            <i class="bi bi-menu-up"></i>
-        </div>
         <div class="nav-menu">
             <ul class="nav-list">
-                <div class="navbar-left">
-                    <li class="nav-item <?= Request::url() == url('/') ? 'active' : '' ?>">
-                        <a href="{{ url('/') }}" class="nav-link">
-                            <i class="bi bi-house nav-icon"></i>
-                            <span class="nav-name">
-                                Home
-                            </span>
-                        </a>
-                    </li>
+                <li class="nav-item <?= Request::url() == url('/') ? 'active' : '' ?>">
+                    <a href="{{ url('/') }}" class="nav-link">
+                        <i class="bi bi-house nav-icon"></i>
+                        <span class="nav-name">
+                            Home
+                        </span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url('katalog') }}" class="nav-link">
+                        <i class="bi bi-view-list nav-icon"></i>
+                        <span class="nav-name">
+                            Katalog
+                        </span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="##" class="nav-link" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <i class="bi bi-patch-question nav-icon"></i>
+                        <span class="nav-name">
+                            Panduan
+                        </span>
+                    </a>
+                </li>
+                @if (Auth::guard('websiswa')->check() == false)
                     <li class="nav-item">
-                        <a href="{{ url('katalog') }}" class="nav-link">
-                            <i class="bi bi-view-list nav-icon"></i>
+                        <a href="{{ url('login') }}" class="nav-link">
+                            <i class="bi bi-box-arrow-in-right nav-icon"></i>
                             <span class="nav-name">
-                                Katalog
+                                Login
                             </span>
                         </a>
                     </li>
-                </div>
-                <div class="navbar-right">
+                @else
                     <li class="nav-item">
-                        <a href="##" class="nav-link" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            <i class="bi bi-patch-question nav-icon"></i>
+                        <a href="{{ url('logout') }}" class="nav-link">
+                            <i class="bi bi-box-arrow-left"></i>
                             <span class="nav-name">
-                                Panduan
+                                Logout
                             </span>
                         </a>
                     </li>
-                    @if (Auth::guard('websiswa')->check() == false)
-                        <li class="nav-item">
-                            <a href="{{ url('login') }}" class="nav-link">
-                                <i class="bi bi-box-arrow-in-right nav-icon"></i>
-                                <span class="nav-name">
-                                    Login
-                                </span>
-                            </a>
-                        </li>
-                    @else
-                        <li class="nav-item">
-                            <a href="{{ url('logout') }}" class="nav-link">
-                                <i class="bi bi-box-arrow-left"></i>
-                                <span class="nav-name">
-                                    Logout
-                                </span>
-                            </a>
-                        </li>
-                    @endif
-                </div>
+                @endif
             </ul>
         </div>
     </nav>

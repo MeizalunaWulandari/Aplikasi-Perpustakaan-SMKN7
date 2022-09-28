@@ -152,6 +152,10 @@
                     </div>
                 </div>
             </div>
+<<<<<<< HEAD
+=======
+    </section>
+>>>>>>> cf2e8c617185a9fa27b79b6d7e93032a456d7e51
 @endsection
 
 @section('script')
