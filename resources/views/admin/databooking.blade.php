@@ -244,6 +244,9 @@
                         }
                     }
                 });
+
+                // jgn di checked dulu, sebelum disubmit
+                $(this).prop("checked", false);
             }
 
             // if (confirm("Apakah Anda yakin ingin mengubah status ini?") == true) {
@@ -283,8 +286,13 @@
                     status: 2
                 },
                 success: function(data) {
-                    $("#modalVerifikasi").modal('hide');
                     // table.draw();
+
+                    $("#modalVerifikasi").modal('hide');
+
+                    // checked setelah submit
+                    $('input[name=status][value='+id+']').prop("checked", true);
+
                     alert('Berhasil');
                 }
             });
