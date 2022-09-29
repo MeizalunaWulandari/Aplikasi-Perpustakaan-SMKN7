@@ -75,7 +75,11 @@
             <p>Login untuk meminjam dan mendaftar menjadi anggota perpustakaan SMK Negeri 7 Samarinda menggunakan NISN
             </p>
             <p>Baca panduan meminjam buku <a href="#" class="link-yellow">disini</a></p>
+            @if (Auth::guard('websiswa')->check() == false)
             <a href="{{ url('login') }}" class="btn btn-primary">Login Siswa</a>
+            @else
+            <a href="{{ url('katalog') }}" class="btn btn-primary">Pinjam Sekarang</a>
+            @endif
         </div>
     </section>
     <section>

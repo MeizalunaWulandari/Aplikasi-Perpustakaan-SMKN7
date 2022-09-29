@@ -160,17 +160,11 @@ class SiswaController extends Controller
     }
     public function booking(Request $request)
     {
-        $booking = BukuDetailModel::inRandomOrder()
-            ->where('tbelib_buku_detail.buku_id', $request->id)
-            ->where('tbelib_buku_detail.status', 1)
-            ->first();
-
-        // dd(Auth::guard('websiswa')->user()->nama);
         BookingModel::create([
-            // 'buku_id' => $booking->id,
             'notelp' => $request->notelp,
             'nisn' => Auth::guard('websiswa')->user()->username,
             'nama' => Auth::guard('websiswa')->user()->nama,
+            'buku_id' => $request->id,
             'status' => 1,
         ]);
 

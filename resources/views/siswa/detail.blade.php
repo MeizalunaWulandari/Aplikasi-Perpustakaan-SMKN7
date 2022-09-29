@@ -81,6 +81,7 @@
                                                 <div class="modal-body">
                                                     <form action="{{ url('booking') }}" method="post">
                                                         @csrf
+                                                        <input type="hidden" name="id" value="{{ $buku->id_buku }}">
                                                         <div class="mb-3">
                                                             <label for="exampleFormControlInput1" class="form-label">Nomor
                                                                 Telepon</label>
@@ -88,8 +89,8 @@
                                                                 id="exampleFormControlInput1" placeholder="628**********"
                                                                 name="notelp" value="628">
                                                         </div>
+                                                        <button type="submit" class="btn btn-primary">Booking Now</button>
                                                     </form>
-                                                    <button type="button" class="btn btn-primary">Booking Now</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -152,10 +153,7 @@
                     </div>
                 </div>
             </div>
-<<<<<<< HEAD
-=======
     </section>
->>>>>>> cf2e8c617185a9fa27b79b6d7e93032a456d7e51
 @endsection
 
 @section('script')

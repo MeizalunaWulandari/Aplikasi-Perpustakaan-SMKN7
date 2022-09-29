@@ -68,6 +68,7 @@
                         <th>Penerbit</th>
                         <th>Jenis Buku</th>
                         <th>Quantity</th>
+                        <th>Stock</th>
                         <th>Kategori</th>
                         <th>No Klasifikasi</th>
                         <th>Action</th>
@@ -103,6 +104,7 @@
                         <th>Penerbit</th>
                         <th>Jenis Buku</th>
                         <th>Quantity</th>
+                        <th>Stock</th>
                         <th>Kategori</th>
                         <th>No Klasifikasi</th>
                         <th>Action</th>
@@ -160,6 +162,10 @@
                 {
                     data: 'quantity',
                     name: 'quantity'
+                },
+                {
+                    data: 'stock',
+                    name: 'stock'
                 },
                 {
                     data: 'kategori',

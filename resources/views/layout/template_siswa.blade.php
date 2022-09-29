@@ -165,7 +165,7 @@
     </div>
     </div>
     @if (session('status'))
-        <div class="position-fixed top-0 end-0 p-3" style="z-index: 11">
+        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
             <div id="liveToast" class="toast show" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
                 <div class="toast-header">
                     <svg class="bd-placeholder-img rounded me-2" width="20" height="20"

@@ -13,8 +13,8 @@
         }
 
         /* table.dataTable tbody tr {
-                                            background-color: unset !important;
-                                        } */
+                                                        background-color: unset !important;
+                                                    } */
 
         div.slider {
             display: none;
@@ -36,11 +36,26 @@
                 <div class="modal-body">
                     <form>
                         <input type="hidden" name="id">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="Judul Buku"
+                                name="judul_buku" readonly>
+                            <label for="floatingInput">Judul Buku</label>
+                        </div>
                         <div class="mb-3">
                             <label for="detail_id" class="form-label">No Induk</label>
-                            <select class="custom-select" id="noInduk" name="detail_id" required>
+                            <select class="form-select" id="noInduk" name="detail_id" required>
                                 <option>No Induk</option>
                             </select>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="date" class="form-control" id="floatingInput" placeholder="Tanggal Peminjaman"
+                                name="tanggal_peminjaman" readonly>
+                            <label for="floatingInput">Tanggal Peminjaman</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="date" class="form-control" id="floatingInput" placeholder="Tanggal Pengembalian"
+                                name="tanggal_pengembalian" readonly>
+                            <label for="floatingInput">Tanggal Pengembalian</label>
                         </div>
 
                         <button type="submit" class="btn btn-primary">Submit</button>
@@ -238,12 +253,17 @@
                             res.data.forEach(value => {
                                 $("#noInduk").append(
                                     `<option value="${value.id}">${value.no_induk}</option>`
-                                    );
+                                );
                             });
-
+                            console.log(res);
+                            // form input Tanggal
+                            var formTanggal = $("#editJurnal form input[name=tglJurnal]").empty();
+                            formTanggal.val(obj.jurnal.tanggal_jurnal);
                         }
                     }
                 });
+
+
             }
 
             // if (confirm("Apakah Anda yakin ingin mengubah status ini?") == true) {
