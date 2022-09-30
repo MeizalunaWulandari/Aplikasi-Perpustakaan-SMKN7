@@ -166,6 +166,7 @@ class SiswaController extends Controller
             'nama' => Auth::guard('websiswa')->user()->nama,
             'buku_id' => $request->id,
             'status' => 1,
+            'user_id' => Auth::guard('websiswa')->user()->id_user,
             'tanggal_booking' => date('Y-m-d H:i:s')
         ]);
 

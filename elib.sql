@@ -55,6 +55,7 @@ CREATE TABLE IF NOT EXISTS `tbelib_booking` (
   `notelp` char(50) CHARACTER SET utf8 NOT NULL DEFAULT '',
   `buku_detail_id` int(11) DEFAULT NULL,
   `buku_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
   `status` int(11) NOT NULL,
   `tanggal_booking` datetime DEFAULT NULL,
   `tanggal_peminjaman` datetime DEFAULT NULL COMMENT 'tanggal peminjaman/tanggal booking sama aja',
@@ -66,13 +67,12 @@ CREATE TABLE IF NOT EXISTS `tbelib_booking` (
   KEY `FK_tbelib_booking_tbelib_buku` (`buku_id`),
   CONSTRAINT `FK_tbelib_booking_tbelib_buku` FOREIGN KEY (`buku_id`) REFERENCES `tbelib_buku` (`id`),
   CONSTRAINT `FK_tbelib_booking_tbelib_buku_detail` FOREIGN KEY (`buku_detail_id`) REFERENCES `tbelib_buku_detail` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='Status :\r\n1 = Unverified\r\n2 = Verified\r\n3 = Due Date';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='Status :\r\n1 = Unverified\r\n2 = Verified\r\n3 = Due Date';
 
--- Dumping data for table elibrary.tbelib_booking: ~1 rows (approximately)
+-- Dumping data for table elibrary.tbelib_booking: ~0 rows (approximately)
 /*!40000 ALTER TABLE `tbelib_booking` DISABLE KEYS */;
-REPLACE INTO `tbelib_booking` (`id`, `nisn`, `nama`, `notelp`, `buku_detail_id`, `buku_id`, `status`, `tanggal_booking`, `tanggal_peminjaman`, `tanggal_pengembalian`, `created_at`, `updated_at`) VALUES
-	(1, 32277549, 'AFINA KHOIRI AZIZAH', '628', NULL, 2, 1, '2022-09-30 16:10:09', '2022-09-30 16:10:09', NULL, '2022-09-29 09:46:40', '2022-09-29 09:46:40'),
-	(2, 21834761, 'RAKEIN NARAYA PUTRA', '6289476852', NULL, 2, 1, '2022-09-30 16:17:04', NULL, NULL, '2022-09-30 16:17:04', '2022-09-30 16:17:04');
+REPLACE INTO `tbelib_booking` (`id`, `nisn`, `nama`, `notelp`, `buku_detail_id`, `buku_id`, `user_id`, `status`, `tanggal_booking`, `tanggal_peminjaman`, `tanggal_pengembalian`, `created_at`, `updated_at`) VALUES
+	(1, 21834761, 'RAKEIN NARAYA PUTRA', '628685432', NULL, 2, 105, 1, '2022-09-30 16:23:25', NULL, NULL, '2022-09-30 16:23:25', '2022-09-30 16:23:25');
 /*!40000 ALTER TABLE `tbelib_booking` ENABLE KEYS */;
 
 -- Dumping structure for table elibrary.tbelib_buku
