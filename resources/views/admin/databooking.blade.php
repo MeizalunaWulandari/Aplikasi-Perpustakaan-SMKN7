@@ -13,8 +13,8 @@
         }
 
         /* table.dataTable tbody tr {
-                                                        background-color: unset !important;
-                                                    } */
+                                                                    background-color: unset !important;
+                                                                } */
 
         div.slider {
             display: none;
@@ -48,13 +48,13 @@
                             </select>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="date" class="form-control" id="floatingInput" placeholder="Tanggal Peminjaman"
-                                name="tanggal_peminjaman" readonly>
+                            <input type="datetime" class="form-control" id="floatingInput" placeholder="Tanggal Peminjaman"
+                                name="tanggal_peminjaman">
                             <label for="floatingInput">Tanggal Peminjaman</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="date" class="form-control" id="floatingInput" placeholder="Tanggal Pengembalian"
-                                name="tanggal_pengembalian" readonly>
+                            <input type="datetime" class="form-control" id="floatingInput" placeholder="Tanggal Pengembalian"
+                                name="tanggal_pengembalian">
                             <label for="floatingInput">Tanggal Pengembalian</label>
                         </div>
 
@@ -254,16 +254,29 @@
                                 $("#noInduk").append(
                                     `<option value="${value.id}">${value.no_induk}</option>`
                                 );
+
+                                // form judul
+                                var formJudul = $(
+                                    "#modalVerifikasi form input[name=judul_buku]").empty();
+                                formJudul.val(value.judul);
+
+                                // form peminjaman
+                                var formPeminjaman = $(
+                                    "#modalVerifikasi form input[name=tanggal_peminjaman]").empty();
+                                formPeminjaman.val(value.tanggal_peminjaman);
+                                
+                                // form pengembalian
+                                var formPengembalian = $(
+                                    "#modalVerifikasi form input[name=tanggal_pengembalian]").empty();
+                                formPengembalian.val(value.tanggal_peminjaman);
                             });
-                            console.log(res);
-                            // form input Tanggal
-                            var formTanggal = $("#editJurnal form input[name=tglJurnal]").empty();
-                            formTanggal.val(obj.jurnal.tanggal_jurnal);
+
                         }
                     }
                 });
 
-
+                // jgn di checked dulu, sebelum disubmit
+                $(this).prop("checked", false);
             }
 
             // if (confirm("Apakah Anda yakin ingin mengubah status ini?") == true) {
@@ -303,8 +316,13 @@
                     status: 2
                 },
                 success: function(data) {
-                    $("#modalVerifikasi").modal('hide');
                     // table.draw();
+
+                    $("#modalVerifikasi").modal('hide');
+
+                    // checked setelah submit
+                    $('input[name=status][value=' + id + ']').prop("checked", true);
+
                     alert('Berhasil');
                 }
             });

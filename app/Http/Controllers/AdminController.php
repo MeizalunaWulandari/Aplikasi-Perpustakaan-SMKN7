@@ -129,11 +129,15 @@ class AdminController extends Controller
     {
         $detail = BookingModel::query()
             ->select(
+                'tbelib_booking.tanggal_peminjaman',
+                'tbelib_booking.tanggal_pengembalian',
                 'tbelib_buku_detail.id',
                 'tbelib_buku_detail.no_induk',
                 'tbelib_buku_detail.status',
+                'tbelib_buku.judul'
             )
-            ->join('telib_buku_detail', 'tbelib_buku_detail.buku_id', 'tbelib_booking.buku_id')
+            ->join('tbelib_buku_detail', 'tbelib_buku_detail.buku_id', 'tbelib_booking.buku_id')
+            ->join('tbelib_buku', 'tbelib_buku.id', 'tbelib_booking.buku_id')
             ->where('tbelib_booking.id', $id)
             ->where('tbelib_buku_detail.status', 1)
             ->get();
