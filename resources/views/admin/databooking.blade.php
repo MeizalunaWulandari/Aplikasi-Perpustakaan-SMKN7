@@ -178,7 +178,7 @@
             ],
             columnDefs: [{
                 render: function(data, type, row, meta) {
-                    const checked = row.status == 2 ? 'checked' : '';
+                    const checked = data == 2 ? 'checked' : '';
 
                     const html = `<div class="form-check form-switch">
                                 <input name="status" class="form-check-input" type="checkbox" role="switch" value="${row.id}" ${checked}>

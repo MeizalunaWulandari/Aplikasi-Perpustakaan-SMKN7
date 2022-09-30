@@ -26,6 +26,7 @@ class AdminController extends Controller
     public function getBooking(Request $request)
     {
         $data = BookingModel::query()
+            ->selectRaw('tbelib_booking.id, tbelib_booking.nisn, tbelib_booking.nama, tbelib_booking.notelp, tbelib_buku.judul, tbelib_booking.status')
             ->join('tbelib_buku', 'tbelib_buku.id', 'tbelib_booking.buku_id');
 
         if ($request->status) {
