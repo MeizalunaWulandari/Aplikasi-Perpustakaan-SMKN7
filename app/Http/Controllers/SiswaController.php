@@ -166,6 +166,7 @@ class SiswaController extends Controller
             'nama' => Auth::guard('websiswa')->user()->nama,
             'buku_id' => $request->id,
             'status' => 1,
+            'tanggal_booking' => date('Y-m-d H:i:s')
         ]);
 
         return redirect()->back()->with('status', 'Berhasil mem-booking buku, silahkan ambil buku ke perpustakaan dengan batas waktu 2 hari!');
