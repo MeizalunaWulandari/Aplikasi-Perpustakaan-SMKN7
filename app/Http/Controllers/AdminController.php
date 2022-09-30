@@ -25,7 +25,8 @@ class AdminController extends Controller
     }
     public function getBooking(Request $request)
     {
-        $data = BookingModel::query();
+        $data = BookingModel::query()
+            ->join('tbelib_buku', 'tbelib_buku.id', 'tbelib_booking.buku_id');
 
         if ($request->status) {
             $data = $data->where('status', $request->status);
@@ -40,6 +41,10 @@ class AdminController extends Controller
     {
         $id->status = $request->status;
         $id->buku_detail_id = $request->detail_id;
+        if ($request->status == 2) {
+            $id->tanggal_peminjaman = date("Y-m-d");
+            $id->tanggal_pengembalian = date("Y-m-d", strtotime("+7 day"));
+        }
         $id->update();
 
         return response()->json(['success' => 'true']);
@@ -127,22 +132,27 @@ class AdminController extends Controller
 
     public function getBukuDetailByBookingId($id)
     {
+        $booking = BookingModel::query()
+            ->join('tbelib_buku', 'tbelib_buku.id', 'tbelib_booking.buku_id')
+            ->where('tbelib_booking.id', $id)
+            ->first();
+
         $detail = BookingModel::query()
             ->select(
-                'tbelib_booking.tanggal_peminjaman',
-                'tbelib_booking.tanggal_pengembalian',
                 'tbelib_buku_detail.id',
-                'tbelib_buku_detail.no_induk',
-                'tbelib_buku_detail.status',
-                'tbelib_buku.judul'
+                'tbelib_buku_detail.no_induk'
             )
             ->join('tbelib_buku_detail', 'tbelib_buku_detail.buku_id', 'tbelib_booking.buku_id')
-            ->join('tbelib_buku', 'tbelib_buku.id', 'tbelib_booking.buku_id')
             ->where('tbelib_booking.id', $id)
             ->where('tbelib_buku_detail.status', 1)
             ->get();
 
-        return response()->json(['data' => $detail]);
+        return response()->json([
+            'booking' => $booking,
+            'detail' => $detail,
+            'tanggal_peminjaman' => date("Y-m-d"),
+            'tanggal_pengembalian' => date("Y-m-d", strtotime("+7 day"))
+        ]);
     }
 
     public function katkur()

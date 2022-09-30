@@ -13,8 +13,8 @@
         }
 
         /* table.dataTable tbody tr {
-                                                                    background-color: unset !important;
-                                                                } */
+                                                                                                    background-color: unset !important;
+                                                                                                } */
 
         div.slider {
             display: none;
@@ -48,13 +48,13 @@
                             </select>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="datetime" class="form-control" id="floatingInput" placeholder="Tanggal Peminjaman"
-                                name="tanggal_peminjaman">
+                            <input type="date" class="form-control" id="floatingInput" placeholder="Tanggal Peminjaman"
+                                name="tanggal_peminjaman" disabled>
                             <label for="floatingInput">Tanggal Peminjaman</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="datetime" class="form-control" id="floatingInput" placeholder="Tanggal Pengembalian"
-                                name="tanggal_pengembalian">
+                            <input type="date" class="form-control" id="floatingInput" placeholder="Tanggal Pengembalian"
+                                name="tanggal_pengembalian" disabled>
                             <label for="floatingInput">Tanggal Pengembalian</label>
                         </div>
 
@@ -163,8 +163,8 @@
                     name: 'notelp'
                 },
                 {
-                    data: 'buku_id',
-                    name: 'buku_id'
+                    data: 'judul',
+                    name: 'judul'
                 },
                 {
                     data: 'status',
@@ -247,30 +247,26 @@
                 $.ajax({
                     url: "{{ url('/api/admin/detail-buku') }}/" + id,
                     success: function(res) {
-                        $("#noInduk").empty();
-
                         if (res) {
-                            res.data.forEach(value => {
+                            // judul
+                            $("#modalVerifikasi form input[name=judul_buku]").val(res.booking.judul);
+
+                            // no induk
+                            $("#noInduk").empty();
+
+                            res.detail.forEach(value => {
                                 $("#noInduk").append(
                                     `<option value="${value.id}">${value.no_induk}</option>`
                                 );
-
-                                // form judul
-                                var formJudul = $(
-                                    "#modalVerifikasi form input[name=judul_buku]").empty();
-                                formJudul.val(value.judul);
-
-                                // form peminjaman
-                                var formPeminjaman = $(
-                                    "#modalVerifikasi form input[name=tanggal_peminjaman]").empty();
-                                formPeminjaman.val(value.tanggal_peminjaman);
-                                
-                                // form pengembalian
-                                var formPengembalian = $(
-                                    "#modalVerifikasi form input[name=tanggal_pengembalian]").empty();
-                                formPengembalian.val(value.tanggal_peminjaman);
                             });
 
+                            // tanggal peminjaman
+                            $("#modalVerifikasi form input[name=tanggal_peminjaman]").val(res
+                                .tanggal_peminjaman);
+
+                            // tanggal pengembalian
+                            $("#modalVerifikasi form input[name=tanggal_pengembalian]").val(res
+                                .tanggal_pengembalian);
                         }
                     }
                 });
@@ -278,26 +274,6 @@
                 // jgn di checked dulu, sebelum disubmit
                 $(this).prop("checked", false);
             }
-
-            // if (confirm("Apakah Anda yakin ingin mengubah status ini?") == true) {
-
-            //     $.ajax({
-            //         type: "POST",
-            //         url: "{{ url('/admin/booking/status') }}/" + id,
-            //         data: {
-            //             _token: "{{ csrf_token() }}",
-            //             _method: 'PUT',
-            //             status: status,
-            //         },
-            //         success: function(data) {
-            //             // table.draw();
-            //         }
-            //     });
-
-            // } else {
-            //     const returnVal = $(this).is(':checked') ? false : true;
-            //     $(this).prop("checked", returnVal);
-            // }
         });
 
         $('#modalVerifikasi form').submit(function(e) {
