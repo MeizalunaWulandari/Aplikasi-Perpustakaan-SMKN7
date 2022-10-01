@@ -30,9 +30,15 @@ Route::get('logout', [LoginController::class, 'logout']);
 
 // Admin
 Route::group(['middleware' => ['admin']], function () {
-    Route::get('admin', [AdminController::class, 'index']);
+    Route::get('admin/unverified-booking', [AdminController::class, 'unverifiedBooking']);
+    Route::get('admin', function () {
+        return redirect()->to('admin/unverified-booking');
+    });
+    Route::get('admin/verified-booking', [AdminController::class, 'verifiedBooking']);
     Route::get('admin/getMapel/', [AdminController::class, 'getMapel']);
     Route::get('api/admin/booking', [AdminController::class, 'getBooking'])->name('api.admin.booking');
+    Route::get('api/admin/bookingUnverified', [AdminController::class, 'getBookingUnverified'])->name('api.admin.bookingUnverified');
+    Route::get('api/admin/bookingVerified', [AdminController::class, 'getBookingVerified'])->name('api.admin.bookingVerified');
     Route::put('admin/booking/status/{id}', [AdminController::class, 'updateStatus'])->name('admin.booking.update-status');
 
     // Route::get('admin/data-booking', [AdminController::class, 'bookingunverif']);

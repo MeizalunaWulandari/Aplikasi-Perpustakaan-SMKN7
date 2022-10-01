@@ -14,24 +14,48 @@ use Yajra\DataTables\DataTables;
 
 class AdminController extends Controller
 {
-    public function index()
+    public function unverifiedBooking()
     {
         $booking = BookingModel::where('status', '1')->get();
         $data = [
-            'title' => 'Admin Perpustakaan | Data Booking',
+            'title' => 'Admin Perpustakaan | Data Booking Belum Ter-verifikasi',
             'booking' => $booking,
         ];
-        return view('admin.databooking', $data);
+        return view('admin.databookingunverified', $data);
     }
-    public function getBooking(Request $request)
+    public function verifiedBooking()
+    {
+        $booking = BookingModel::where('status', '2')->get();
+        $data = [
+            'title' => 'Admin Perpustakaan | Data Booking Ter-verifikasi',
+            'booking' => $booking,
+        ];
+        return view('admin.databookingverified', $data);
+    }
+    public function getBookingUnverified(Request $request)
     {
         $data = BookingModel::query()
             ->selectRaw('tbelib_booking.id, tbelib_booking.nisn, tbelib_booking.nama, tbelib_booking.notelp, tbelib_buku.judul, tbelib_booking.status')
             ->join('tbelib_buku', 'tbelib_buku.id', 'tbelib_booking.buku_id');
 
-        if ($request->status) {
-            $data = $data->where('status', $request->status);
-        }
+        // if ($request->status) {
+            $data = $data->where('status', 1);
+        // }
+        $data = $data->get();
+
+        return DataTables::of($data)
+            ->addIndexColumn()
+            ->toJson();
+    }
+    public function getBookingVerified(Request $request)
+    {
+        $data = BookingModel::query()
+            ->selectRaw('tbelib_booking.id, tbelib_booking.nisn, tbelib_booking.nama, tbelib_booking.notelp, tbelib_buku.judul, tbelib_booking.status')
+            ->join('tbelib_buku', 'tbelib_buku.id', 'tbelib_booking.buku_id');
+
+        // if ($request->status) {
+            $data = $data->where('status', 2);
+        // }
         $data = $data->get();
 
         return DataTables::of($data)

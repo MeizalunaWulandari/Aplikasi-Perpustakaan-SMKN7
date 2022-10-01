@@ -12,10 +12,6 @@
             background-size: 40px;
         }
 
-        /* table.dataTable tbody tr {
-                                                                                                    background-color: unset !important;
-                                                                                                } */
-
         div.slider {
             display: none;
             margin: 0px;
@@ -67,7 +63,7 @@
     <div class="page-heading">
         <h3>Data Booking</h3><br><br>
         <div class="d-sm-flex align-items-center justify-content-between">
-            <div class="d-sm-inline-block">
+            {{-- <div class="d-sm-inline-block">
                 <div class="form-group">
                     <label for="filter">Filter</label>
                     <select name="filter_status" id="filter" class="form-control" required>
@@ -76,7 +72,7 @@
                         <option value="3">Due date</option>
                     </select>
                 </div>
-            </div>
+            </div> --}}
             {{-- </div> --}}
             {{-- <div class="d-sm-flex align-items-center justify-content-end"> --}}
             <div class="d-sm-inline-block">
@@ -141,9 +137,9 @@
             processing: true,
             serverSide: true,
             ajax: {
-                url: "{{ route('api.admin.booking') }}",
+                url: "{{ route('api.admin.bookingUnverified') }}",
                 data: function(d) {
-                    d.status = $('select[name=filter_status]').val();
+                    // d.status = $('select[name=filter_status]').val();
                 }
             },
             columns: [{
@@ -211,9 +207,9 @@
             }
         });
 
-        $('#filter').change(function() {
-            table.draw();
-        });
+        // $('#filter').change(function() {
+        //     table.draw();
+        // });
 
         $('#table-booking tbody').on('change', 'td input[name=status]', function() {
             const status = $(this).is(':checked') ? 2 : 1;
