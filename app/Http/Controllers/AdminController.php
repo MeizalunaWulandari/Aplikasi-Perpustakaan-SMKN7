@@ -65,13 +65,15 @@ class AdminController extends Controller
     public function updateStatus(Request $request, BookingModel $id)
     {
         $id->status = $request->status;
-        $id->buku_detail_id = $request->detail_id;
         if ($request->status == 2) {
+            $id->buku_detail_id = $request->detail_id;
             $id->tanggal_peminjaman = date("Y-m-d");
             $id->tanggal_pengembalian = date("Y-m-d", strtotime("+7 day"));
         }
         if ($request->status == 4) {
             $id->tanggal_dikembalikan = date("Y-m-d");
+            $id->terlambat = $request->terlambat;
+            $id->denda = $request->denda;
         }
         $id->update();
 
@@ -162,6 +164,7 @@ class AdminController extends Controller
     {
         $booking = BookingModel::query()
             ->join('tbelib_buku', 'tbelib_buku.id', 'tbelib_booking.buku_id')
+            ->join('tbelib_buku_detail', 'tbelib_buku_detail.id', 'tbelib_booking.buku_detail_id')
             ->where('tbelib_booking.id', $id)
             ->first();
 

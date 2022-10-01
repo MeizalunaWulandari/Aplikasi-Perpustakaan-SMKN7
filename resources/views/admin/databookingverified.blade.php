@@ -37,21 +37,30 @@
                                 name="judul_buku" readonly>
                             <label for="floatingInput">Judul Buku</label>
                         </div>
-                        <div class="mb-3">
-                            <label for="detail_id" class="form-label">No Induk</label>
-                            <select class="form-select" id="noInduk" name="detail_id" required>
-                                <option>No Induk</option>
-                            </select>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="No Induk"
+                                name="no_induk" readonly>
+                            <label for="floatingInput">No Induk</label>
                         </div>
                         <div class="form-floating mb-3">
                             <input type="date" class="form-control" id="floatingInput" placeholder="Tanggal Pengembalian"
-                                name="tanggal_pengembalian" disabled>
+                                name="tanggal_pengembalian" readonly>
                             <label for="floatingInput">Tanggal Pengembalian</label>
                         </div>
                         <div class="form-floating mb-3">
                             <input type="date" class="form-control" id="floatingInput" placeholder="Tanggal Dikembalikan"
-                                name="tanggal_dikembalikan" disabled>
+                                name="tanggal_dikembalikan" readonly>
                             <label for="floatingInput">Tanggal Dikembalikan</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="number" class="form-control" id="floatingInput" placeholder="Terlambat (Hari)"
+                                name="terlambat" readonly>
+                            <label for="floatingInput">Terlambat (Hari)</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="number" class="form-control" id="floatingInput" placeholder="Denda" name="denda"
+                                readonly>
+                            <label for="floatingInput">Denda</label>
                         </div>
 
                         <button type="submit" class="btn btn-primary">Submit</button>
@@ -248,13 +257,7 @@
                             $("#modalVerifikasi form input[name=judul_buku]").val(res.booking.judul);
 
                             // no induk
-                            $("#noInduk").empty();
-
-                            res.detail.forEach(value => {
-                                $("#noInduk").append(
-                                    `<option value="${value.id}">${value.no_induk}</option>`
-                                );
-                            });
+                            $("#modalVerifikasi form input[name=no_induk]").val(res.booking.no_induk);
 
                             // tanggal peminjaman
                             $("#modalVerifikasi form input[name=tanggal_pengembalian]").val(res
@@ -263,6 +266,22 @@
                             // tanggal pengembalian
                             $("#modalVerifikasi form input[name=tanggal_dikembalikan]").val(res
                                 .tanggal_dikembalikan);
+
+                            // terlambat
+                            const pengembalian = new Date(res.tanggal_pengembalian).getTime();
+                            const dikembalikan = Date.now();
+
+                            const hitungTerlambat = Math.floor((dikembalikan - pengembalian) / (24 *
+                                3600 * 1000));
+
+                            const terlambat = hitungTerlambat > 0 ? hitungTerlambat : 0;
+
+                            $("#modalVerifikasi form input[name=terlambat]").val(terlambat);
+
+                            // denda
+                            const denda = terlambat * 1000;
+                            $("#modalVerifikasi form input[name=denda]").val(denda.toLocaleString(
+                                'id-ID'));
                         }
                     }
                 });
@@ -277,6 +296,8 @@
 
             const id = $(this).find('input[name=id]').val();
             const detailId = $(this).find('select[name=detail_id]').val();
+            const terlambat = $(this).find('input[name=terlambat]').val();
+            const denda = $(this).find('input[name=denda]').val();
 
             $.ajax({
                 type: "POST",
@@ -285,6 +306,8 @@
                     _token: "{{ csrf_token() }}",
                     _method: 'PUT',
                     detail_id: detailId,
+                    terlambat: terlambat,
+                    denda: denda,
                     status: 4
                 },
                 success: function(data) {
