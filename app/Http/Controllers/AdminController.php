@@ -39,7 +39,7 @@ class AdminController extends Controller
             ->join('tbelib_buku', 'tbelib_buku.id', 'tbelib_booking.buku_id');
 
         // if ($request->status) {
-            $data = $data->where('status', 1);
+        $data = $data->where('status', 1);
         // }
         $data = $data->get();
 
@@ -54,7 +54,7 @@ class AdminController extends Controller
             ->join('tbelib_buku', 'tbelib_buku.id', 'tbelib_booking.buku_id');
 
         // if ($request->status) {
-            $data = $data->where('status', 2);
+        $data = $data->where('status', 2);
         // }
         $data = $data->get();
 
@@ -69,6 +69,9 @@ class AdminController extends Controller
         if ($request->status == 2) {
             $id->tanggal_peminjaman = date("Y-m-d");
             $id->tanggal_pengembalian = date("Y-m-d", strtotime("+7 day"));
+        }
+        if ($request->status == 4) {
+            $id->tanggal_dikembalikan = date("Y-m-d");
         }
         $id->update();
 
@@ -176,7 +179,8 @@ class AdminController extends Controller
             'booking' => $booking,
             'detail' => $detail,
             'tanggal_peminjaman' => date("Y-m-d"),
-            'tanggal_pengembalian' => date("Y-m-d", strtotime("+7 day"))
+            'tanggal_pengembalian' => $booking->status == 2 ? $booking->tanggal_pengembalian : date("Y-m-d", strtotime("+7 day")),
+            'tanggal_dikembalikan' => date("Y-m-d"),
         ]);
     }
 

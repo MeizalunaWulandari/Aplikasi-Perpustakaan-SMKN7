@@ -44,14 +44,14 @@
                             </select>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="date" class="form-control" id="floatingInput" placeholder="Tanggal Peminjaman"
-                                name="tanggal_peminjaman" disabled>
-                            <label for="floatingInput">Tanggal Peminjaman</label>
-                        </div>
-                        <div class="form-floating mb-3">
                             <input type="date" class="form-control" id="floatingInput" placeholder="Tanggal Pengembalian"
                                 name="tanggal_pengembalian" disabled>
                             <label for="floatingInput">Tanggal Pengembalian</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="date" class="form-control" id="floatingInput" placeholder="Tanggal Dikembalikan"
+                                name="tanggal_dikembalikan" disabled>
+                            <label for="floatingInput">Tanggal Dikembalikan</label>
                         </div>
 
                         <button type="submit" class="btn btn-primary">Submit</button>
@@ -174,7 +174,7 @@
             ],
             columnDefs: [{
                 render: function(data, type, row, meta) {
-                    const checked = data == 2 ? 'checked' : '';
+                    const checked = data == 4 ? 'checked' : '';
 
                     const html = `<div class="form-check form-switch">
                                 <input name="status" class="form-check-input" type="checkbox" role="switch" value="${row.id}" ${checked}>
@@ -212,10 +212,10 @@
         // });
 
         $('#table-booking tbody').on('change', 'td input[name=status]', function() {
-            const status = $(this).is(':checked') ? 2 : 1;
+            const status = $(this).is(':checked') ? 4 : 2;
             const id = $(this).val();
 
-            if (status == 1) {
+            if (status == 2) {
                 if (confirm("Apakah Anda yakin ingin mengubah status ini?") == true) {
 
                     $.ajax({
@@ -257,12 +257,12 @@
                             });
 
                             // tanggal peminjaman
-                            $("#modalVerifikasi form input[name=tanggal_peminjaman]").val(res
-                                .tanggal_peminjaman);
-
-                            // tanggal pengembalian
                             $("#modalVerifikasi form input[name=tanggal_pengembalian]").val(res
                                 .tanggal_pengembalian);
+
+                            // tanggal pengembalian
+                            $("#modalVerifikasi form input[name=tanggal_dikembalikan]").val(res
+                                .tanggal_dikembalikan);
                         }
                     }
                 });
@@ -285,7 +285,7 @@
                     _token: "{{ csrf_token() }}",
                     _method: 'PUT',
                     detail_id: detailId,
-                    status: 2
+                    status: 4
                 },
                 success: function(data) {
                     // table.draw();
