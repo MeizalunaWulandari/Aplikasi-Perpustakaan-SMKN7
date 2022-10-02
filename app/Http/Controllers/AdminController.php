@@ -164,7 +164,7 @@ class AdminController extends Controller
     {
         $booking = BookingModel::query()
             ->join('tbelib_buku', 'tbelib_buku.id', 'tbelib_booking.buku_id')
-            ->join('tbelib_buku_detail', 'tbelib_buku_detail.id', 'tbelib_booking.buku_detail_id')
+            ->leftjoin('tbelib_buku_detail', 'tbelib_buku_detail.id', 'tbelib_booking.buku_detail_id')
             ->where('tbelib_booking.id', $id)
             ->first();
 
