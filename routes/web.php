@@ -30,22 +30,30 @@ Route::get('logout', [LoginController::class, 'logout']);
 
 // Admin
 Route::group(['middleware' => ['admin']], function () {
+    // Unverified Booking
     Route::get('admin/unverified-booking', [AdminController::class, 'unverifiedBooking']);
     Route::get('admin', function () {
         return redirect()->to('admin/unverified-booking');
     });
-    Route::get('admin/verified-booking', [AdminController::class, 'verifiedBooking']);
-    Route::get('admin/getMapel/', [AdminController::class, 'getMapel']);
-    Route::get('api/admin/booking', [AdminController::class, 'getBooking'])->name('api.admin.booking');
     Route::get('api/admin/bookingUnverified', [AdminController::class, 'getBookingUnverified'])->name('api.admin.bookingUnverified');
-    Route::get('api/admin/bookingVerified', [AdminController::class, 'getBookingVerified'])->name('api.admin.bookingVerified');
-    Route::put('admin/booking/status/{id}', [AdminController::class, 'updateStatus'])->name('admin.booking.update-status');
 
-    // Route::get('admin/data-booking', [AdminController::class, 'bookingunverif']);
+    // Verified Booking
+    Route::get('admin/verified-booking', [AdminController::class, 'verifiedBooking']);
+    Route::get('api/admin/bookingVerified', [AdminController::class, 'getBookingVerified'])->name('api.admin.bookingVerified');
+
+    // Returned Booking
+    Route::get('admin/returned-booking', [AdminController::class, 'returnedBooking']);
+    Route::get('api/admin/bookingReturned', [AdminController::class, 'getBookingReturned'])->name('api.admin.bookingReturned');
+    Route::get('api/admin/bookingReturned-detail/{id}', [AdminController::class, 'getBookingReturnedById'])->name('api.admin.bookingReturnedDetail');
+
+    Route::put('admin/booking/status/{id}', [AdminController::class, 'updateStatus'])->name('admin.booking.update-status');
+    
+    Route::get('api/admin/detail-buku/{bookingid}', [AdminController::class, 'getBukuDetailByBookingId'])->name('api.admin.detail-buku');
+
     Route::get('admin/data-buku', [AdminController::class, 'buku']);
     Route::get('api/admin/data-buku', [AdminController::class, 'getBuku'])->name('api.admin.data-buku');
     Route::get('api/admin/data-buku/{id}', [AdminController::class, 'getBukuDetailById'])->name('api.admin.data-buku-detail');
-    Route::get('api/admin/detail-buku/{bookingid}', [AdminController::class, 'getBukuDetailByBookingId'])->name('api.admin.detail-buku');
+    
 
     Route::get('admin/buku-digital', [AdminController::class, 'bukudigital']);
     Route::get('admin/buku-kejuruan', [AdminController::class, 'bukukejuruan']);

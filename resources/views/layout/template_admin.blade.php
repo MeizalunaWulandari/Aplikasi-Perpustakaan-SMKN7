@@ -82,20 +82,14 @@
                     {{-- @dd(Request::url()) --}}
                     <ul class="menu">
                         <li class="sidebar-title">Menu</li>
-                        {{-- <li class="sidebar-item <?= Request::url() == url('/admin') ? 'active' : '' ?>">
-                            <a href="{{ url('/admin') }}" class='sidebar-link'>
-                                <i class="bi bi-bar-chart"></i>
-                                <span>Data Booking</span>
-                            </a>
-                        </li> --}}
                         <li
-                            class="sidebar-item <?= (Request::url() == url('/admin/unverified-booking') ? 'active' : Request::url() == url('/admin/verified-booking')) ? 'active' : '' ?> has-sub">
+                            class="sidebar-item <?= Request::url() == url('/admin/unverified-booking') ? 'active' : Request::url() == url('/admin/verified-booking') ? 'active' : Request::url() == url('/admin/returned-booking') ? 'active' : '' ?> has-sub">
                             <a href="#" class="sidebar-link">
                                 <i class="bi bi-bar-chart"></i>
                                 <span>Data Booking</span>
                             </a>
-                            <ul class="submenu <?= (Request::url() == url('/admin/unverified-booking') ? 'active' : Request::url() == url('/admin/verified-booking')) ? 'active' : '' ?>"
-                                style="display: <?= Request::url() == url('/admin/unverified-booking') ? 'block' : Request::url() == url('/admin/verified-booking') ? 'block' : 'none' ?>;">
+                            <ul class="submenu <?= Request::url() == url('/admin/unverified-booking') ? 'active' : Request::url() == url('/admin/verified-booking') ? 'active' : Request::url() == url('/admin/returned-booking') ? 'active' : '' ?>"
+                                style="display: <?= Request::url() == url('/admin/unverified-booking') ? 'block' : Request::url() == url('/admin/verified-booking') ? 'block' : Request::url() == url('/admin/returned-booking') ? 'block' : 'none' ?>;">
                                 <li
                                     class="submenu-item <?= Request::url() == url('/admin/unverified-booking') ? 'active' : '' ?>">
                                     <a href="{{ url('/admin/unverified-booking') }}">Unverified Booking</a>
@@ -103,6 +97,10 @@
                                 <li
                                     class="submenu-item <?= Request::url() == url('/admin/verified-booking') ? 'active' : '' ?>">
                                     <a href="{{ url('/admin/verified-booking') }}">Verified Booking</a>
+                                </li>
+                                <li
+                                    class="submenu-item <?= Request::url() == url('/admin/returned-booking') ? 'active' : '' ?>">
+                                    <a href="{{ url('/admin/returned-booking') }}">Returned Booking</a>
                                 </li>
                             </ul>
                         </li>

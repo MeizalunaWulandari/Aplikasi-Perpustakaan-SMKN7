@@ -14,24 +14,15 @@ use Yajra\DataTables\DataTables;
 
 class AdminController extends Controller
 {
+    // Unverified Booking
     public function unverifiedBooking()
     {
-        $booking = BookingModel::where('status', '1')->get();
         $data = [
             'title' => 'Admin Perpustakaan | Data Booking Belum Ter-verifikasi',
-            'booking' => $booking,
         ];
         return view('admin.databookingunverified', $data);
     }
-    public function verifiedBooking()
-    {
-        $booking = BookingModel::where('status', '2')->get();
-        $data = [
-            'title' => 'Admin Perpustakaan | Data Booking Ter-verifikasi',
-            'booking' => $booking,
-        ];
-        return view('admin.databookingverified', $data);
-    }
+    // Unverified Booking API
     public function getBookingUnverified(Request $request)
     {
         $data = BookingModel::query()
@@ -47,10 +38,31 @@ class AdminController extends Controller
             ->addIndexColumn()
             ->toJson();
     }
+
+    // Verified Booking
+    public function verifiedBooking()
+    {
+        $data = [
+            'title' => 'Admin Perpustakaan | Data Booking Ter-verifikasi',
+        ];
+        return view('admin.databookingverified', $data);
+    }
+    // Verified Booking API
     public function getBookingVerified(Request $request)
     {
         $data = BookingModel::query()
-            ->selectRaw('tbelib_booking.id, tbelib_booking.nisn, tbelib_booking.nama, tbelib_booking.notelp, tbelib_buku.judul, tbelib_booking.status')
+            ->selectRaw(
+                'tbelib_booking.id, 
+                tbelib_booking.nisn, 
+                tbelib_booking.nama, 
+                tbelib_booking.notelp, 
+                tbelib_buku.judul, 
+                tbelib_booking.status,
+                tbelib_booking.tanggal_peminjaman,
+                tbelib_booking.tanggal_pengembalian,
+                tbelib_booking.terlambat,
+                tbelib_booking.denda'
+            )
             ->join('tbelib_buku', 'tbelib_buku.id', 'tbelib_booking.buku_id');
 
         // if ($request->status) {
@@ -62,6 +74,57 @@ class AdminController extends Controller
             ->addIndexColumn()
             ->toJson();
     }
+
+    public function returnedBooking()
+    {
+        $data = [
+            'title' => 'Admin Perpustakaan | Data Booking Yang Telah Kembali',
+        ];
+        return view('admin.databookingreturned', $data);
+    }
+    public function getBookingReturned(Request $request)
+    {
+        $data = BookingModel::query()
+            ->selectRaw(
+                'tbelib_booking.id, 
+                tbelib_booking.nisn, 
+                tbelib_booking.nama, 
+                tbelib_booking.notelp, 
+                tbelib_buku.judul, 
+                tbelib_booking.status,
+                tbelib_booking.tanggal_peminjaman,
+                tbelib_booking.tanggal_pengembalian,
+                tbelib_booking.terlambat,
+                tbelib_booking.denda'
+            )
+            ->join('tbelib_buku', 'tbelib_buku.id', 'tbelib_booking.buku_id');
+
+        // if ($request->status) {
+        $data = $data->where('tbelib_booking.status', 4);
+        // }
+        $data = $data->get();
+
+        return DataTables::of($data)
+            ->addIndexColumn()
+            ->toJson();
+    }
+    public function getBookingReturnedById($id)
+    {
+        $data = BookingModel::join('tbelib_buku', 'tbelib_buku.id', 'tbelib_booking.buku_id')
+            ->join('tbelib_buku_detail', 'tbelib_buku_detail.id', 'tbelib_booking.buku_detail_id')
+            ->select(
+                'tbelib_booking.tanggal_pengembalian',
+                'tbelib_booking.terlambat',
+                'tbelib_booking.denda',
+                'tbelib_booking.tanggal_dikembalikan',
+                'tbelib_buku_detail.no_induk',
+            )
+            ->where('tbelib_booking.nisn', $id)
+            ->get();
+
+        return response()->json(['booking' => $data]);
+    }
+
     public function updateStatus(Request $request, BookingModel $id)
     {
         $id->status = $request->status;

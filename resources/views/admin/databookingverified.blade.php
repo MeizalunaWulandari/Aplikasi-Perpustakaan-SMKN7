@@ -24,10 +24,8 @@
         <div class="modal-dialog modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Verifikasi</h5>
-                    <button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="Close">
-                        <i class="bi bi-x-lg"></i>
-                    </button>
+                    <h5 class="modal-title" id="exampleModalLabel">Verifikasi Pengembalian Buku</h5>
+                    <button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form>
@@ -98,13 +96,18 @@
                         <th>Nama Peminjam Buku</th>
                         <th>Nomor Telpon Peminjam</th>
                         <th>Judul Buku</th>
+                        <th>Tanggal Peminjaman</th>
+                        <th>Tanggal Pengembalian</th>
+                        <th>Keterlambatan (hari)</th>
+                        <th>Denda</th>
                         <th>Verifikasi</th>
-                        <th>Detail</th>
+                        {{-- <th>Detail</th> --}}
                     </tr>
                 </thead>
                 <tbody id="nampel">
-                    <?php $no = 1; ?>
-                    @foreach ($booking as $item)
+                    <?php // $no = 1;
+                    ?>
+                    {{-- @foreach ($booking as $item)
                         <tr>
                             <td>{{ $no++ }}</td>
                             <td>{{ $item->nisn }}</td>
@@ -119,7 +122,7 @@
                                 </div>
                             </td>
                         </tr>
-                    @endforeach
+                    @endforeach --}}
                 </tbody>
                 <tfoot>
                     <tr>
@@ -128,8 +131,12 @@
                         <th>Nama Peminjam Buku</th>
                         <th>Nomor Telpon Peminjam</th>
                         <th>Judul Buku</th>
+                        <th>Tanggal Peminjaman</th>
+                        <th>Tanggal Pengembalian</th>
+                        <th>Keterlambatan (hari)</th>
+                        <th>Denda</th>
                         <th>Verifikasi</th>
-                        <th>Detail</th>
+                        {{-- <th>Detail</th> --}}
                     </tr>
                 </tfoot>
             </table>
@@ -171,28 +178,61 @@
                     data: 'judul',
                     name: 'judul'
                 },
+                // {
+                //     data: 'status',
+                //     name: 'status'
+                // },
                 {
-                    data: 'status',
-                    name: 'status'
+                    data: 'tanggal_peminjaman',
+                    name: 'tanggal_peminjaman'
                 },
                 {
-                    className: 'details-control',
-                    data: 'null',
-                    defaultContent: ''
-                }
+                    data: 'tanggal_pengembalian',
+                    name: 'tanggal_pengembalian'
+                },
+                {
+                    data: 'terlambat',
+                    name: 'terlambat'
+                },
+                {
+                    data: 'denda',
+                    name: 'denda'
+                },
+                // {
+                //     className: 'details-control',
+                //     data: 'null',
+                //     defaultContent: ''
+                // }
             ],
             columnDefs: [{
-                render: function(data, type, row, meta) {
-                    const checked = data == 4 ? 'checked' : '';
+                    render: function(data, type, row, meta) {
+                        const html = `${row.terlambat} Hari`;
 
-                    const html = `<div class="form-check form-switch">
-                                <input name="status" class="form-check-input" type="checkbox" role="switch" value="${row.id}" ${checked}>
-                            </div>`;
-
-                    return html;
+                        return html;
+                    },
+                    targets: [7]
                 },
-                targets: [5]
-            }, ],
+                {
+                    render: function(data, type, row, meta) {
+                        const html = `Rp ${row.denda},- `;
+
+                        return html;
+                    },
+                    targets: [8]
+                },
+                {
+                    render: function(data, type, row, meta) {
+                        const checked = data == 4 ? 'checked' : '';
+
+                        const html = `<div class="form-check form-switch">
+                                    <input name="status" class="form-check-input" type="checkbox" role="switch" value="${row.id}" ${checked}>
+                                </div>`;
+
+                        return html;
+                    },
+                    targets: [9]
+                },
+            ],
             order: [],
             language: {
                 search: "",
@@ -236,7 +276,7 @@
                             status: status,
                         },
                         success: function(data) {
-                            // table.draw();
+                            table.draw();
                         }
                     });
 
@@ -311,7 +351,7 @@
                     status: 4
                 },
                 success: function(data) {
-                    // table.draw();
+                    table.draw();
 
                     $("#modalVerifikasi").modal('hide');
 
@@ -323,42 +363,42 @@
             });
         });
 
-        function formatDetail(d) {
+        // function formatDetail(d) {
 
-            const slider = `<div class="slider">
-                <table class="table">
-                    <thead>
-                        <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">First</th>
-                        <th scope="col">Last</th>
-                        <th scope="col">Handle</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        </tr>
-                        <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                        </tr>
-                        <tr>
-                        <th scope="row">3</th>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
-                        </tr>
-                    </tbody>
-                    </table>
-                </div>`;
+        //     const slider = `<div class="slider">
+    //         <table class="table">
+    //             <thead>
+    //                 <tr>
+    //                 <th scope="col">#</th>
+    //                 <th scope="col">First</th>
+    //                 <th scope="col">Last</th>
+    //                 <th scope="col">Handle</th>
+    //                 </tr>
+    //             </thead>
+    //             <tbody>
+    //                 <tr>
+    //                 <th scope="row">1</th>
+    //                 <td>Mark</td>
+    //                 <td>Otto</td>
+    //                 <td>@mdo</td>
+    //                 </tr>
+    //                 <tr>
+    //                 <th scope="row">2</th>
+    //                 <td>Jacob</td>
+    //                 <td>Thornton</td>
+    //                 <td>@fat</td>
+    //                 </tr>
+    //                 <tr>
+    //                 <th scope="row">3</th>
+    //                 <td>Larry</td>
+    //                 <td>the Bird</td>
+    //                 <td>@twitter</td>
+    //                 </tr>
+    //             </tbody>
+    //             </table>
+    //         </div>`;
 
-            return slider;
-        }
+        //     return slider;
+        // }
     </script>
 @endsection

@@ -24,10 +24,8 @@
         <div class="modal-dialog modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Verifikasi</h5>
-                    <button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="Close">
-                        <i class="bi bi-x-lg"></i>
-                    </button>
+                    <h5 class="modal-title" id="exampleModalLabel">Verifikasi Pengambilan Buku</h5>
+                    <button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form>
@@ -90,12 +88,12 @@
                         <th>Nomor Telpon Peminjam</th>
                         <th>Judul Buku</th>
                         <th>Verifikasi</th>
-                        <th>Detail</th>
+                        {{-- <th>Detail</th> --}}
                     </tr>
                 </thead>
                 <tbody id="nampel">
-                    <?php $no = 1; ?>
-                    @foreach ($booking as $item)
+                    <?php //$no = 1; ?>
+                    {{-- @foreach ($booking as $item)
                         <tr>
                             <td>{{ $no++ }}</td>
                             <td>{{ $item->nisn }}</td>
@@ -110,7 +108,7 @@
                                 </div>
                             </td>
                         </tr>
-                    @endforeach
+                    @endforeach --}}
                 </tbody>
                 <tfoot>
                     <tr>
@@ -120,7 +118,7 @@
                         <th>Nomor Telpon Peminjam</th>
                         <th>Judul Buku</th>
                         <th>Verifikasi</th>
-                        <th>Detail</th>
+                        {{-- <th>Detail</th> --}}
                     </tr>
                 </tfoot>
             </table>
@@ -166,11 +164,11 @@
                     data: 'status',
                     name: 'status'
                 },
-                {
-                    className: 'details-control',
-                    data: 'null',
-                    defaultContent: ''
-                }
+                // {
+                //     className: 'details-control',
+                //     data: 'null',
+                //     defaultContent: ''
+                // }
             ],
             columnDefs: [{
                 render: function(data, type, row, meta) {
@@ -288,7 +286,7 @@
                     status: 2
                 },
                 success: function(data) {
-                    // table.draw();
+                    table.draw();
 
                     $("#modalVerifikasi").modal('hide');
 
@@ -300,42 +298,42 @@
             });
         });
 
-        function formatDetail(d) {
+        // function formatDetail(d) {
 
-            const slider = `<div class="slider">
-                <table class="table">
-                    <thead>
-                        <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">First</th>
-                        <th scope="col">Last</th>
-                        <th scope="col">Handle</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        </tr>
-                        <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                        </tr>
-                        <tr>
-                        <th scope="row">3</th>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
-                        </tr>
-                    </tbody>
-                    </table>
-                </div>`;
+        //     const slider = `<div class="slider">
+        //         <table class="table">
+        //             <thead>
+        //                 <tr>
+        //                 <th scope="col">#</th>
+        //                 <th scope="col">First</th>
+        //                 <th scope="col">Last</th>
+        //                 <th scope="col">Handle</th>
+        //                 </tr>
+        //             </thead>
+        //             <tbody>
+        //                 <tr>
+        //                 <th scope="row">1</th>
+        //                 <td>Mark</td>
+        //                 <td>Otto</td>
+        //                 <td>@mdo</td>
+        //                 </tr>
+        //                 <tr>
+        //                 <th scope="row">2</th>
+        //                 <td>Jacob</td>
+        //                 <td>Thornton</td>
+        //                 <td>@fat</td>
+        //                 </tr>
+        //                 <tr>
+        //                 <th scope="row">3</th>
+        //                 <td>Larry</td>
+        //                 <td>the Bird</td>
+        //                 <td>@twitter</td>
+        //                 </tr>
+        //             </tbody>
+        //             </table>
+        //         </div>`;
 
-            return slider;
-        }
+        //     return slider;
+        // }
     </script>
 @endsection
