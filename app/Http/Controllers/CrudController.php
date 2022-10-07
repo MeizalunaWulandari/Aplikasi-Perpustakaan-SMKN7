@@ -6,7 +6,10 @@ use App\Models\BukuDetailModel;
 use App\Models\BukuModel;
 use App\Models\JenisModel;
 use App\Models\KatkurModel;
+use App\Imports\BukuImport;
+
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 use Cviebrock\EloquentSluggable\Services\SlugService;
 use Facade\FlareClient\Stacktrace\File;
@@ -467,5 +470,16 @@ class CrudController extends Controller
     public function destroyJenisBuku(JenisModel $id)
     {
         $id->delete();
+    }
+
+    public function createImportBuku(){
+
+        return view('admin.crud.importbuku', ['title' => 'Import Buku']);
+    }
+
+    public function storeImportBuku(Request $request){
+        Excel::import(new BukuImport, $request->file('file_buku'));
+
+        return redirect()->to('/admin/import-buku')->with('status', 'Berhasil melakukan Import');
     }
 }

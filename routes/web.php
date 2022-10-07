@@ -47,13 +47,13 @@ Route::group(['middleware' => ['admin']], function () {
     Route::get('api/admin/bookingReturned-detail/{id}', [AdminController::class, 'getBookingReturnedById'])->name('api.admin.bookingReturnedDetail');
 
     Route::put('admin/booking/status/{id}', [AdminController::class, 'updateStatus'])->name('admin.booking.update-status');
-    
+
     Route::get('api/admin/detail-buku/{bookingid}', [AdminController::class, 'getBukuDetailByBookingId'])->name('api.admin.detail-buku');
 
     Route::get('admin/data-buku', [AdminController::class, 'buku']);
     Route::get('api/admin/data-buku', [AdminController::class, 'getBuku'])->name('api.admin.data-buku');
     Route::get('api/admin/data-buku/{id}', [AdminController::class, 'getBukuDetailById'])->name('api.admin.data-buku-detail');
-    
+
 
     Route::get('admin/buku-digital', [AdminController::class, 'bukudigital']);
     Route::get('admin/buku-kejuruan', [AdminController::class, 'bukukejuruan']);
@@ -78,6 +78,9 @@ Route::group(['middleware' => ['admin']], function () {
     Route::get('admin/edit-detail-buku/{id}', [CrudController::class, 'editDetailBuku']);
     Route::post('admin/update-detail-buku/{id}', [CrudController::class, 'updateDetailBuku']);
     Route::delete('admin/hapus-detail-buku/{id}', [CrudController::class, 'destroyDetailBuku']);
+
+    Route::get('admin/import-buku', [CrudController::class, 'createImportBuku']);
+    Route::post('admin/import-buku', [CrudController::class, 'storeImportBuku']);
 
     // Kategori
     Route::get('admin/tambah-kategori', [CrudController::class, 'createKategori']);
