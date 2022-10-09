@@ -105,3 +105,5 @@ Route::get('/katalog', function () {
 });
 Route::get('/katalog/{slug}', [SiswaController::class, 'katalog'])->name('katalog');
 Route::post('booking', [SiswaController::class, 'booking']);
+
+Route::get('history', [SiswaController::class, 'history']);
