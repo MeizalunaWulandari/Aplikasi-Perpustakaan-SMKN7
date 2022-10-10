@@ -183,8 +183,8 @@ class SiswaController extends Controller
 
         return response()->download($path, $buku->file_pdf, $headers);
     }
-    public function user()
+    public function history()
     {
-        return view('siswa.user');
+        return view('siswa.history');
     }
 }
