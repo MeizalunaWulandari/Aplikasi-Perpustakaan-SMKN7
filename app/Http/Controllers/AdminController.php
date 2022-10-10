@@ -7,7 +7,7 @@ use App\Models\BukuDetailModel;
 use App\Models\BukuModel;
 use App\Models\JenisModel;
 use App\Models\KatkurModel;
-
+use App\Models\TmpBuku;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Contracts\DataTable;
 use Yajra\DataTables\DataTables;
@@ -247,6 +247,14 @@ class AdminController extends Controller
             'tanggal_peminjaman' => date("Y-m-d"),
             'tanggal_pengembalian' => $booking->status == 2 ? $booking->tanggal_pengembalian : date("Y-m-d", strtotime("+7 day")),
             'tanggal_dikembalikan' => date("Y-m-d"),
+        ]);
+    }
+
+    public function getImport()
+    {
+        $import = TmpBuku::where('status', 1)->get();
+        return response()->json([
+            'import' => $import
         ]);
     }
 

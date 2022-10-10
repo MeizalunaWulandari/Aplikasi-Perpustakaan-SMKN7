@@ -7,7 +7,7 @@ use App\Models\BukuModel;
 use App\Models\JenisModel;
 use App\Models\KatkurModel;
 use App\Imports\BukuImport;
-
+use App\Models\TmpBuku;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -473,8 +473,12 @@ class CrudController extends Controller
     }
 
     public function createImportBuku(){
-
-        return view('admin.crud.importbuku', ['title' => 'Import Buku']);
+        $import = TmpBuku::all();
+        $data = [
+            'title' => 'Import Buku',
+            'import' => $import
+        ];
+        return view('admin.crud.importbuku', $data);
     }
 
     public function storeImportBuku(Request $request){

@@ -104,25 +104,7 @@
                         {{-- <th>Detail</th> --}}
                     </tr>
                 </thead>
-                <tbody id="nampel">
-                    <?php // $no = 1;
-                    ?>
-                    {{-- @foreach ($booking as $item)
-                        <tr>
-                            <td>{{ $no++ }}</td>
-                            <td>{{ $item->nisn }}</td>
-                            <td>{{ $item->nama }}</td>
-                            <td><a href="https://wa.me/{{ $item->notelp }}" target="_break"
-                                    title="Hubungi {{ $item->nama }}">{{ $item->notelp }}</a></td>
-                            <td>{{ $item->judul_buku }}</td>
-                            <td>
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" role="switch"
-                                        id="flexSwitchCheckDefault">
-                                </div>
-                            </td>
-                        </tr>
-                    @endforeach --}}
+                <tbody>
                 </tbody>
                 <tfoot>
                     <tr>

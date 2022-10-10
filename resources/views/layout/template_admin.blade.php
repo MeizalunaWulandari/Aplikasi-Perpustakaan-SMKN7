@@ -110,6 +110,12 @@
                                 <span>Data Buku</span>
                             </a>
                         </li>
+                        <li class="sidebar-item <?= Request::url() == url('/admin/import-buku') ? 'active' : '' ?>">
+                            <a href="/admin/import-buku" class='sidebar-link'>
+                                <i class="bi bi-upload"></i>
+                                <span>Import Buku</span>
+                            </a>
+                        </li>
                         <li class="sidebar-item <?= Request::url() == url('/admin/kurikulum-buku') ? 'active' : '' ?>">
                             <a href="/admin/katkur-buku" class='sidebar-link'>
                                 <i class="bi bi-clipboard2"></i>

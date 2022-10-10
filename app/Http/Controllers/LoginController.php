@@ -19,10 +19,7 @@ class LoginController extends Controller
     {
         return view('login.login');
     }
-    public function loginAdmin()
-    {
-        return view('login.loginAdmin');
-    }
+
     public function authenticate(Request $request)
     {
         $credentials = $request->validate([
