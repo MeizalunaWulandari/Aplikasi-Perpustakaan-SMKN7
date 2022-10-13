@@ -45,21 +45,21 @@ Route::group(['middleware' => ['admin']], function () {
     Route::get('admin/returned-booking', [AdminController::class, 'returnedBooking']);
     Route::get('api/admin/bookingReturned', [AdminController::class, 'getBookingReturned'])->name('api.admin.bookingReturned');
     Route::get('api/admin/bookingReturned-detail/{id}', [AdminController::class, 'getBookingReturnedById'])->name('api.admin.bookingReturnedDetail');
-    
+
     Route::put('admin/booking/status/{id}', [AdminController::class, 'updateStatus'])->name('admin.booking.update-status');
-    
+
     Route::get('api/admin/detail-buku/{bookingid}', [AdminController::class, 'getBukuDetailByBookingId'])->name('api.admin.detail-buku');
-    
+
     Route::get('admin/data-buku', [AdminController::class, 'buku']);
     Route::get('api/admin/data-buku', [AdminController::class, 'getBuku'])->name('api.admin.data-buku');
     Route::get('api/admin/data-buku/{id}', [AdminController::class, 'getBukuDetailById'])->name('api.admin.data-buku-detail');
-    
+
     Route::get('admin/buku-digital', [AdminController::class, 'bukudigital']);
     Route::get('admin/buku-kejuruan', [AdminController::class, 'bukukejuruan']);
     Route::get('admin/kategori-buku', [AdminController::class, 'kategori']);
 
     Route::get('api/admin/tmp-buku', [AdminController::class, 'getImport'])->name('api.admin.import');
-    
+
     Route::get('admin/katkur-buku', [AdminController::class, 'katkur']);
     Route::get('api/admin/katkur-buku', [AdminController::class, 'getKatkur'])->name('api.admin.katkur');
 
@@ -102,12 +102,14 @@ Route::group(['middleware' => ['admin']], function () {
 // Siswa
 Route::get('/', [SiswaController::class, 'index']);
 // ROute::post('/search-book', [SiswaController::class, 'searchHome']);
-Route::get('/book-detail/{slug}', [SiswaController::class, 'detail']);
-Route::get('/download-ebook/{id}', [SiswaController::class, 'downloadEbook']);
 Route::get('/katalog', function () {
     return redirect()->to('/katalog/kurikulum-merdeka');
 });
 Route::get('/katalog/{slug}', [SiswaController::class, 'katalog'])->name('katalog');
-Route::post('booking', [SiswaController::class, 'booking']);
-
-Route::get('history', [SiswaController::class, 'history']);
+Route::get('/book-detail/{slug}', [SiswaController::class, 'detail']);
+Route::group(['middleware' => ['siswa']], function () {
+    Route::get('/download-ebook/{id}', [SiswaController::class, 'downloadEbook']);
+    Route::post('booking', [SiswaController::class, 'booking']);
+    Route::get('history', [SiswaController::class, 'history']);
+    Route::get('api/getHistory', [SiswaController::class, 'getHistory']);
+});

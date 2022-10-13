@@ -6,11 +6,14 @@ use App\Models\BookingModel;
 use App\Models\BukuDetailModel;
 use App\Models\BukuModel;
 use App\Models\CountModel;
+use App\Models\JenisModel;
 use App\Models\KatkurModel;
 use Facade\FlareClient\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels;
 
 class SiswaController extends Controller
 {
@@ -185,6 +188,55 @@ class SiswaController extends Controller
     }
     public function history()
     {
-        return view('siswa.history');
+        $jenis = JenisModel::all();
+        $data = [
+            'jenis' => $jenis
+        ];
+        // dd($history);
+        return view('siswa.history', $data);
+    }
+    public function getHistory(Request $request)
+    {
+        // dd($request);
+        $history = BookingModel::join('tbelib_buku', 'tbelib_booking.buku_id', 'tbelib_buku.id')
+            ->join('tbelib_jenis_buku', 'tbelib_buku.jenis_id', 'tbelib_jenis_buku.id')
+            ->join('tbelib_kategori', 'tbelib_buku.kategori_id', 'tbelib_kategori.id')
+            ->select(
+                'tbelib_booking.nama',
+                'tbelib_booking.nisn',
+                'tbelib_booking.tanggal_booking',
+                'tbelib_buku.judul',
+                'tbelib_buku.cover',
+                'tbelib_buku.penerbit',
+                'tbelib_buku.slug',
+                'tbelib_buku.jenis_id',
+                'tbelib_jenis_buku.keterangan',
+                'tbelib_kategori.name',
+            )
+            ->where('user_id', Auth::guard('websiswa')->user()->id_user);
+
+        if ($request->status) {
+            $history = $history->where('status', $request->status);
+        }
+
+        if ($request->keyword) {
+            $history = $history->where('judul', 'LIKE', '%' . $request->keyword . '%');
+        }
+
+        if ($request->date) {
+            $history = $history->where(DB::raw('DATE_FORMAT(tanggal_booking,"%Y-%m-%d")'), $request->date);
+        }
+
+        if ($request->jenis) {
+            $history = $history->where('jenis_id', $request->jenis);
+        }
+
+        $history = $history->get();
+
+        // dd($request->date);
+        return response()->json([
+            'history' => $history,
+            'status' => $request->status
+        ]);
     }
 }

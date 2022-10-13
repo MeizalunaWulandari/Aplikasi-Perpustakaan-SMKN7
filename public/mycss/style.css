@@ -216,6 +216,7 @@ nav .active .nav-name {
     background-color: #004296;
     opacity: .8;
 }
+
 .jumbotron::before {
     content: '';
     position: absolute;
@@ -230,6 +231,7 @@ nav .active .nav-name {
     background-size: cover;
     opacity: .7;
 }
+
 .jumbotron {
     height: 85vh;
     display: flex;
@@ -240,7 +242,7 @@ nav .active .nav-name {
     position: relative;
 }
 
-.jumbotron > * {
+.jumbotron>* {
     z-index: 1;
 }
 
@@ -371,7 +373,7 @@ section {
     padding: 6px;
 }
 
-.book .card  {
+.book .card {
     max-height: 30rem;
     max-width: 25rem;
 }
@@ -379,6 +381,7 @@ section {
 .book .card .description {
     overflow: hidden;
 }
+
 .book .card .description .judul {
     overflow: hidden;
     white-space: nowrap;
@@ -459,6 +462,7 @@ section {
     background-color: #004296;
     opacity: .9;
 }
+
 #daftar-login::before {
     content: '';
     position: absolute;
@@ -473,6 +477,7 @@ section {
     background-size: cover;
     opacity: .7;
 }
+
 #daftar-login {
     text-align: center;
     padding: 50px;
@@ -481,7 +486,7 @@ section {
     position: relative;
 }
 
-#daftar-login > * {
+#daftar-login>* {
     z-index: 1;
 }
 
@@ -507,6 +512,7 @@ section {
     background-color: #004296;
     opacity: .9;
 }
+
 #kurikulum::before {
     content: '';
     position: absolute;
@@ -521,6 +527,7 @@ section {
     background-size: cover;
     opacity: .7;
 }
+
 #kurikulum {
     /* text-align: center; */
     padding: 50px;
@@ -529,7 +536,7 @@ section {
     position: relative;
 }
 
-#kurikulum > * {
+#kurikulum>* {
     z-index: 1;
 }
 
@@ -546,7 +553,8 @@ section {
     padding: 10px;
 }
 
-#kurikulum .container a, #kurikulum .container p {
+#kurikulum .container a,
+#kurikulum .container p {
     text-decoration: none;
     margin-bottom: unset;
     color: black;
@@ -560,15 +568,16 @@ section {
 #kurikulum .card {
     display: flex;
     flex-direction: row;
-} 
+}
+
 #kurikulum .card:after {
     content: '\F280';
-    font-family:'Bootstrap-icons';
+    font-family: 'Bootstrap-icons';
     position: absolute;
     font-size: 21pt;
     left: 90%;
     right: 0;
-    transition:  1s all;
+    transition: 1s all;
 }
 
 
@@ -730,7 +739,7 @@ section {
 }
 
 /* All Book */
-.all-book-header {  
+.all-book-header {
     text-align: center;
     /* padding: 50px; */
     display: flex;
@@ -749,6 +758,7 @@ section {
     background-color: #004296;
     opacity: .8;
 }
+
 .all-book-header::before {
     content: '';
     position: absolute;
@@ -764,7 +774,7 @@ section {
     opacity: .7;
 }
 
-.all-book-header > * {
+.all-book-header>* {
     z-index: 1;
 }
 
@@ -945,18 +955,18 @@ h2.accordion-header button {
     gap: 1rem;
 }
 
-.history-section .help-bar .input-group  {
+.history-section .help-bar .input-group {
     width: 30%;
 }
 
-.history-section .help-bar .form-control:focus, 
+.history-section .help-bar .form-control:focus,
 .history-section .help-bar .form-select:focus {
     outline: 0;
     border-color: none !important;
     box-shadow: none !important;
 }
 
-.history-section .booking-info .status{
+.history-section .booking-info .status {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -984,7 +994,11 @@ h2.accordion-header button {
     border-radius: 15px;
     padding: 0 10px;
     margin-right: 0.5rem;
-    border: 1px solid #ccc;
+    border: 1px solid #164c98;
+}
+
+.history-section .booking-info .status ul li.active {
+    background-color: #f5ab35;
 }
 
 .history-section .booking-info .list-book {
@@ -998,19 +1012,17 @@ h2.accordion-header button {
     gap: 1rem;
 }
 
-.history-section .booking-info .form-select  {
+.history-section .booking-info .form-select {
     border: 1px solid #ccc;
     width: 30%;
     border-radius: 3px;
 }
 
-.history-section .booking-info .dropdown 
-.book-type {
+.history-section .booking-info .dropdown .book-type {
     list-style: none;
 }
 
-.history-section .booking-info
-.list-book span p:nth-child(1) {
+.history-section .booking-info .list-book span p:nth-child(1) {
     font-weight: bold;
 }
 
@@ -1018,14 +1030,13 @@ h2.accordion-header button {
     text-decoration: none;
 }
 
-.history-section .booking-info .list-book 
-.lending-detail {
+.history-section .booking-info .list-book .lending-detail {
     gap: 1rem;
     display: flex;
     flex-direction: row-reverse;
 }
 
-.history-section .list-book .lending-detail a p{
+.history-section .list-book .lending-detail a p {
     font-weight: bold;
     white-space: pre-line;
     margin-top: 8px;
@@ -1037,21 +1048,20 @@ h2.accordion-header button {
     flex-direction: row;
 }
 
-.history-section .booking-info .info-book .cover{
+.history-section .booking-info .info-book .cover {
     width: 10%;
     padding-right: 10px;
 }
+
 .history-section .booking-info .cover img {
     max-width: 100%;
 }
 
-.history-section .booking-info
-.description {
+.history-section .booking-info .description {
     width: 50%;
 }
 
-.history-section .booking-info 
-.description .jenis-buku {
+.history-section .booking-info .description .jenis-buku {
     color: white;
     font-size: 8pt;
     background-color: #164c98;
@@ -1253,14 +1263,14 @@ footer .footer-logo img {
         width: 50%;
         opacity: 100%;
         height: 3px;
-        
+
     }
 
     .container .book-option {
         font-size: 1.5rem;
     }
 
-    .container .katalog-link{
+    .container .katalog-link {
         font-size: 1.2rem;
         padding-top: 5px;
         /* line-height: ; */
@@ -1417,7 +1427,7 @@ footer .footer-logo img {
         font-size: 1.5rem;
     }
 
-    .container .katalog-link{
+    .container .katalog-link {
         font-size: 1.2rem;
         padding-top: 5px;
         font-weight: 700;
@@ -1484,18 +1494,18 @@ footer .footer-logo img {
         padding: 5%;
     }
 
-    
+
     #kurikulum {
         background-color: #004296;
         padding: 20px;
     }
-    
+
     #kurikulum .card img {
         max-width: 25%;
         padding: 15px;
     }
-    
-    #kurikulum .container a, 
+
+    #kurikulum .container a,
     #kurikulum .container p {
         text-decoration: none;
         margin-bottom: unset;
@@ -1503,25 +1513,26 @@ footer .footer-logo img {
         color: black;
         font-weight: 700;
     }
-    
+
     #kurikulum .container p:nth-child(1) {
         color: blue;
     }
-    
+
     #kurikulum .card {
         display: flex;
         flex-direction: row;
-    } 
+    }
+
     #kurikulum .card:after {
         content: '\F280';
-        font-family:'Bootstrap-icons';
+        font-family: 'Bootstrap-icons';
         position: absolute;
         font-size: 15pt;
         left: 85%;
         right: 0;
     }
-    
-    
+
+
     #kurikulum h4 {
         color: white;
         white-space: nowrap;
@@ -1594,7 +1605,7 @@ footer .footer-logo img {
         flex-direction: column;
     }
 
-    .history-section .booking-info .info-book .description{
+    .history-section .booking-info .info-book .description {
         width: 100%;
     }
 
@@ -1602,8 +1613,9 @@ footer .footer-logo img {
         display: flex;
         flex-direction: column-reverse;
     }
-    
-    .history-section .help-bar .input-group, .history-section .help-bar .form-select  {
+
+    .history-section .help-bar .input-group,
+    .history-section .help-bar .form-select {
         width: 100%;
     }
 
@@ -1613,7 +1625,7 @@ footer .footer-logo img {
 
 
     footer .footer-grid {
-        display: flex!important;
+        display: flex !important;
         flex-direction: column;
     }
 
