@@ -107,10 +107,10 @@
                         <img src="{{ asset('imgassets/e-lib-logo-notitle-nobg.png') }}" alt="">
                     </a>
                 </li>
-                <li class="navbar-list <?= Request::url() == url('/') ? 'active' : '' ?>">
+                <li class="navbar-list <?= Request::is('/') ? 'active' : '' ?>">
                     <a href="{{ url('/') }}">Beranda</a>
                 </li>
-                <li class="navbar-list <?= Request::url() == url('katalog') ? 'active' : '' ?>">
+                <li class="navbar-list <?= Request::is('katalog/*') ? 'active' : Request::is('book-detail/*') ? 'active' : '' ?>">
                     <a href="{{ url('katalog') }}">Katalog</a>
                 </li>
                 <li class="navbar-list">

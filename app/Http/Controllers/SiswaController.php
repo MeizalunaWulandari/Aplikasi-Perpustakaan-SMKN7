@@ -7,7 +7,9 @@ use App\Models\BukuDetailModel;
 use App\Models\BukuModel;
 use App\Models\CountModel;
 use App\Models\JenisModel;
+use App\Models\JurusanModel;
 use App\Models\KatkurModel;
+use App\Models\KelasModel;
 use Facade\FlareClient\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -105,35 +107,52 @@ class SiswaController extends Controller
             ->get();
         $kategoriLoop = KatkurModel::all();
         $kategori = KatkurModel::where('slug', $slug)->first();
-        // dd($kategori);
-        if (request('search-book')) {
-            // dd($slug);
-            $buku = BukuModel::join('tbelib_kategori', 'tbelib_buku.kategori_id', '=', 'tbelib_kategori.id')
-                ->join('tbelib_jenis_buku', 'tbelib_buku.jenis_id', '=', 'tbelib_jenis_buku.id')
-                ->select(
-                    'tbelib_buku.cover',
-                    'tbelib_buku.judul',
-                    'tbelib_buku.pengarang',
-                    'tbelib_buku.penerbit',
-                    'tbelib_buku.stock',
-                    'tbelib_buku.slug as slug_buku',
-                    'tbelib_jenis_buku.keterangan',
-                    'tbelib_kategori.slug as slug_kategori',
-                    'tbelib_jenis_buku.keterangan as jenis_buku',
-                )
-                ->where('tbelib_kategori.slug', $slug)
-                ->where('tbelib_buku.judul', 'like', '%' . request('search-book') . '%')
-                ->orWhere('tbelib_buku.pengarang', 'like', '%' . request('search-book') . '%')
-                ->orWhere('tbelib_buku.penerbit', 'like', '%' . request('search-book') . '%')
-                ->orWhere('tbelib_jenis_buku.keterangan', 'like', '%' . request('search-book') . '%')
-                ->get();
-        }
+        $jenis = JenisModel::all();
+        $jurusan = JurusanModel::all();
+        $kelas = KelasModel::all();
         $data = [
             'buku' => $buku,
             'kategoriLoop' => $kategoriLoop,
             'kategori' => $kategori,
+            'jenis' => $jenis,
+            'kelas' => $kelas,
+            'jurusan' => $jurusan,
         ];
         return view('siswa.katalog', $data);
+    }
+    public function getBukuFilter(Request $request)
+    {
+        $buku = BukuModel::join('tbelib_kategori', 'tbelib_buku.kategori_id', '=', 'tbelib_kategori.id')
+            ->join('tbelib_jenis_buku', 'tbelib_buku.jenis_id', '=', 'tbelib_jenis_buku.id')
+            ->select(
+                'tbelib_buku.cover',
+                'tbelib_buku.judul',
+                'tbelib_buku.pengarang',
+                'tbelib_buku.penerbit',
+                'tbelib_buku.stock',
+                'tbelib_buku.slug as slug_buku',
+                'tbelib_buku.jenis_id',
+                'tbelib_buku.kategori_id',
+                'tbelib_jenis_buku.keterangan',
+                'tbelib_kategori.slug as slug_kategori',
+                'tbelib_jenis_buku.keterangan as jenis_buku',
+            )
+            ->where('tbelib_kategori.slug', $request->slug);
+
+        if ($request->search) {
+            $buku = $buku->where('tbelib_buku.judul', 'like', '%' . request('search-book') . '%')
+                ->orWhere('tbelib_buku.pengarang', 'like', '%' . request('search-book') . '%')
+                ->orWhere('tbelib_buku.penerbit', 'like', '%' . request('search-book') . '%')
+                ->orWhere('tbelib_jenis_buku.keterangan', 'like', '%' . request('search-book') . '%');
+        }
+        // dd($request->jenis);
+        if ($request->jenis) {
+            foreach ($request->jenis as $jenis) {
+                $buku = $buku->where('tbelib_buku.jenis_id', $jenis);
+            }
+        }
+        $buku = $buku->get();
+        dd($buku);
     }
     public function detail($slug)
     {

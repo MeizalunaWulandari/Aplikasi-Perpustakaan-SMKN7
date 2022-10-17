@@ -29,7 +29,7 @@
                         <div class="input-group mb-3">
                             <input type="text" class="form-control" placeholder="Search Book" aria-label="Search Book"
                                 aria-describedby="button-addon2" name="search-book">
-                            <button class="btn btn-primary" type="button" id="button-addon2">Search</button>
+                            <button class="btn btn-primary" type="button" id="button">Search</button>
                         </div>
                     </form>
                 </div>
@@ -49,20 +49,15 @@
                                 <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show"
                                     aria-labelledby="panelsStayOpen-headingOne">
                                     <div class="accordion-body">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value=""
-                                                id="flexCheckChecked" checked>
-                                            <label class="form-check-label" for="flexCheckChecked">
-                                                Fisik
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value=""
-                                                id="flexCheckChecked" checked>
-                                            <label class="form-check-label" for="flexCheckChecked">
-                                                Digital
-                                            </label>
-                                        </div>
+                                        @foreach ($jenis as $item)
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="{{ $item->id }}"
+                                                    id="flexCheckChecked" name="jenis">
+                                                <label class="form-check-label" for="flexCheckChecked">
+                                                    {{ $item->keterangan }}
+                                                </label>
+                                            </div>
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
@@ -77,27 +72,15 @@
                                 <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show"
                                     aria-labelledby="panelsStayOpen-headingTwo">
                                     <div class="accordion-body">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value=""
-                                                id="flexCheckChecked" checked>
-                                            <label class="form-check-label" for="flexCheckChecked">
-                                                X
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value=""
-                                                id="flexCheckChecked" checked>
-                                            <label class="form-check-label" for="flexCheckChecked">
-                                                XI
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value=""
-                                                id="flexCheckChecked" checked>
-                                            <label class="form-check-label" for="flexCheckChecked">
-                                                XII
-                                            </label>
-                                        </div>
+                                        @foreach ($kelas as $item)
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="{{ $item->id }}"
+                                                    id="flexCheckChecked" name="kelas">
+                                                <label class="form-check-label" for="flexCheckChecked">
+                                                    {{ $item->nama }}
+                                                </label>
+                                            </div>
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
@@ -112,27 +95,15 @@
                                 <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse show"
                                     aria-labelledby="panelsStayOpen-headingThree">
                                     <div class="accordion-body">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value=""
-                                                id="flexCheckChecked" checked>
-                                            <label class="form-check-label" for="flexCheckChecked">
-                                                PPLG / RPL
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value=""
-                                                id="flexCheckChecked" checked>
-                                            <label class="form-check-label" for="flexCheckChecked">
-                                                TJKT / TKJ
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value=""
-                                                id="flexCheckChecked" checked>
-                                            <label class="form-check-label" for="flexCheckChecked">
-                                                DKV / MM
-                                            </label>
-                                        </div>
+                                        @foreach ($jurusan as $item)
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="{{ $item->id }}"
+                                                    id="flexCheckChecked" name="jurusan">
+                                                <label class="form-check-label" for="flexCheckChecked">
+                                                    {{ $item->nama }}
+                                                </label>
+                                            </div>
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
@@ -171,4 +142,37 @@
             </div>
         </div>
     </section>
+@endsection
+
+@section('script')
+    <script>
+        $(document).on('change', function() {
+            var jenis = [];
+            var kelas = [];
+            var jurusan = [];
+            $.each($("input[name='jenis']:checked"), function() {
+                jenis.push($(this).val());
+            });
+            $.each($("input[name='kelas']:checked"), function() {
+                kelas.push($(this).val());
+            });
+            $.each($("input[name='jurusan']:checked"), function() {
+                jurusan.push($(this).val());
+            });
+            // console.log(jenis, kelas, jurusan);
+            $.ajax({
+                type: 'GET',
+                url: '{{ url('api/getBukuFilter') }}',
+                data: {
+                    jenis: jenis,
+                    kelas: kelas,
+                    jurusan: jurusan,
+                    slug: '{{ $kategori->slug }}',
+                },
+                success: function(data) {
+                    console.log(data);
+                }
+            })
+        });
+    </script>
 @endsection

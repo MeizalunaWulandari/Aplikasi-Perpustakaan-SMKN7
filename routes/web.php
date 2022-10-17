@@ -106,6 +106,7 @@ Route::get('/katalog', function () {
     return redirect()->to('/katalog/kurikulum-merdeka');
 });
 Route::get('/katalog/{slug}', [SiswaController::class, 'katalog'])->name('katalog');
+Route::get('/api/getBukuFilter', [SiswaController::class, 'getBukuFilter']);
 Route::get('/book-detail/{slug}', [SiswaController::class, 'detail']);
 Route::group(['middleware' => ['siswa']], function () {
     Route::get('/download-ebook/{id}', [SiswaController::class, 'downloadEbook']);
