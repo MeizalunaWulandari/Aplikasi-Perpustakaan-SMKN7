@@ -12,7 +12,7 @@
                     </div>
                     <div class="input-group">
                         <span class="input-group-text"><i class="bi bi-calendar"></i></span>
-                        <input class="form-control" type="date" id="date" placeholder="Cari buku mu disini" />
+                        <input class="form-control" type="date" id="date" placeholder="Tanggal Booking" />
                     </div>
                     <select class="form-select" name="jenis" aria-label="Default select example">
                         @foreach ($jenis as $item)
@@ -22,7 +22,7 @@
                 </form>
                 <div class="status">
                     <p>Status</p>
-                    <ul>
+                    <ul class="grid-status">
                         <li id="all"><a href="#">All</a></li>
                         <li id="verified"><a href="#">Verified</a></li>
                         <li id="unverified"><a href="#">Unverified</a></li>
@@ -62,12 +62,6 @@
 
 @section('script')
     <script>
-        $.ajaxSetup({
-            headers: {
-                'csrftoken': '{{ csrf_token() }}'
-            }
-        });
-
         // Filter Status
         $("#all").on('click', function() {
             $.ajax({
@@ -401,12 +395,12 @@
                     // $("#duedate").removeClass('filter active')
                     // $("#returned").removeClass('filter active')
                     // if (data['history'] == 0) {
-                        // $("#history").html('Data Tidak Ditemukan')
+                    // $("#history").html('Data Tidak Ditemukan')
                     // } else {
-                        $("#history").html('');
-                        for (const v of data['history']) {
-                            $("#history").append(
-                                `<div class="list-book mb-3">
+                    $("#history").html('');
+                    for (const v of data['history']) {
+                        $("#history").append(
+                            `<div class="list-book mb-3">
                                 <span>
                                     <p><i class="bi bi-journal-bookmark-fill"></i> ${v.keterangan}</p>
                                     <p class="date">${v . tanggal_booking}</p>
@@ -428,8 +422,8 @@
                                     </a>
                                 </div>
                             </div>`
-                            )
-                        }
+                        )
+                    }
                     // }
 
                 }
